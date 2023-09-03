@@ -557,3 +557,8 @@ header{
         color:var(--pink);
         text-decoration: underline;
     }
+	
+	.box {
+		display: block;
+		margin-bottom: 20px;
+	}
