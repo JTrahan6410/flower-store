@@ -64,7 +64,7 @@
      font-weight: colder;
 }
  header .logo span{
-     color: var(--pink)
+     color: var(--pink) 
 }
  header .navbar a{
      font-size: 2rem;
@@ -515,3 +515,8 @@
      color:var(--pink);
      text-decoration: underline;
 }
+ .box {
+     display: block;
+     margin-bottom: 20px;
+}
+ 
