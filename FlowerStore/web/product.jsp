@@ -21,16 +21,16 @@
             <label for="toggler" class="fas fa-bars"></label>
             <a href="#" class="logo">flower<span>.</span></a>
             <nav class="navbar">
-                <a href="#home">home</a>
+                <a href="index.html">home</a>
                 <a href="#about">about</a>
-                <a href="#products">products</a>
+                <a href="product.jsp">products</a>
                 <a href="#review">review</a>
                 <a href="#contact">contact</a>
             </nav>
             <div class="icons">
                 <a href="#" class="fas fa-heart"></a>
                 <a href="#" class="fas fa-shopping-cart"></a>
-                <a href="#" class="fas fa-user"></a>
+                <a href="account.jsp" class="fas fa-user"></a>
             </div>
         </header>
         <<h1>Products</h1>
