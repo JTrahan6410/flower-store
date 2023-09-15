@@ -7,34 +7,33 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product Page</title>
         <link rel="stylesheet" type ="text/css" href="style.css">
+        <link rel="stylesheet" type ="text/css" href="productStyle.css">
     </head>
+    
     <body>
-        <h1> The Flower Market </h1>
-        <div class="navbar">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <div class ="dropdown">
-                <button class="dropbtn">Occasions
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                    <div class="dropdown-content">
-                        <a href="#">Anniversary</a>
-                        <a href="#">Birthday</a>
-                        <a href="#">Condolences</a>
-                        <a href="#">Congratulation</a>
-                    </div>
-            </div>    
-            <a href="#product">Product</a>
-            <a href="#review">Review</a>
-            <a href="#contact">Contact</a>
-            <a href="#login">Login</a>
-            <input type="text" placeholder="Search..">
-        </div>
-        <h2> Flowers </h2>
+        
+        <header>
+            <input type="checkbox" name="toggler" id="toggler">
+            <label for="toggler" class="fas fa-bars"></label>
+            <a href="#" class="logo">flower<span>.</span></a>
+            <nav class="navbar">
+                <a href="#home">home</a>
+                <a href="#about">about</a>
+                <a href="#products">products</a>
+                <a href="#review">review</a>
+                <a href="#contact">contact</a>
+            </nav>
+            <div class="icons">
+                <a href="#" class="fas fa-heart"></a>
+                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="#" class="fas fa-user"></a>
+            </div>
+        </header>
+        <<h1>Products</h1>
         <div class="collection">
             <div class="product">
                 <a href="Roses.html"><img class="product__image" src="roses.png" style="width:20em; height: 20em;"></a>
@@ -145,5 +144,39 @@
                 </div>
             </div>
         </div>
+        <section class="footer">
+            <div class="box-container">
+                <div class="box">
+                    <h3>quick links</h3>
+                    <a href="#">home</a>
+                    <a href="#">about</a>
+                    <a href="#">products</a>
+                    <a href="#">review</a>
+                    <a href="#">contact</a>
+                </div>
+                <div class="box">
+                    <h3>extra links</h3>
+                    <a href="#">my account</a>
+                    <a href="#">my order</a>
+                    <a href="#">my favorite</a>
+                </div>
+                <div class="box">
+                    <h3>locations</h3>
+                    <a href="#">Georgia</a>
+                    <a href="#">Florida</a>
+                    <a href="#">Tennesee</a>
+                    <a href="#">Alabama</a>
+                </div>
+                <div class="box">
+                    <h3>contact info</h3>
+                    <a href="#">+123-456-7890</a>
+                    <a href="#">example@email.com</a>
+                    <a href="#">mumbai,india -400104</a>
+                    <img src="assets/pymnt-1.jpg" alt="">
+                </div>
+            </div>
+            <div class="credit"> created by <span> Group 2 CIST 2931 </span> | all rights reserved </div>
+        </section>
     </body>
 </html>
+
