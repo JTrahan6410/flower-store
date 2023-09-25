@@ -36,7 +36,7 @@
         <<h1>Products</h1>
         <div class="collection">
             <div class="product">
-                <a href="Roses.html"><img class="product__image" src="roses.png" style="width:20em; height: 20em;"></a>
+                <a href="Roses.html"><img class="product__image" src="assets/flowers/roses.png" style="width:20em; height: 20em;"></a>
                 <div class="product__name">
                     <p>
                         <a>Roses</a>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Tulips.html"><img class="product__image" src="tulips.png" style="width:20em; height:20em;"> </a>
+                <a href="Tulips.html"><img class="product__image" src="assets/flowers/tulips.png" style="width:20em; height:20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Tulips</a>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Sunflowers.html"><img class="product__image" src="sunflowers.png" style="width:20em; height: 20em;"> </a>
+                <a href="Sunflowers.html"><img class="product__image" src="assets/flowers/sunflowers.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Sunflowers</a>
@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Lilies.html"><img class="product__image" src="lilies.png" style="width:20em; height: 20em;"> </a>
+                <a href="Lilies.html"><img class="product__image" src="assets/flowers/lilies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Lilies</a>
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Orchids.html"><img class="product__image" src="orchids.png" style="width:20em; height: 20em;"> </a>
+                <a href="Orchids.html"><img class="product__image" src="assets/flowers/orchids.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Orchids</a>
@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Iris.html"><img class="product__image" src="iris.png" style="width:20em; height: 20em;"> </a>
+                <a href="Iris.html"><img class="product__image" src="assets/flowers/iris.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Iris</a>
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Daisies.html"><img class="product__image" src="daisies.png" style="width:20em; height: 20em;"> </a>
+                <a href="Daisies.html"><img class="product__image" src="assets/flowers/daisies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daisies</a>
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Peonies.html"><img class="product__image" src="peonies.png" style="width:20em; height: 20em;"> </a>
+                <a href="Peonies.html"><img class="product__image" src="assets/flowers/peonies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Peonies</a>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="product">
-                <a href="Daffodils.html"><img class="product__image" src="daffodils.png" style="width:20em; height: 20em;"> </a>
+                <a href="Daffodils.html"><img class="product__image" src="assets/flowers/daffodils.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daffodils</a>
