@@ -175,7 +175,7 @@ public class Orders {
             
             Statement sta = conn.createStatement();
             String sql;
-                sql = "Update Sections set orderID = '" + getOrderID() + "'," + "userID = '" + getUserID() + "', " + "productCode = '" + getProdCode() + "', " + "orderPlaced = '" + getOrderPlaced() + "', " +
+                sql = "Update Orders set orderID = '" + getOrderID() + "'," + "userID = '" + getUserID() + "', " + "productCode = '" + getProdCode() + "', " + "orderPlaced = '" + getOrderPlaced() + "', " +
                          "requestedDeliveryDate = '" + getReqDelivery() + "', " + "mailName = '" + getMailName() + "', " +"mailStreetAddress = '" + getMailStreet() + "', " + "mailCity = " + getMailCity() +
                         "mailState= " + getMailState() + "mailZip = " + getMailZip() + "billName = " + getBillName() + "billStreet = " + getBillStreet() + "billCity = " + getBillCity() +
                          "billState = " + getBillState() + "billZip = " + getBillZip();
