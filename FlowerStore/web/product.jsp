@@ -14,8 +14,6 @@
         <link rel="stylesheet" type ="text/css" href="productStyle.css">
     </head>
     
-    <body>
-        
         <header>
             <input type="checkbox" name="toggler" id="toggler">
             <label for="toggler" class="fas fa-bars"></label>
@@ -33,6 +31,7 @@
                 <a href="account.jsp" class="fas fa-user"></a>
             </div>
         </header>
+    <body>
         <<h1>Products</h1>
         <div class="collection">
             <div class="product">
