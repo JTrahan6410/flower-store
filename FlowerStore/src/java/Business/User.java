@@ -9,56 +9,54 @@ import java.sql.*;
  */
 public class User {
     //Properties
-    String userID, userPassword, firstName,
-           lastName, userMailAddress, email, Field1;
+    int userID;
+    String userPassword, firstName,
+           lastName, email;
     
-    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\FlowerStoreMDB.mdb";
+    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\FlowerStoreDatabase.accdb";
     
     //Constructors
     public User(){
         super();
-        userID = "";
+        userID = 0;
+        email = "";
         userPassword = "";
         firstName = "";
         lastName = "";
-        userMailAddress = "";
-        email = "";
-        Field1 = "";
     }
     
-    public User(String userID, String userPassword, String firstName, String lastName, String userMailAddress, String email, String Field1){
+    public User(int userID, String email, String userPassword, String firstName, String lastName){
         this.userID = userID;
+        this.email = email;
         this.userPassword = userPassword;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userMailAddress = userMailAddress;
-        this.email = email;
-        this.Field1 = Field1;
+        
     }
     
     //Behaviors
     
 /*************************************************************
 * selectDB() gets one patient from the DB
-     * @param userID
+     * @param email
 **************************************************************/
-    public void selectDB(String userID){
-        this.userID = userID;
+    
+    public void selectDB(String email){
+        this.email = email;
         
         try{
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             Connection con = (Connection) DriverManager.getConnection(databaseURL);
             Statement stmt = con.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM Users WHERE userID = '"+ userID +"'");
+            rs = stmt.executeQuery("SELECT * FROM Users WHERE email = '" + email + "'" );
+            
             rs.next();
             
-            userPassword = rs.getString(2);
-            firstName = rs.getString(3);
-            lastName = rs.getString(4);
-            userMailAddress = rs.getString(5);
-            email = rs.getString(6);
-            Field1 = rs.getString(7);
+            userID = rs.getInt(1);
+            userPassword = rs.getString(3);
+            firstName = rs.getString(4);
+            lastName = rs.getString(5);
             
             
             con.close();
@@ -74,24 +72,54 @@ public class User {
         
     }
     
+    
+    /*public void selectDB(int userID){
+        this.userID = userID;
+        
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = (Connection) DriverManager.getConnection(databaseURL);
+            Statement stmt = con.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery("SELECT * FROM Users WHERE userID = " + userID );
+            
+            rs.next();
+            
+            email = rs.getString(2);
+            userPassword = rs.getString(3);
+            firstName = rs.getString(4);
+            lastName = rs.getString(5);
+            
+            
+            con.close();
+            
+            
+            
+            
+        }catch(Exception e){
+            
+            System.out.println(e);
+            
+        }
+        
+    }
+    */
 /*************************************************************
 * insertDB() inserts one patient from the DB
      * @param userID
      * @param userPassword
      * @param firstName
      * @param lastName
-     * @param userMailAddress
      * @param email
-     * @param Field1
 **************************************************************/
-    public void insertDB(String userID, String userPassword,String firstName, String lastName, String userMailAddress, String email, String Field1){
+    /*public void insertDB(String userID, String email, String userPassword,String firstName, String lastName ){
         try{
             Connection con = DriverManager.getConnection(databaseURL);
             System.out.println("Database connected...");
             
             Statement stmt = con.createStatement();
             
-            String sql = "INSERT INTO Users VALUES ('"+userID+"','"+userPassword+"','"+firstName+"','"+lastName+"','"+userMailAddress+"','"+email+"','"+Field1+"')";
+            String sql = "INSERT INTO Users VALUES ('"+userID+"','"+email+"','"+userPassword+"','"+firstName+"','"+lastName+"')";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -114,7 +142,7 @@ public class User {
             
             Statement stmt = con.createStatement();
             
-            String sql = "UPDATE Users SET userID = '"+userID+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"',userMailAddress = '"+userMailAddress+"',email = '"+email+"',Field1 = '"+Field1+"' WHERE userID='"+userID+"'";
+            String sql = "UPDATE Users SET userID = '"+userID+"',email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE userID =" + getUserID();
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -126,13 +154,13 @@ public class User {
 /*************************************************************
 * deleteDB() deletes one patient from the DB
 **************************************************************/
-    public void deleteDB(){
+    /*public void deleteDB(){
         try{
             Connection con = DriverManager.getConnection(databaseURL);
             System.out.println("DatabaseConnected...");
             
             Statement stmt = con.createStatement();
-            String sql = "DELETE FROM Users WHERE userID='"+userID+"'";
+            String sql = "DELETE FROM Users WHERE email='"+email+"'";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -155,10 +183,10 @@ public class User {
     
     //Get and Set Methods
     
-    public String getUserID(){
+    public int getUserID(){
         return userID;
     }
-    public void setUserID(String userID){
+    public void setUserID(int userID){
         this.userID = userID;
     }
     
@@ -183,13 +211,6 @@ public class User {
         this.lastName = lastName;
     }
     
-    public String getUserMailAddress(){
-        return userMailAddress;
-    }
-    public void setUserMailAddress(String userMailAddress){
-        this.userMailAddress = userMailAddress;
-    }
-    
     public String getEmail(){
         return email;
     }
@@ -204,11 +225,10 @@ public class User {
     //Display Method
     public void display(){
         System.out.println("userID = " + userID);
+        System.out.println("Email = " + email);
         System.out.println("Password = " + userPassword);
         System.out.println("First Name = " + firstName);
         System.out.println("Last Name = " + lastName);
-        System.out.println("Address = " + userMailAddress);
-        System.out.println("Email = " + email);
     }
     
 /*****************************************************************
@@ -217,7 +237,7 @@ public class User {
 ******************************************************************/
     public static void main(String[] args) {
         //User u1 = new User();
-        //u1.selectDB("A912");
+        //u1.selectDB(4);
         //u1.display();
         
         //User u2 = new User();

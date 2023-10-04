@@ -3,7 +3,7 @@
     Created on : Sep 9, 2023, 10:20:31 AM
     Author     : cargle
 --%>
-
+<%@page import="Business.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,21 +32,31 @@
             </div>
 	</header>
         
-        <section class="orderSec">
-        <h1>Hello, User</h1>
-        <h2>Account Details</h2>
-        <form action="#editaccount">
-            <div class="account_info">  
-                <ul>User ID: </ul>
-                <ul>Full Name: </ul>
-                <ul>Email: </ul>
-                <ul>Address: </ul>
-                <ul>Payment Method: </ul>
-            </div>
-            <br>
-            <button class="btn btn-secondary">Edit Information</button>
-        </form>
-         </section>
+                <% 
+                    User u1;
+                    u1 = (User)session.getAttribute("u1");
+                %>
+                <div id="accounts-box">
+                    <h2>Welcome back, <%=u1.getFirstName()%></h2>
+                    <table id="accounts-table" style="width:100%">
+                        <caption><%=u1.getFirstName()%>'s Account</caption>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                        <tr>
+                            <td><%=u1.getUserID()%></td>
+                            <td><%=u1.getEmail()%></td>
+                            <td><%=u1.getUserPassword()%></td>
+                            <td><%=u1.getFirstName()%></td>
+                            <td><%=u1.getLastName()%></td>
+                        </tr>
+                    </table>
+                            <a href="editAccount.jsp"> edit account info </a>
+                </div>
         
         <section class="orderSec">
         <h2>Your Orders</h2>

@@ -1,8 +1,9 @@
 <%-- 
-    Document   : account
-    Created on : Sep 9, 2023, 10:20:31 AM
-    Author     : cargle
+    Document   : editAccount
+    Created on : Sep 29, 2023, 9:48:09 PM
+    Author     : Jose V Gomez
 --%>
+
 <%@page import="Business.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,30 +33,32 @@
             </div>
 	</header>
         
-                <% 
+               <%
                     User u1;
                     u1 = (User)session.getAttribute("u1");
                 %>
-                <div id="accounts-box">
-                    <h2>Welcome back, <%=u1.getFirstName()%></h2>
-                    <table id="accounts-table" style="width:100%">
-                        <caption><%=u1.getFirstName()%>'s Account</caption>
-                        <tr>
-                            <th>User ID</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                        </tr>
-                        <tr>
-                            <td><%=u1.getUserID()%></td>
-                            <td><%=u1.getEmail()%></td>
-                            <td><%=u1.getUserPassword()%></td>
-                            <td><%=u1.getFirstName()%></td>
-                            <td><%=u1.getLastName()%></td>
-                        </tr>
-                    </table>
-                            <a href="editAccount.jsp"> edit account info </a>
+                
+                <div class="data-form">
+                    <form action="UpdateUserServlet" method="post" id="update-form" name="update-form">
+                        
+                        <label for="userID">User ID:</label><br>
+                        <input type="text" id="userID" name="userID" value="<%=u1.getUserID()%>"><br><br>
+                        
+                        <label for="email">Email:</label><br>
+                        <input type="text" id="email" name="email" value="<%=u1.getEmail()%>"><br><br>
+                        
+                        <label for="userPassword">Password:</label><br>
+                        <input type="text" id="userPassword" name="userPassword" value="<%=u1.getUserPassword()%>"><br><br>
+                        
+                        <label for="firstName">First Name:</label><br>
+                        <input type="text" id="firstName" name="firstName" value="<%=u1.getFirstName()%>"><br><br>
+                        
+                        <label for="lastName">Last Name:</label><br>
+                        <input type="text" id="lastName" name="lastName" value="<%=u1.getLastName()%>"><br><br>
+                        
+                    <input type="submit" value="Update">
+                    <input type="reset" value="Reset">
+                </form>
                 </div>
         
         <section class="orderSec">

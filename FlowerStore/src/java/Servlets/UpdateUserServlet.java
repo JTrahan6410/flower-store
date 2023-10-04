@@ -25,28 +25,34 @@ public class UpdateUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, userMailAddressInput;
+        String firstNameInput, lastNameInput, emailInput, passwordInput;
         
         
         try{
             
+            emailInput = request.getParameter("email");
             firstNameInput = request.getParameter("firstName");
             lastNameInput = request.getParameter("lastName");
-            userMailAddressInput = request.getParameter("userMailAddress");
+            passwordInput = request.getParameter("userPassword");
             
-            System.out.println("Patient Updated Info: " + firstNameInput + ", " + lastNameInput +", "+ userMailAddressInput);
+            
+            System.out.println("Patient Updated Info: " + firstNameInput + ", " + lastNameInput);
             
             User u1;
             HttpSession ses1 = request.getSession();
             u1 = (User)ses1.getAttribute("u1");
             
+            
+            u1.setEmail(emailInput);
             u1.setFirstName(firstNameInput);
             u1.setLastName(lastNameInput);
-            u1.setUserMailAddress(userMailAddressInput);
+            u1.setUserPassword(passwordInput);
+            
+            
             u1.updateDB();
             u1.display();
             
-            RequestDispatcher rd = request.getRequestDispatcher("userAccount.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
             
             

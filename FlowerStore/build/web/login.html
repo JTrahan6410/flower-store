@@ -41,20 +41,12 @@
         <div class="login-form">
         <div class="heading"><h2>Login</h2></div>
             <form action="LoginServlet" method="post" id="login-form" name="login-form" onsubmit="return validateForm()">
-                <div class="box">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" placeholder="Enter your username">
-                </div><br>
-                <div class="box">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Enter your password">
-                </div><br>
-                <div class="box">
-                    <button class="btn" type="submit">Login</button>
-                </div><br>
-                    <a href="#forgotPassword">Forgot Password?</a>
-                    <p>Don't have an account with us? <a href="createAccount.html">Create one!</a></p>
-            </form>
+                    <label for="userid">Email:</label><br>
+                    <input type="text" id="userid" name="userid"><br>
+                    <label for="userpw">Password:</label><br>
+                    <input type="password" id="userpw" name="userpw"><br>
+                    <input type="submit" value="Login">
+                </form>
         </div>
         </section>
 	<section class="footer">

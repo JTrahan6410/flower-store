@@ -25,43 +25,42 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-        
-        String idInput, pwInput;
+        //int userIDInput;
+        String email, pwInput;
        
         try{
-            RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
-            rd.forward(request, response);
-        /*    //Read user input from login form
-            idInput = request.getParameter("username");
             
-            pwInput = request.getParameter("password");
+            //Read user input from login form
+            //userIDInput = Integer.parseInt(request.getParameter("userid"));
+            email = request.getParameter("userid");
+            pwInput = request.getParameter("userpw");
             
             //make a decision to continue 
-            //If user ID starts with "A" login as user/customer
-            if(idInput.substring(0,1).equals("A")){
+            //If email input and password input is not empty
+            if(!email.isEmpty() && !pwInput.isEmpty()){
                 
                 User u1 = new User();
-                u1.selectDB(idInput);
-                
+                u1.selectDB(email);
+                u1.display();
                 HttpSession session1 = request.getSession();
                 session1.setAttribute("u1", u1);
                 System.out.println("User added to session...");
                 
             //if user id and user pw are in database forward to patient account page
-                if(idInput.equals(u1.getUserID()) && pwInput.equals(u1.getUserPassword())){
-                    u1.display();
-                    RequestDispatcher rd = request.getRequestDispatcher("userAccount.jsp");
+                if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
+                    //u1.display();
+                    RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
                     rd.forward(request, response);
                 }else{
-                    RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("login.html");
                     rd.forward(request, response);
                 }
                 
             }else{
-                RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("login.html");
                 rd.forward(request, response);
             }
-            */
+            
 
                 
                 
