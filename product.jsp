@@ -14,15 +14,12 @@
         <link rel="stylesheet" type ="text/css" href="style.css">
         <link rel="stylesheet" type ="text/css" href="productStyle.css">
     </head>
-    
-    <body>
-        
-        <header>
+            <header>
             <input type="checkbox" name="toggler" id="toggler">
             <label for="toggler" class="fas fa-bars"></label>
             <a href="#" class="logo">flower<span>.</span></a>
             <nav class="navbar">
-                <a href="#home">home</a>
+                <a href="index.html">home</a>
                 <a href="#about">about</a>
                 <a href="#products">products</a>
                 <a href="#review">review</a>
@@ -30,11 +27,13 @@
             </nav>
             <div class="icons">
                 <a href="#" class="fas fa-heart"></a>
-                <a href="#" class="fas fa-shopping-cart"></a>
+                <a href="checkout.jsp" class="fas fa-shopping-cart"></a>
                 <a href="#" class="fas fa-user"></a>
             </div>
         </header>
-        <<h1>Products</h1>
+    <body>
+        
+        <h1>Products</h1>
         <div class="collection">
             <div class="product">
                 <a href=#><img class="product__image" src="./flowers/roses.png" style="width:20em; height: 20em;"></a>
