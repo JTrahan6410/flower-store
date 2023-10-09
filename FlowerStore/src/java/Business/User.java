@@ -2,7 +2,6 @@ package Business;
 
 import java.sql.*;
 
-
 /**************************************************************
 
    JACOB TRAHAN - adapted from Jose Gomez (9/18/23)
@@ -121,6 +120,5 @@ public class User extends GuestUser{
         User u1 = new User();
         u1.selectDB("jtrahan@students.chattahoocheetech.edu");
         u1.display();
-
     }
 }

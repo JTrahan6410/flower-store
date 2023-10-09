@@ -47,9 +47,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("User added to session...");
                 
             //if user id and user pw are in database forward to patient account page
-
                 if(email.equals(u1.getEMail()) && pwInput.equals(u1.getUserPassword())){
-
                     //u1.display();
                     RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
                     rd.forward(request, response);
@@ -66,9 +64,7 @@ public class LoginServlet extends HttpServlet {
 
                 
                 
-
         }catch(ServletException | IOException e){
-
             
             System.out.println(e);
             
