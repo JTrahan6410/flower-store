@@ -32,7 +32,26 @@
                 <a href="#" class="fas fa-shopping-cart"></a>
                 <a href="account.jsp" class="fas fa-user"></a>
             </div>
+            <button id="toggleSidebar" class="sidebar-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </header>
+        <div class="sidebar">
+            <ul>
+                <li>Sort By:</li>
+                <li>
+                    <button onclick="sortAlphabetical()">Alphabetical</button>
+                </li>
+                <li>
+                    <button onclick="sortPrice()">Price</button>
+                </li>
+                <li>
+                    <button onclick="sortType()">Type</button>
+                </li>
+            </ul>
+        </div>
         <<h1>Products</h1>
         <div class="collection">
             <div class="product">
@@ -177,6 +196,17 @@
             </div>
             <div class="credit"> created by <span> Group 2 CIST 2931 </span> | all rights reserved </div>
         </section>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("JavaScript loaded");
+            var sidebar = document.querySelector(".sidebar");
+            var toggleButton = document.getElementById("toggleSidebar");
+
+            toggleButton.addEventListener("click", function () {
+                sidebar.classList.toggle("active");
+            });
+        });
+        </script>
     </body>
 </html>
 
