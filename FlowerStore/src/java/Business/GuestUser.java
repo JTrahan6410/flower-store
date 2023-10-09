@@ -13,7 +13,7 @@ import java.sql.*;
 public class GuestUser {
     protected int userID;
     protected String firstName, lastName, eMail;
-    protected final String databaseURL = "FlowerStore/FlowerStoreDatabase.accdb";
+    protected final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
     
     public GuestUser() {
         userID = 0;
