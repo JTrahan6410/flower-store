@@ -43,7 +43,9 @@ public class UpdateUserServlet extends HttpServlet {
             u1 = (User)ses1.getAttribute("u1");
             
             
+
             u1.setEMail(emailInput);
+
             u1.setFirstName(firstNameInput);
             u1.setLastName(lastNameInput);
             u1.setUserPassword(passwordInput);
@@ -58,7 +60,9 @@ public class UpdateUserServlet extends HttpServlet {
             
             
             
+
         }catch(ServletException | IOException e){
+
             System.out.println(e);
         }
     }
