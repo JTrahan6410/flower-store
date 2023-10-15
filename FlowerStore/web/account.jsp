@@ -3,7 +3,7 @@
     Created on : Sep 9, 2023, 10:20:31 AM
     Author     : cargle
 --%>
-
+<%@page import="Business.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,39 +17,39 @@
     </head>
     <body>
         <header>
-            <input type="checkbox" name="" id="toggler">
-            <label for="toggler" class="fas fa-bars"></label>
-            <a href="#" class="logo">flower<span>.</span></a>
+            <a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
-		<a href="index.html">home</a>
-		<a href="#about">about</a>
-		<a href="#products">products</a>
-		<a href="#review">review</a>
-		<a href="#contact">contact</a>
+                <a href="index.jsp">home</a>
+                <a href="product.jsp">products</a>
+                <a href="login.jsp" style="float: right">login</a>
             </nav>
-            <div class="icons">
-		<a href="#" class="fas fa-heart"></a>
-		<a href="#" class="fas fa-shopping-cart"></a>
-		<a href="account.jsp" class="fas fa-user"></a>
-            </div>
 	</header>
         
-        <section class="orderSec">
-        <h1>Hello, User</h1>
-        <h2>Account Details</h2>
-        <form action="#editaccount">
-            <div class="account_info">  
-                <ul>User ID: </ul>
-                <ul>Full Name: </ul>
-                <ul>Email: </ul>
-                <ul>Address: </ul>
-                <ul>Payment Method: </ul>
-            </div>
-            <br>
-            <button class="btn btn-secondary">Edit Information</button>
-        </form>
-         </section>
-        
+        <% 
+            User u1;
+            u1 = (User)session.getAttribute("u1");
+        %>
+        <div id="accounts-box">
+            <h2>Welcome back, <%=u1.getFirstName()%></h2>
+            <table id="accounts-table" style="width:100%">
+            <caption><%=u1.getFirstName()%>'s Account</caption>
+                <tr>
+                    
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                <tr>
+                    
+                    <td><%=u1.getEmail()%></td>
+                    <td><%=u1.getUserPassword()%></td>
+                    <td><%=u1.getFirstName()%></td>
+                    <td><%=u1.getLastName()%></td>
+                </tr>
+            </table>
+            <a class="btn" href="editAccount.jsp"> edit account info </a>
+        </div>
         <section class="orderSec">
         <h2>Your Orders</h2>
             <div class="account_orders">
@@ -66,7 +66,6 @@
                 </div>
             </div>
         </section>
-        
         <section class="footer">
             <div class="box-container">
                 <div class="box">
