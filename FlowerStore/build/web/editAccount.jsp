@@ -10,56 +10,45 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <meta name="viewpart" content="width=device-width, intital-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="accountStyle.css">
         <title>User Account</title>
     </head>
     <body>
         <header>
-            <a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
+            <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
-                <a href="index.html">home</a>
-                <a href="#about">about</a>
+                <a href="index.jsp">home</a>
                 <a href="product.jsp">products</a>
-                <a href="#review">review</a>
-                <a href="#contact">contact</a>
+                <a href="login.jsp" style="float: right">login</a>
             </nav>
-            <div class="icons">
-                <a href="#" class="fas fa-heart"></a>
-                <a href="billingPage.html" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
-            </div>
 	</header>
         
-               <%
-                    User u1;
-                    u1 = (User)session.getAttribute("u1");
-                %>
+        <%
+            User u1;
+            u1 = (User)session.getAttribute("u1");
+        %>
                 
-                <div class="data-form">
-                    <form action="UpdateUserServlet" method="post" id="update-form" name="update-form">
+        <section class="home">
+        <form action="UpdateUserServlet" method="post" id="update-form" name="update-form">
+                 
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="<%=u1.getEmail()%>"><br><br>
                         
-                        <label for="userID">User ID:</label><br>
-                        <input type="text" id="userID" name="userID" value="<%=u1.getUserID()%>"><br><br>
+            <label for="userPassword">Password:</label><br>
+            <input type="text" id="userPassword" name="userPassword" value="<%=u1.getUserPassword()%>"><br><br>
                         
-                        <label for="email">Email:</label><br>
-                        <input type="text" id="email" name="email" value="<%=u1.getEmail()%>"><br><br>
+            <label for="firstName">First Name:</label><br>
+            <input type="text" id="firstName" name="firstName" value="<%=u1.getFirstName()%>"><br><br>
                         
-                        <label for="userPassword">Password:</label><br>
-                        <input type="text" id="userPassword" name="userPassword" value="<%=u1.getUserPassword()%>"><br><br>
+            <label for="lastName">Last Name:</label><br>
+            <input type="text" id="lastName" name="lastName" value="<%=u1.getLastName()%>"><br><br>
                         
-                        <label for="firstName">First Name:</label><br>
-                        <input type="text" id="firstName" name="firstName" value="<%=u1.getFirstName()%>"><br><br>
-                        
-                        <label for="lastName">Last Name:</label><br>
-                        <input type="text" id="lastName" name="lastName" value="<%=u1.getLastName()%>"><br><br>
-                        
-                    <input type="submit" value="Update">
-                    <input type="reset" value="Reset">
+            <input class="btn" type="submit" value="Update">
+            <input class="btn" type="reset" value="Reset">
                 </form>
-                </div>
+                </section>
+                
         
         <section class="orderSec">
         <h2>Your Orders</h2>

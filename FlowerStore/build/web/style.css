@@ -32,7 +32,7 @@
 }
  .btn{
      display: inline-block;
-     margin-top: rem;
+     margin-top: 1rem;
      border-radius: 5rem;
      background: #333;
      color: #fff;
@@ -66,7 +66,7 @@
 }
  header .navbar a{
      font-size: 2rem;
-     padding:0 1.5rem;
+     padding:0 2rem;
      color:#666;
 }
  header .navbar a:hover{
@@ -517,4 +517,46 @@
      display: block;
      margin-bottom: 20px;
 }
- 
+#login-form{
+    background-color: pink;
+    position: relative;
+    height: 500px;
+    width: 500px;
+    border: none;
+    padding: 50px;
+    text-decoration: none;
+    margin: 25px auto;
+    border-radius: 24px;
+  }
+ #create-account-form{
+    background-color: pink;
+    position: relative;
+    height: 500px;
+    width: 500px;
+    border: none;
+    padding: 50px;
+    text-decoration: none;
+    margin: 25px auto;
+    border-radius: 24px;
+  }
+  #update-form{
+    background-color: pink;
+    position: relative;
+    height: 500px;
+    width: 500px;
+    border: none;
+    padding: 50px;
+    text-decoration: none;
+    margin: 25px auto;
+    border-radius: 24px;
+  }
+  input[type=password], input[type=text], input[type=email],select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }

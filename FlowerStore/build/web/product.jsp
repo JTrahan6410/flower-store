@@ -20,17 +20,10 @@
         <header>
             <a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
-                <a href="index.html">home</a>
-                <a href="#about">about</a>
+                <a href="index.jsp">home</a>
                 <a href="product.jsp">products</a>
-                <a href="#review">review</a>
-                <a href="#contact">contact</a>
+                <a href="login.jsp" style="float: right">login</a>
             </nav>
-            <div class="icons">
-                <a href="#" class="fas fa-heart"></a>
-                <a href="billingPage.html" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
-            </div>
         </header>
         <<h1>Products</h1>
         <div class="collection">

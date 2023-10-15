@@ -9,7 +9,6 @@ import java.sql.*;
  */
 public class User {
     //Properties
-    int userID;
     String userPassword, firstName,
            lastName, email;
     
@@ -18,15 +17,14 @@ public class User {
     //Constructors
     public User(){
         super();
-        userID = 0;
         email = "";
         userPassword = "";
         firstName = "";
         lastName = "";
     }
     
-    public User(int userID, String email, String userPassword, String firstName, String lastName){
-        this.userID = userID;
+    public User(String email, String userPassword, String firstName, String lastName){
+        
         this.email = email;
         this.userPassword = userPassword;
         this.firstName = firstName;
@@ -53,10 +51,10 @@ public class User {
             
             rs.next();
             
-            userID = rs.getInt(1);
-            userPassword = rs.getString(3);
-            firstName = rs.getString(4);
-            lastName = rs.getString(5);
+            this.email = rs.getString(1);
+            userPassword = rs.getString(2);
+            firstName = rs.getString(3);
+            lastName = rs.getString(4);
             
             
             con.close();
@@ -112,14 +110,15 @@ public class User {
      * @param lastName
      * @param email
 **************************************************************/
-    /*public void insertDB(String userID, String email, String userPassword,String firstName, String lastName ){
+    public void insertDB(String email, String userPassword,String firstName, String lastName ){
         try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             Connection con = DriverManager.getConnection(databaseURL);
             System.out.println("Database connected...");
             
             Statement stmt = con.createStatement();
             
-            String sql = "INSERT INTO Users VALUES ('"+userID+"','"+email+"','"+userPassword+"','"+firstName+"','"+lastName+"')";
+            String sql = "INSERT INTO Users VALUES ('"+email+"','"+userPassword+"','"+firstName+"','"+lastName+"')";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -137,12 +136,13 @@ public class User {
 **************************************************************/
     public void updateDB(){
         try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             Connection con = DriverManager.getConnection(databaseURL);
             System.out.println("Database connected...");
             
             Statement stmt = con.createStatement();
             
-            String sql = "UPDATE Users SET userID = '"+userID+"',email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE userID =" + getUserID();
+            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email =" + getEmail();
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -183,12 +183,6 @@ public class User {
     
     //Get and Set Methods
     
-    public int getUserID(){
-        return userID;
-    }
-    public void setUserID(int userID){
-        this.userID = userID;
-    }
     
     public String getUserPassword(){
         return userPassword;
@@ -224,7 +218,7 @@ public class User {
     
     //Display Method
     public void display(){
-        System.out.println("userID = " + userID);
+        
         System.out.println("Email = " + email);
         System.out.println("Password = " + userPassword);
         System.out.println("First Name = " + firstName);
@@ -241,7 +235,7 @@ public class User {
         //u1.display();
         
         //User u2 = new User();
-        //u2.insertDB("A912", "1111", "Jose", "Gomez", "Atlanta", "J@J.com"," ");
+        //u2.insertDB("bob@bob.com", "1111", "Jose", "Gomez");
         
         
         

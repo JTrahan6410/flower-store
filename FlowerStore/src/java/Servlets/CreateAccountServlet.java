@@ -16,47 +16,36 @@ import java.io.PrintWriter;
  * @author Jose V Gomez
  * 9/16/23
  ***************************/
-@WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet(name = "CreateAccountServlet", urlPatterns = {"/CreateAccountServlet"})
+public class CreateAccountServlet extends HttpServlet {
 
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
         PrintWriter out = response.getWriter();
         String firstNameInput, lastNameInput, emailInput, passwordInput;
-        
-        
         try{
-            
             emailInput = request.getParameter("email");
-            firstNameInput = request.getParameter("firstName");
-            lastNameInput = request.getParameter("lastName");
-            passwordInput = request.getParameter("userPassword");
-            
+            firstNameInput = request.getParameter("firstname");
+            lastNameInput = request.getParameter("lastname");
+            passwordInput = request.getParameter("password");
             
             System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
             
-            User u1;
-            HttpSession ses1 = request.getSession();
-            u1 = (User)ses1.getAttribute("u1");
-            
-            
-            u1.setEmail(emailInput);
-            u1.setFirstName(firstNameInput);
-            u1.setLastName(lastNameInput);
-            u1.setUserPassword(passwordInput);
-            
-            
-            u1.updateDB();
+            User u1 = new User();
+            u1.insertDB(emailInput, passwordInput, firstNameInput,lastNameInput);
+             u1.selectDB(emailInput);
+                u1.display();
+                HttpSession session1 = request.getSession();
+                session1.setAttribute("u1", u1);
+                System.out.println("User added to session...");
+
+
             u1.display();
             
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-            
-            
-            
             
         }catch(Exception e){
             System.out.println(e);

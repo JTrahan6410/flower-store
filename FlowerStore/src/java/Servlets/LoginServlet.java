@@ -25,14 +25,15 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-        //int userIDInput;
+        
+        //properties
         String email, pwInput;
        
         try{
             
             //Read user input from login form
             //userIDInput = Integer.parseInt(request.getParameter("userid"));
-            email = request.getParameter("userid");
+            email = request.getParameter("email");
             pwInput = request.getParameter("userpw");
             
             //make a decision to continue 
@@ -47,34 +48,28 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("User added to session...");
                 
             //if user id and user pw are in database forward to patient account page
-                if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
-                    //u1.display();
-                    RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
-                    rd.forward(request, response);
-                }else{
-                    RequestDispatcher rd = request.getRequestDispatcher("login.html");
-                    rd.forward(request, response);
-                }
-                
+            if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
+                RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
+                rd.forward(request, response);
             }else{
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");
                 rd.forward(request, response);
             }
-            
-
                 
-                
+            }else{
+                RequestDispatcher rd = request.getRequestDispatcher("loginError.html");
+                rd.forward(request, response);
+            }   
+        
         }catch(Exception e){
-            
+
             System.out.println(e);
             
         }finally{
             System.out.println("LoginServlet Ending...");
             out.close();
         }
-        
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
