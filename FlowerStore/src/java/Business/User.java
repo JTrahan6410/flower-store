@@ -12,7 +12,7 @@ public class User {
     String userPassword, firstName,
            lastName, email;
     
-    String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //Constructors
     public User(){
@@ -70,41 +70,8 @@ public class User {
         
     }
     
-    
-    /*public void selectDB(int userID){
-        this.userID = userID;
-        
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = (Connection) DriverManager.getConnection(databaseURL);
-            Statement stmt = con.createStatement();
-            ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM Users WHERE userID = " + userID );
-            
-            rs.next();
-            
-            email = rs.getString(2);
-            userPassword = rs.getString(3);
-            firstName = rs.getString(4);
-            lastName = rs.getString(5);
-            
-            
-            con.close();
-            
-            
-            
-            
-        }catch(Exception e){
-            
-            System.out.println(e);
-            
-        }
-        
-    }
-    */
 /*************************************************************
 * insertDB() inserts one patient from the DB
-     * @param userID
      * @param userPassword
      * @param firstName
      * @param lastName
@@ -142,7 +109,7 @@ public class User {
             
             Statement stmt = con.createStatement();
             
-            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email =" + getEmail();
+            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email ='" + getEmail()+"'";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -230,9 +197,9 @@ public class User {
      * @param args
 ******************************************************************/
     public static void main(String[] args) {
-        User u1 = new User();
-        u1.selectDB("jose@gmail.com");
-        u1.display();
+        //User u1 = new User();
+        //u1.selectDB("jose@gmail.com");
+        //u1.display();
         
         //User u2 = new User();
         //u2.insertDB("bob@bob.com", "1111", "Jose", "Gomez");

@@ -20,7 +20,7 @@
             <a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
-                <a href="product.jsp">products</a>
+                <a href="catalog.jsp">products</a>
                 <a href="login.jsp" style="float: right">login</a>
             </nav>
 	</header>

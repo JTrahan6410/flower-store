@@ -792,13 +792,13 @@ filter: drop-shadow(0 0 1px #000);
 }
 .container form .submit-btn:hover{
   background: #edc2d0;
-
+}
 
 
 
 /*END input added*/
 /*total price*/
-.total-price {
+/*.total-price {
   width: 83px;
   padding-top: 27px;
   text-align: center;
@@ -808,7 +808,7 @@ filter: drop-shadow(0 0 1px #000);
 }
 
 /*responsive media*/
-@media (max-width: 800px) {
+/*@media (max-width: 800px) {
   .shopping-cart {
     width: 100%;
     height: auto;
@@ -832,4 +832,4 @@ filter: drop-shadow(0 0 1px #000);
   .buttons {
     margin-right: 20px;
   }
-}
+}*/
