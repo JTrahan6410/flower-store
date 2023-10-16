@@ -560,40 +560,110 @@
     box-sizing: border-box;
     font-size: 16px;
   }
-  
-  
-  body .catalog{
-  padding: 100px 0;
-  background: #EBF0F5;
-  }
-  
-  #h1.catalog{
-  font-size: 40px; 
-  font-family: Arial, Helvetica, sans-serif;
-  }
-  #collection.catalog{
-  display: grid;
-  grid-auto-columns: max-content;
-  grid-auto-flow: dense;
-  grid-auto-rows: minmax(100px, auto);
-  grid-gap: 25px;
-  grid-template-columns: repeat(3, 1fr);
- 
-  }
+/* 
+    Created on : Sep 9, 2023, 10:49:32 AM
+    Author     : cargl
+*/
 
- #product .catalog, .product__image a{
-   border: 3px solid #000000;
- }
 
- #product .catalog, .product__name a{
-   text-align: center;
-   font-size: 30px; 
-   font-family: Arial, Helvetica, sans-serif;
-  }
 
- #product.catalog, .product__price p{
-   font-size: 20px; 
-   font-family: Arial, Helvetica, sans-serif;    
- }
-  
-  
+#recent_order{
+    font-size: 150%;
+    border: solid;
+    border-width: thin;
+}
+
+.order_image{
+    border: solid;
+    border-width: thin;
+}
+
+.order_content h3{
+    font-size: 200%;
+    text-decoration: underline;
+}
+
+.order_price{
+    text-decoration: none;
+    font-size: 150%;
+}
+
+ul {
+    margin: 0 0 1em 0;
+    font-size: 20px;
+    padding: 0 0 0 2.5em;
+    text-decoration: underline;
+}
+
+form {
+    margin: 0;
+}
+
+.account_info{
+    padding-top: 10px;
+    border: solid;
+    border-width: thin;
+    width: 700px;
+}
+.account_orders{
+    border: solid;
+    border-width: thin;
+    width: 500px;
+}
+
+.btn {
+    font-size:15px;
+}
+
+.viewOrders a{
+    float:right;
+    padding-right: 20px;
+    font-size: 130%;
+    color: inherit;
+}
+
+.viewOrders a:hover{
+    color:var(--pink);
+    text-decoration: underline;
+}
+.data-form{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 50px;
+    margin: 50px;
+}
+#accounts-box{
+    border-radius: 5px;
+    background-color: pink;
+    padding: 50px;
+    margin: 50px;
+}
+#accounts-table{
+    font-family: verdana, Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+#accounts-table caption{
+    font-weight: bold;
+    font-size: 20px;
+}
+#accounts-table td, #accounts-table th{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#accounts-table tr:hover {
+    background-color: #ddd;
+}
+#accounts-table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #b4b4b4;
+}
+tr:nth-child(odd) {
+    background-color: white;
+}

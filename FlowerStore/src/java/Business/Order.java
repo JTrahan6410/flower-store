@@ -20,7 +20,7 @@ public class Order {
     private int mailZip;
     private String billName, billStreetAddress, billCity, billState;
     private int billZip;
-    protected final String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    protected final String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
 
     
     public Order() {
