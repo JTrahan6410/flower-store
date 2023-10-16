@@ -109,7 +109,7 @@ public class User {
             
             Statement stmt = con.createStatement();
             
-            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email ='" + getEmail()+"'";
+            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email ='"+email+"'";
             System.out.println(sql);
             stmt.executeUpdate(sql);
             
@@ -207,10 +207,10 @@ public class User {
         
         
         //User u3 = new User();
-        //u3.selectDB("A912");
+        //u3.selectDB("jose@gmail.com");
         //u3.setFirstName("Bob");
         //u3.setLastName("Joe");
-        //u3.setUserMailAddress("Kennesaw");
+        
         //u3.updateDB();
         
         //User u4 = new User();
