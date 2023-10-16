@@ -12,9 +12,7 @@ import java.sql.*;
  * @author lena
  */
 public class Order {
-    
     private int orderID;
-    private int userID;
     private String productCode;
     private String orderPlaced;
     private String requestedDelivery;
@@ -22,12 +20,11 @@ public class Order {
     private int mailZip;
     private String billName, billStreetAddress, billCity, billState;
     private int billZip;
-    protected final String databaseURL = "FlowerStore/FlowerStoreDatabase.accdb";
+    protected final String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
 
     
     public Order() {
         orderID = 0;
-        userID = 0;
         productCode = "";
         orderPlaced = "";
         requestedDelivery = "";
@@ -44,9 +41,8 @@ public class Order {
         
     }
 
-    public Order(int orderID, int userID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip) {
+    public Order(int orderID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip) {
         this.orderID = orderID;
-        this.userID = userID;
         this.productCode = productCode;
         this.orderPlaced = orderPlaced;
         this.requestedDelivery = requestedDelivery;
@@ -64,9 +60,6 @@ public class Order {
     
     public int getorderID() { return orderID; }
     public void setoderID(int orderID) { this.orderID = orderID; }
-    
-    public int getuserID() { return userID; }
-    public void setuserID(int userID) { this.userID = userID; }
     
     public String getproductCode() { return productCode; }
     public void setproductCode(String productCode) { this.productCode = productCode; }
@@ -109,7 +102,6 @@ public class Order {
     
     public void display() {
         System.out.println("Order ID = " + getorderID());
-        System.out.println("User ID = " + getuserID());
         System.out.println("Product Code = " + getproductCode());
         System.out.println("Order Placed = " + getorderPlaced());
         System.out.println("Requested Delivery = " + getrequestedDelivery());
@@ -127,45 +119,44 @@ public class Order {
     
     public void selectDB(int orderID) {
         this.orderID = orderID;
-        try { 
+        try{
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + "FlowerStore//FlowerStoreDatabase.accdb")) {
-                Statement stmt = conn.createStatement();
-                String sql = "SELECT * FROM Orders WHERE userID = " + getuserID();
-                System.out.println(sql);
-                ResultSet rs = stmt.executeQuery(sql);
-                if (rs.next()) {
-                    setuserID(rs.getInt("userID"));
-                    setproductCode(rs.getString("productCode"));
-                    setorderPlaced(rs.getString("orderPlaced"));
-                    setrequestedDelivery(rs.getString("requestedDelivery"));
-                    setmailName(rs.getString("mailName"));
-                    setmailStreetAddress(rs.getString("mailStreetAddress"));
-                    setmailCity(rs.getString("mailCity"));
-                    setmailState(rs.getString("mailState"));
-                    setmailZip(rs.getInt("mailZip"));
-                    setbillName(rs.getString("billName"));
-                    setbillStreetAddress(rs.getString("billStreetAddress"));
-                    setbillCity(rs.getString("billCity"));
-                    setbillState(rs.getString("billState"));
-                    setbillZip( rs.getInt("billZip"));
-            }
-          }
+            Connection con = (Connection) DriverManager.getConnection(databaseURL);
+            Statement stmt = con.createStatement();
+            ResultSet rs;
+            rs = stmt.executeQuery("SELECT * FROM Users WHERE orderID = '" + orderID + "'" );
+            rs.next();
+                    this.orderID = rs.getInt(1);
+                    productCode = rs.getString(2);
+                    orderPlaced = rs.getString(3);
+                    requestedDelivery = rs.getString(4);
+                    mailName = rs.getString(5);
+                    mailStreetAddress = rs.getString(6);
+                    mailCity = rs.getString(7);
+                    mailState = rs.getString(8);
+                    mailZip = rs.getInt(9);
+                    billName = rs.getString(10);
+                    billStreetAddress = rs.getString(11);
+                    billCity = rs.getString(12);
+                    billState = rs.getString(13);
+                    billZip = rs.getInt(14);
+            con.close();
+   
         }
-        catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
+        catch(Exception e){
+            
+            System.out.println(e);   
         }
     }
     
-    public void insertDB(int orderID, int userID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip){
+    public void insertDB(int orderID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip){
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + "FlowerStore/FlowerStoreDatabase.accdb")) {
                 Statement sta = conn.createStatement();
-                String sql = "INSERT INTO Users (orderID, userID, productCode, orderPlaced, requestedDelivery, mailName, mailStreetAddress, mailCity, mailState, mailZip, billName, illStreetAddress, billCity, billState, billZip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Users (orderID, productCode, orderPlaced, requestedDelivery, mailName, mailStreetAddress, mailCity, mailState, mailZip, billName, illStreetAddress, billCity, billState, billZip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = conn.prepareStatement(sql);
                 statement.setInt(1, orderID);
-                statement.setInt(2, userID);
                 statement.setString(3, productCode);
                 statement.setString(4, orderPlaced);
                 statement.setString(5, requestedDelivery);
@@ -192,11 +183,10 @@ public class Order {
      try {
         Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
         try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-            String sql = "UPDATE Orders SET orderID = ?, userID = ?, productCode = ?, orderPlaced = ?, requestedDelivery = ?, mailName = ?, mailStreetAddress = ?, mailCity = ?, mailState = ?, mailZip = ?, billName = ?, illStreetAddress = ?, billCity, billState = ?, billZip = ? WHERE orderID = ?";
+            String sql = "UPDATE Orders SET orderID = ?, productCode = ?, orderPlaced = ?, requestedDelivery = ?, mailName = ?, mailStreetAddress = ?, mailCity = ?, mailState = ?, mailZip = ?, billName = ?, illStreetAddress = ?, billCity, billState = ?, billZip = ? WHERE orderID = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             // Set values for the placeholders in the prepared statement
             statement.setInt(1, orderID);
-                statement.setInt(2, userID);
                 statement.setString(3, productCode);
                 statement.setString(4, orderPlaced);
                 statement.setString(5, requestedDelivery);

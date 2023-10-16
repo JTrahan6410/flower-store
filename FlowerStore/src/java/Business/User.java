@@ -230,9 +230,9 @@ public class User {
      * @param args
 ******************************************************************/
     public static void main(String[] args) {
-        //User u1 = new User();
-        //u1.selectDB("jose@gmail.com");
-        //u1.display();
+        User u1 = new User();
+        u1.selectDB("jose@gmail.com");
+        u1.display();
         
         //User u2 = new User();
         //u2.insertDB("bob@bob.com", "1111", "Jose", "Gomez");
