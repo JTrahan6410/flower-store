@@ -12,18 +12,15 @@
         <title>Product Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" type ="text/css" href="style.css">
-        <link rel="stylesheet" type ="text/css" href="catalogStyle.css">
     </head>
             <header>
             <input type="checkbox" name="toggler" id="toggler">
             <label for="toggler" class="fas fa-bars"></label>
             <a href="#" class="logo">flower<span>.</span></a>
             <nav class="navbar">
-                <a href="index.html">home</a>
-                <a href="#about">about</a>
-                <a href="#products">products</a>
-                <a href="#review">review</a>
-                <a href="#contact">contact</a>
+                <a href="index.jsp">home</a>
+                <a href="catalog.jsp">products</a>
+                <a href="login.jsp" style="float: right">login</a>
             </nav>
             <div class="icons">
                 <a href="#" class="fas fa-heart"></a>
@@ -31,7 +28,7 @@
                 <a href="#" class="fas fa-user"></a>
             </div>
         </header>
-    <body>
+    <body class="catalog">
         
         <h1>Products</h1>
         <div class="collection">
@@ -43,8 +40,7 @@
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$45.00</p>
                     <p><button> Add to Cart </button></p>                  
                 </div>
             </div>
@@ -57,7 +53,6 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
@@ -69,8 +64,7 @@
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$25.00</p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
@@ -82,8 +76,7 @@
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$20.00</p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
@@ -95,13 +88,12 @@
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$30.00</p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/iris.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/iris.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Iris</a>
@@ -109,46 +101,42 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/daisies.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/daisies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daisies</a>
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$15.00</p>
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/peonies.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/peonies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Peonies</a>
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p> 
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$40.00</p> 
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/daffodils.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/daffodils.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daffodils</a>
                     </p>
                 </div>
                 <div class="product__price">
-                    <p>$35.00</p> 
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <p>$25.00</p> 
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
