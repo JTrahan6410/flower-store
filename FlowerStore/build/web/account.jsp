@@ -9,7 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <meta name="viewpart" content="width=device-width, intital-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="accountStyle.css">

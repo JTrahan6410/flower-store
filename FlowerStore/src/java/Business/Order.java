@@ -13,6 +13,7 @@ import java.sql.*;
  */
 public class Order {
     private int orderID;
+    private String email;
     private String productCode;
     private String orderPlaced;
     private String requestedDelivery;
@@ -25,6 +26,7 @@ public class Order {
     
     public Order() {
         orderID = 0;
+        email = "";
         productCode = "";
         orderPlaced = "";
         requestedDelivery = "";
@@ -41,8 +43,9 @@ public class Order {
         
     }
 
-    public Order(int orderID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip) {
+    public Order(int orderID, String email, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip) {
         this.orderID = orderID;
+        this.email = email;
         this.productCode = productCode;
         this.orderPlaced = orderPlaced;
         this.requestedDelivery = requestedDelivery;
@@ -60,6 +63,9 @@ public class Order {
     
     public int getorderID() { return orderID; }
     public void setoderID(int orderID) { this.orderID = orderID; }
+    
+    public String getemail() { return email; }
+    public void setemail(String email) { this.email = email; }
     
     public String getproductCode() { return productCode; }
     public void setproductCode(String productCode) { this.productCode = productCode; }
@@ -102,6 +108,7 @@ public class Order {
     
     public void display() {
         System.out.println("Order ID = " + getorderID());
+        System.out.println("Email = " + getemail());
         System.out.println("Product Code = " + getproductCode());
         System.out.println("Order Placed = " + getorderPlaced());
         System.out.println("Requested Delivery = " + getrequestedDelivery());
@@ -124,22 +131,23 @@ public class Order {
             Connection con = (Connection) DriverManager.getConnection(databaseURL);
             Statement stmt = con.createStatement();
             ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM Users WHERE orderID = '" + orderID + "'" );
+            rs = stmt.executeQuery("SELECT * FROM Orders WHERE orderID = '" + orderID + "'" );
             rs.next();
                     this.orderID = rs.getInt(1);
-                    productCode = rs.getString(2);
-                    orderPlaced = rs.getString(3);
-                    requestedDelivery = rs.getString(4);
-                    mailName = rs.getString(5);
-                    mailStreetAddress = rs.getString(6);
-                    mailCity = rs.getString(7);
-                    mailState = rs.getString(8);
-                    mailZip = rs.getInt(9);
-                    billName = rs.getString(10);
-                    billStreetAddress = rs.getString(11);
-                    billCity = rs.getString(12);
-                    billState = rs.getString(13);
-                    billZip = rs.getInt(14);
+                    email = rs.getString(2);
+                    productCode = rs.getString(3);
+                    orderPlaced = rs.getString(4);
+                    requestedDelivery = rs.getString(5);
+                    mailName = rs.getString(6);
+                    mailStreetAddress = rs.getString(7);
+                    mailCity = rs.getString(8);
+                    mailState = rs.getString(9);
+                    mailZip = rs.getInt(10);
+                    billName = rs.getString(11);
+                    billStreetAddress = rs.getString(12);
+                    billCity = rs.getString(13);
+                    billState = rs.getString(14);
+                    billZip = rs.getInt(15);
             con.close();
    
         }
@@ -149,31 +157,20 @@ public class Order {
         }
     }
     
-    public void insertDB(int orderID, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip){
+    public void insertDB(int orderID, String email, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip){
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + "FlowerStore/FlowerStoreDatabase.accdb")) {
-                Statement sta = conn.createStatement();
-                String sql = "INSERT INTO Users (orderID, productCode, orderPlaced, requestedDelivery, mailName, mailStreetAddress, mailCity, mailState, mailZip, billName, illStreetAddress, billCity, billState, billZip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement statement = conn.prepareStatement(sql);
-                statement.setInt(1, orderID);
-                statement.setString(3, productCode);
-                statement.setString(4, orderPlaced);
-                statement.setString(5, requestedDelivery);
-                statement.setString(6, mailName);
-                statement.setString(7, mailStreetAddress);
-                statement.setString(8, mailCity);
-                statement.setString(9, mailState);
-                statement.setInt(10, mailZip);
-                statement.setString(11, billName);
-                statement.setString(12, billStreetAddress);
-                statement.setString(13, billCity);
-                statement.setString(14, billState);
-                statement.setInt(15, billZip);
-                statement.executeUpdate();
-                System.out.println(sql);
-                sta.executeUpdate(sql);
-            }				
+            Connection con = DriverManager.getConnection(databaseURL);
+            System.out.println("Database connected...");
+            
+            Statement stmt = con.createStatement();
+            
+            String sql = "INSERT INTO Orders VALUES ('"+orderID+"','" +email+"','" +productCode+"','" +orderPlaced+"','"+requestedDelivery+"','"+mailName+"','"+mailStreetAddress+"','"+mailCity+"','"+mailState+"','"+mailZip+"','"+billName+"','"+billStreetAddress+"','"+billCity+"','"+billState+"','"+billZip+"')";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            
+            con.close();
+            				
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         }
@@ -182,38 +179,33 @@ public class Order {
     public void updateDB() {
      try {
         Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-            String sql = "UPDATE Orders SET orderID = ?, productCode = ?, orderPlaced = ?, requestedDelivery = ?, mailName = ?, mailStreetAddress = ?, mailCity = ?, mailState = ?, mailZip = ?, billName = ?, illStreetAddress = ?, billCity, billState = ?, billZip = ? WHERE orderID = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            // Set values for the placeholders in the prepared statement
-            statement.setInt(1, orderID);
-                statement.setString(3, productCode);
-                statement.setString(4, orderPlaced);
-                statement.setString(5, requestedDelivery);
-                statement.setString(6, mailName);
-                statement.setString(7, mailStreetAddress);
-                statement.setString(8, mailCity);
-                statement.setString(9, mailState);
-                statement.setInt(10, mailZip);
-                statement.setString(11, billName);
-                statement.setString(12, billStreetAddress);
-                statement.setString(13, billCity);
-                statement.setString(14, billState);
-                statement.setInt(15, billZip);
-
-            statement.executeUpdate();
-
+            Connection con = DriverManager.getConnection(databaseURL);
+            System.out.println("Database connected...");
+            
+            Statement stmt = con.createStatement();
+            String sql = "UPDATE Orders SET orderID = '"+orderID+"', email = '"+email+"', productCode = '"+productCode+"', orderPlaced = '"+orderPlaced+"', requestedDelivery = '"+requestedDelivery+"', mailName = '"+mailName+"', mailStreetAddress = '"+mailStreetAddress+"', mailCity = '"+mailCity+"', mailState = '"+mailState+"', mailZip = '"+mailZip+"', billName = '"+billName+"', billStreetAddress = '"+billStreetAddress+"', billCity = '"+billCity+"', billState = '"+billState+"', billZip = '"+billZip+"'WHERE orderID =" + getorderID();
+            
             System.out.println(sql);
-        }
-    } catch (ClassNotFoundException | SQLException e) {
+            stmt.executeUpdate(sql);
+            
+            con.close();
+        
+    }catch (ClassNotFoundException | SQLException e) {
         System.out.println(e);
         }
     }
     
     public static void main(String[] args) {
-        Order o1 = new Order();
-        o1.selectDB(1);
-        o1.display();
+        //Order o1 = new Order();
+        //o1.selectDB(1);
+        //o1.display();
+        
+        //Order o2 = new Order();
+        //o2.insertDB(4, "6", "P800", "10/18/23 12:35:00 pm", "", "Samuel Smith", "306 Turner St", "Flushing", "NY", 10034, "Elma Clarissa", "600 Mayfair St", "Brooklyn", "NY", 11218);
 
+        Order o3 = new Order();
+        o3.selectDB(3);
+        o3.setbillStreetAddress("648 Eiffle St");
+        o3.updateDB();
     }
 }

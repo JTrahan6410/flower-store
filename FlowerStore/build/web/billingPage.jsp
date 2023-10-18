@@ -5,29 +5,19 @@
     <meta http-equiv="X-UA-Compatable" content="IE=edge">
     <meta name="viewpart" content="width=device-width, intital-scale=1.0">
     <title>Billing Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 
-<header>
-
-<a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
-    <nav class="navbar">
-                <a href="index.html">home</a>
-                <a href="#about">about</a>
-                <a href="product.jsp">products</a>
-                <a href="#review">review</a>
-                <a href="#contact">contact</a>
+  <header>
+            <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
+            <nav class="navbar">
+                <a href="index.jsp">home</a>
+                <a href="catalog.jsp">products</a>
+                <a href="login.jsp" style="float: right">login</a>
             </nav>
-            <div class="icons">
-                <a href="#" class="fas fa-heart"></a>
-                <a href="billingPage.html" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
-            </div>
-
-</header>
+  </header>
 
 
     <div class="container">
