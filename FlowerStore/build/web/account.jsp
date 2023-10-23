@@ -21,7 +21,17 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-                <a href="login.jsp" style="float: right">login</a>
+        <% 
+            HttpSession session1 = request.getSession(false);
+            if(session1 == null || session1.getAttribute("u1") == null){
+        %>
+            <a href="login.jsp" style="float: right">login</a>
+        <%
+            }else{
+        %>
+            <a href="account.jsp">account</a> |
+            <a href="LogoutServlet" style="float: right">logout</a>
+        <%}%>
             </nav>
 	</header>
         

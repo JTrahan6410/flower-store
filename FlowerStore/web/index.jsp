@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Oct 11, 2023, 1:46:56 PM
-    Author     : Jose V Gomez
+    Author     : 
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,14 +20,24 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
+        <% 
+            HttpSession session1 = request.getSession(false);
+            if(session1 == null || session1.getAttribute("u1") == null){
+        %>
                 <a href="login.jsp" style="float: right">login</a>
+        <%
+            }else{
+        %>
+                <a href="account.jsp">account</a> |
+            <a href="LogoutServlet" style="float: right">logout</a>
+        <%}%>
             </nav>
         </header>
         <section class="home" id="home">
             <div class="content">
                 <h3>fresh flowers</h3>
                 <span>natural and beautiful flowers</span>
-                <a href="product.jsp" class="btn">shop now</a>
+                <a href="catalog.jsp" class="btn">shop now</a>
             </div>
         </section>
         <section class="about" id="about">

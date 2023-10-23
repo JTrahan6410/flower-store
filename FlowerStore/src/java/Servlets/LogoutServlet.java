@@ -11,65 +11,33 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/****************************
- * Project
+/**
+ *
  * @author Jose V Gomez
- * 9/16/23
- ***************************/
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+ */
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         PrintWriter out = response.getWriter();
         
-        PrintWriter out = response.getWriter();
-        
-        //properties
-        String email, pwInput;
-       
-        try{
-            
-            //Read user input from login form
-            //userIDInput = Integer.parseInt(request.getParameter("userid"));
-            email = request.getParameter("email");
-            pwInput = request.getParameter("userpw");
-            
-            //make a decision to continue 
-            //If email input and password input is not empty
-            if(!email.isEmpty() && !pwInput.isEmpty()){
-                
-                User u1 = new User();
-                u1.selectDB(email);
-                u1.display();
-                HttpSession session1 = request.getSession(true);
-                session1.setAttribute("u1", u1);
-                System.out.println("User added to session...");
-                
-            //if user id and user pw are in database forward to patient account page
-            if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
-                RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
-                rd.forward(request, response);
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");
-                rd.forward(request, response);
-            }
-                
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("loginError.html");
-                rd.forward(request, response);
-            }   
-        
-        }catch(Exception e){
+         try{
+             
+            HttpSession session1 = request.getSession();  
+            session1.invalidate(); 
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
 
+        }catch(Exception e){
+            
             System.out.println(e);
             
-        }finally{
-            System.out.println("LoginServlet Ending...");
-            out.close();
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
