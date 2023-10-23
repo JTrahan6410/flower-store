@@ -36,7 +36,7 @@
         <h1>Products</h1>
         <div class="collection">
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/roses.png" style="width:20em; height: 20em;"></a>
+                <a href=#><img class="product__image" src="assets/flowers/roses.png" style="width:20em; height: 20em;"></a>
                 <div class="product__name">
                     <p>
                         <a>Roses</a>
@@ -44,12 +44,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>                  
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/tulips.png" style="width:20em; height:20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/tulips.png" style="width:20em; height:20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Tulips</a>
@@ -57,12 +57,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/sunflowers.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/sunflowers.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Sunflowers</a>
@@ -70,12 +70,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/lilies.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/lilies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Lilies</a>
@@ -83,12 +83,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/orchids.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/orchids.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Orchids</a>
@@ -96,12 +96,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/iris.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/iris.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Iris</a>
@@ -109,12 +109,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/daisies.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/daisies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daisies</a>
@@ -122,12 +122,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p>
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/peonies.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/peonies.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Peonies</a>
@@ -135,12 +135,12 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p> 
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>
             <div class="product">
-                <a href=#><img class="product__image" src="./flowers/daffodils.png" style="width:20em; height: 20em;"> </a>
+                <a href=#><img class="product__image" src="assets/flowers/daffodils.png" style="width:20em; height: 20em;"> </a>
                 <div class="product__name">
                     <p>
                         <a>Daffodils</a>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="product__price">
                     <p>$35.00</p> 
-                    <p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>
+                    <!--<p><input type="number" id="quantity" name="quantity" min="1" max="10"></p>-->
                     <p><button> Add to Cart </button></p>
                 </div>
             </div>

@@ -52,7 +52,7 @@ public class User extends GuestUser{
         this.eMail = eMail;
         try { 
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + "FlowerStore//FlowerStoreDatabase.accdb")) {
+            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
                 Statement stmt = conn.createStatement();
                 String sql = "SELECT * FROM Users WHERE email = " + getEMail();
                 System.out.println(sql);
@@ -72,7 +72,7 @@ public class User extends GuestUser{
     public void insertDB(String eMail, String userPassword, String firstName, String lastName) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + "FlowerStore/FlowerStoreDatabase.accdb")) {
+            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
                 Statement sta = conn.createStatement();
                 String sql = "INSERT INTO Users (email, userPassword, firstName, lastName) VALUES (?, ?, ?, ?)";
                 PreparedStatement statement = conn.prepareStatement(sql);
