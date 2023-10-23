@@ -10,9 +10,9 @@ In this project you will create a Web Application that may be used by Customers 
 - [ ] Search Web Site for different types of Flowers and Prices
 - [ ] Customers should be able to choose the card attached to the Flowers and the saying on the inside of the Card
 - [ ] Make a Purchase without creating a Customer Account
-- [ ] Create a new Customer Account
+- [x] Create a new Customer Account
 - [ ] Login, Search Products and Make Purchases with their Customer Account
-- [ ] Change the information in their Customer Account, like Address, etc.
+- [x] Change the information in their Customer Account, like Address, etc.
 
 <br /><br />An Order Processing Person Should be able to:
 - [ ] Login 
