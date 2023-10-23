@@ -18,13 +18,24 @@
         <header>
             <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
-                <a href="index.jsp">home</a>
-                <a href="product.jsp">products</a>
-                <a href="login.jsp" style="float: right">login</a>
+            <a href="index.jsp">home</a>
+            <a href="product.jsp">products</a>
+        <% 
+            HttpSession session1 = request.getSession(false);
+            if(session1 == null || session1.getAttribute("u1") == null){
+        %>
+            <a href="login.jsp" style="float: right">login</a>
+        <%
+            }else{
+        %>
+            <a href="account.jsp">account</a> |
+            <a href="login.jsp" style="float: right">logout</a>
+        <%}%>
             </nav>
 	</header>
         
         <%
+            
             User u1;
             u1 = (User)session.getAttribute("u1");
         %>

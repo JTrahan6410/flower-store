@@ -14,18 +14,26 @@
         <link rel="stylesheet" type ="text/css" href="style.css">
         <link rel="stylesheet" type ="text/css" href="catalogStyle.css">
     </head>
-    
     <body>
-        
         <header>
             <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
+        <% 
+            HttpSession session1 = request.getSession(false);
+            if(session1 == null || session1.getAttribute("u1") == null){
+        %>
                 <a href="login.jsp" style="float: right">login</a>
+        <%
+            }else{
+        %>
+                <a href="account.jsp">account</a> |
+                <a href="LogoutServlet" style="float: right">logout</a>
+        <%}%>
             </nav>
         </header>
-        <<h1>Products</h1>
+        <h1>Products</h1>
         <div class="collection">
             <div class="product">
                 <a href=#><img class="product__image" src="assets/flowers/roses.png" style="width:20em; height: 20em;"></a>

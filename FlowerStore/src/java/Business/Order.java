@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package business;
 
 import java.sql.*;
@@ -21,7 +16,7 @@ public class Order {
     private int mailZip;
     private String billName, billStreetAddress, billCity, billState;
     private int billZip;
-    protected final String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    protected final String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
 
     
     public Order() {
@@ -196,16 +191,16 @@ public class Order {
     }
     
     public static void main(String[] args) {
-        //Order o1 = new Order();
-        //o1.selectDB(1);
-        //o1.display();
+        Order o1 = new Order();
+        o1.selectDB(1);
+        o1.display();
         
         //Order o2 = new Order();
         //o2.insertDB(4, "6", "P800", "10/18/23 12:35:00 pm", "", "Samuel Smith", "306 Turner St", "Flushing", "NY", 10034, "Elma Clarissa", "600 Mayfair St", "Brooklyn", "NY", 11218);
 
-        Order o3 = new Order();
-        o3.selectDB(3);
-        o3.setbillStreetAddress("648 Eiffle St");
-        o3.updateDB();
+        //Order o3 = new Order();
+        //o3.selectDB(3);
+        //o3.setbillStreetAddress("648 Eiffle St");
+        //o3.updateDB();
     }
 }
