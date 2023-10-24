@@ -20,6 +20,7 @@
             <nav class="navbar">
             <a href="index.jsp">home</a>
             <a href="product.jsp">products</a>
+            <a href="catalog.jsp">cart</a>
         <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
