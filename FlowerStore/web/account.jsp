@@ -19,45 +19,47 @@
         <header>
             <a href="index.html" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
-                <a href="index.html">home</a>
-                <a href="#about">about</a>
-                <a href="product.jsp">products</a>
-                <a href="#review">review</a>
-                <a href="#contact">contact</a>
+                <a href="index.jsp">home</a>
+                <a href="catalog.jsp">products</a>
+        <% 
+            HttpSession session1 = request.getSession(false);
+            if(session1 == null || session1.getAttribute("u1") == null){
+        %>
+            <a href="login.jsp" style="float: right">login</a>
+        <%
+            }else{
+        %>
+            <a href="account.jsp">account</a> |
+            <a href="LogoutServlet" style="float: right">logout</a>
+        <%}%>
             </nav>
-            <div class="icons">
-                <a href="#" class="fas fa-heart"></a>
-                <a href="billingPage.html" class="fas fa-shopping-cart"></a>
-                <a href="login.html" class="fas fa-user"></a>
-            </div>
 	</header>
         
-                <% 
-                    User u1;
-                    u1 = (User)session.getAttribute("u1");
-                %>
-                <div id="accounts-box">
-                    <h2>Welcome back, <%=u1.getFirstName()%></h2>
-                    <table id="accounts-table" style="width:100%">
-                        <caption><%=u1.getFirstName()%>'s Account</caption>
-                        <tr>
-                            <th>User ID</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                        </tr>
-                        <tr>
-                            <td><%=u1.getUserID()%></td>
-                            <td><%=u1.getEmail()%></td>
-                            <td><%=u1.getUserPassword()%></td>
-                            <td><%=u1.getFirstName()%></td>
-                            <td><%=u1.getLastName()%></td>
-                        </tr>
-                    </table>
-                            <a href="editAccount.jsp"> edit account info </a>
-                </div>
-        
+        <% 
+            User u1;
+            u1 = (User)session.getAttribute("u1");
+        %>
+        <div id="accounts-box">
+            <h2>Welcome back, <%=u1.getFirstName()%></h2>
+            <table id="accounts-table" style="width:100%">
+            <caption><%=u1.getFirstName()%>'s Account</caption>
+                <tr>
+                    
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+                <tr>
+                    
+                    <td><%=u1.getEmail()%></td>
+                    <td><%=u1.getUserPassword()%></td>
+                    <td><%=u1.getFirstName()%></td>
+                    <td><%=u1.getLastName()%></td>
+                </tr>
+            </table>
+            <a class="btn" href="editAccount.jsp"> edit account info </a>
+        </div>
         <section class="orderSec">
         <h2>Your Orders</h2>
             <div class="account_orders">
@@ -74,7 +76,6 @@
                 </div>
             </div>
         </section>
-        
         <section class="footer">
             <div class="box-container">
                 <div class="box">
