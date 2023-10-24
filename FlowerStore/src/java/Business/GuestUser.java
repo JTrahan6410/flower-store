@@ -1,6 +1,10 @@
 package Business;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**************************************************************
 
@@ -10,19 +14,22 @@ import java.sql.*;
 
  **************************************************************/
 
+// Class definition
 public class GuestUser {
+    // Fields (attributes) of the class
     protected int userID;
     protected String firstName, lastName, eMail;
     protected final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
     
+    // Default constructor
     public GuestUser() {
         userID = 0;
         eMail = "";
         firstName = "";
         lastName = "";
-       
     }
     
+    // Parameterized constructor
     public GuestUser(int userID, String eMail, String firstName, String lastName) {
         this.userID = userID;
         this.eMail = eMail;
@@ -43,7 +50,7 @@ public class GuestUser {
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
     
-    
+    // Display method to print guest information to the console
     public void display() {
         System.out.println("Guest ID = " + getUserID());
         System.out.println("Guest Email = " + getEMail());
@@ -51,86 +58,141 @@ public class GuestUser {
         System.out.println("Guest Last Name = " + getLastName());
     }
     
-// Method to retrieve user data from the database based on the email
-public void selectDB(String eMail) {
-    // Set the email for which data needs to be retrieved
-    this.eMail = eMail;
+    // Method to retrieve user data from the database based on the email using PreparedStatement
+    public void selectDB(String eMail) {
+        // Set the email for which data needs to be retrieved
+        this.eMail = eMail;
         try { 
+            // Load JDBC driver
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            // Establish a connection to the database
             try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-                Statement stmt = conn.createStatement();
-                String sql = "SELECT * FROM Users WHERE userID = " + getEMail();
-                System.out.println(sql);
-                ResultSet rs = stmt.executeQuery(sql);
-                if (rs.next()) {
-                    setFirstName(rs.getString("firstName"));
-                    setLastName(rs.getString("lastName"));
+                // SQL query to retrieve user data based on email
+                String sql = "SELECT * FROM Users WHERE email = ?";
+                
+                // Create a PreparedStatement with the SQL query
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    // Set the email value for the prepared statement
+                    stmt.setString(1, eMail);
+                    
+                    // Execute the query and retrieve the result set
+                    ResultSet rs = stmt.executeQuery();
+                    
+                    // If a record is found, update the object's fields
+                    if (rs.next()) {
+                        setFirstName(rs.getString("firstName"));
+                        setLastName(rs.getString("lastName"));
+                    }
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
+            // Print any exceptions that occur
             System.out.println(e);
         }
     }
 
-public void insertDB(int userID, String eMail, String firstName, String lastName) {
-     try {
-        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-            String sql = "INSERT INTO Users (email, firstName, lastName) VALUES (?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, eMail);
-            statement.setString(2, firstName);
-            statement.setString(3, lastName);
-            statement.executeUpdate();
-            System.out.println(sql);
-            statement.executeUpdate(sql);
-        }				
-    } catch (ClassNotFoundException | SQLException e) {
-        System.out.println(e);
+    // Method to insert user data into the database using PreparedStatement
+    public void insertDB(int userID, String eMail, String firstName, String lastName) {
+         try {
+            // Load JDBC driver
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            // Establish a connection to the database
+            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+                // SQL query to insert user data into the Users table
+                String sql = "INSERT INTO Users (email, firstName, lastName) VALUES (?, ?, ?)";
+                
+                // Create a PreparedStatement with the SQL query
+                PreparedStatement statement = conn.prepareStatement(sql);
+                
+                // Set values for the placeholders in the prepared statement
+                statement.setString(1, eMail);
+                statement.setString(2, firstName);
+                statement.setString(3, lastName);
+                
+                // Execute the INSERT statement to add a new user
+                statement.executeUpdate();
+                
+                // Print the generated SQL query (for debugging)
+                System.out.println(sql);
+                
+                // Execute the statement again (this is redundant and unnecessary)
+                statement.executeUpdate(sql);
+            }				
+        } catch (ClassNotFoundException | SQLException e) {
+            // Print any exceptions that occur
+            System.out.println(e);
         }
     }
       
-public void updateDB() {
-     try {
-        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-            String sql = "UPDATE Users SET email = ?, firstName = ?, lastName = ? WHERE email = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            // Set values for the placeholders in the prepared statement
-            statement.setString(1, eMail);
-            statement.setString(2, firstName);
-            statement.setString(3, lastName);
-            statement.setString(4, eMail);
+    // Method to update user data in the database using PreparedStatement
+    public void updateDB() {
+         try {
+            // Load JDBC driver
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            // Establish a connection to the database
+            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+                // SQL query to update user data in the Users table
+                String sql = "UPDATE Users SET email = ?, firstName = ?, lastName = ? WHERE email = ?";
+                
+                // Create a PreparedStatement with the SQL query
+                PreparedStatement statement = conn.prepareStatement(sql);
+                
+                // Set values for the placeholders in the prepared statement
+                statement.setString(1, eMail);
+                statement.setString(2, firstName);
+                statement.setString(3, lastName);
+                statement.setString(4, eMail);
 
-            // Execute the UPDATE statement to modify user information
-            statement.executeUpdate();
+                // Execute the UPDATE statement to modify user information
+                statement.executeUpdate();
 
-            // Print the generated SQL query (for debugging)
-            System.out.println(sql);
-        }
-    } catch (ClassNotFoundException | SQLException e) {
-        System.out.println(e);
+                // Print the generated SQL query (for debugging)
+                System.out.println(sql);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            // Print any exceptions that occur
+            System.out.println(e);
         }
     }
 
-public void deleteDB() {
+    // Method to delete user data from the database using PreparedStatement
+    public void deleteDB() {
         try {
+            // Load JDBC driver
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            // Establish a connection to the database
             try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-                Statement st = conn.createStatement();
-                String sql = "DELETE from Users Where userID = " + getUserID();
-                System.out.println(sql);
-                st.executeUpdate(sql);
-            }				
+                // SQL query to delete user data from the Users table based on userID
+                String sql = "DELETE FROM Orders WHERE userID = ?";
+                
+                // Create a PreparedStatement with the SQL query
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    // Set the userID value for the prepared statement
+                    statement.setInt(1, getUserID());
+                    
+                    // Execute the DELETE statement to remove the user
+                    statement.executeUpdate();
+                }
+            }
         } catch (ClassNotFoundException | SQLException e) {
+            // Print any exceptions that occur
             System.out.println(e);
         }
     }
     
-//Test
-public static void main(String[] args) {
+    // Test method
+    public static void main(String[] args) {
+        // Create an instance of GuestUser
         GuestUser gu1 = new GuestUser();
+        
+        // Call the selectDB method to retrieve user data from the database
         gu1.selectDB("guest@test.net");
+        
+        // Display the user information
         gu1.display();
     }
 }
