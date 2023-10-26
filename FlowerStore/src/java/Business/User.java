@@ -15,22 +15,26 @@ import java.sql.ResultSet;
  **************************************************************/
 
 public class User extends GuestUser {
+
+    private static String vardatabaseURL;
     private String userPassword;
     private Boolean admin;
-    private final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
 
     // Default constructor
-    public User() {
+    public User(String databaseURL) {
         super(); // Call the constructor of the superclass (GuestUser)
         userPassword = "";
         admin = false;
     }
 
     // Parameterized constructor
-    public User(int userID, String email, String userPassword, String firstName, String lastName, Boolean admin) {
+    public User(int userID, String email, String userPassword, String firstName, String lastName, Boolean admin, String databaseURL) {
+        super(userID, email, firstName, lastName, databaseURL);
         this.userPassword = userPassword;
         this.admin = admin;
     }
+
+
 
     // Getter and setter methods for all fields
 
@@ -139,7 +143,7 @@ public class User extends GuestUser {
 
     // Main method for testing
     public static void main(String[] args) {
-        User u1 = new User();
+        User u1 = new User(vardatabaseURL);
         u1.selectDB("jtrahan@students.chattahoocheetech.edu");
         u1.display();
     }

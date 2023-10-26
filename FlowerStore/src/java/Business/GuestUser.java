@@ -19,7 +19,7 @@ public class GuestUser {
     // Fields (attributes) of the class
     protected int userID;
     protected String firstName, lastName, eMail;
-    protected final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
+    protected String databaseURL = "/FlowerStoreDatabase.accdb";
     
     // Default constructor
     public GuestUser() {
@@ -29,12 +29,19 @@ public class GuestUser {
         lastName = "";
     }
     
+    // overloaded constructor to accept databaseURL
+     public GuestUser(String databaseURL) {
+        this();  // Call to default constructor
+        this.databaseURL = databaseURL;
+    }
+    
     // Parameterized constructor
-    public GuestUser(int userID, String eMail, String firstName, String lastName) {
+    public GuestUser(int userID, String eMail, String firstName, String lastName, String databaseURL) {
         this.userID = userID;
         this.eMail = eMail;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.databaseURL = databaseURL;
     }
     
     // Getter and setter methods for all fields
@@ -49,6 +56,9 @@ public class GuestUser {
 
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
+    
+    public String getDatabaseURL() { return this.databaseURL; } 
+    public void setDatabaseURL(String databaseURL) { this.databaseURL = databaseURL; }
     
     // Display method to print guest information to the console
     public void display() {

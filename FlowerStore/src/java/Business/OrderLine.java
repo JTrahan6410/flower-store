@@ -19,7 +19,7 @@ public class OrderLine {
     private String productCode;
     private BigDecimal productCost;
     private short productQuantity;
-    private final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
+    private final String databaseURL = "../FlowerStoreDatabase.accdb";
 
     // Constructors
     // Default constructor for OrderLine class

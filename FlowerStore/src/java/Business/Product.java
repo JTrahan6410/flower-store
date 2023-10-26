@@ -24,7 +24,7 @@ public class Product {
     private String productOccasion;
     private String productAsset;
     private String customMessage;
-    private final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
+    private final String databaseURL = "../FlowerStoreDatabase.accdb";
 
     // Default constructor
     public Product() {

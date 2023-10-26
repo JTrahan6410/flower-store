@@ -16,69 +16,44 @@ import java.io.PrintWriter;
  * @author Jose V Gomez
  * 9/16/23
  ***************************/
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "CreateAccountServlet", urlPatterns = {"/CreateAccountServlet"})
+public class CreateAccountServlet extends HttpServlet {
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    
-    PrintWriter out = response.getWriter();
-    String email, pwInput;
-   
-    try {
-        
-        // Read user input from login form
-        email = request.getParameter("userid");
-        pwInput = request.getParameter("userpw");
-        
-        // Make a decision to continue 
-        // If email input and password input is not empty
-        if(email != null && !email.isEmpty() && pwInput != null && !pwInput.isEmpty()){
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        String firstNameInput, lastNameInput, emailInput, passwordInput;
+        try{
+            emailInput = request.getParameter("email");
+            firstNameInput = request.getParameter("firstname");
+            lastNameInput = request.getParameter("lastname");
+            passwordInput = request.getParameter("password");
             
-            System.out.println("Userid: " + request.getParameter("userid"));
-            System.out.println("Userpw: " + request.getParameter("userpw"));
-
+            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
             
-            
-            // Retrieve the real path of the database using the Servlet context
             String databaseURL = getServletContext().getRealPath("../FlowerStoreDatabase.accdb");
             System.out.println(databaseURL);
-
             
-            // Create a User object and pass the database path
             User u1 = new User(databaseURL);
-            u1.selectDB(email);
+            u1.insertDB(emailInput, passwordInput, firstNameInput,lastNameInput);
+             u1.selectDB(emailInput);
+                u1.display();
+                HttpSession session1 = request.getSession();
+                session1.setAttribute("u1", u1);
+                System.out.println("User added to session...");
+
+
             u1.display();
             
-            HttpSession session1 = request.getSession();
-            session1.setAttribute("u1", u1);
-            System.out.println("User added to session...");
-            
-            // If user id and user pw are in database forward to patient account page
-            if(email.equals(u1.getEMail()) && pwInput.equals(u1.getUserPassword())){
-                RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
-                rd.forward(request, response);
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
-                rd.forward(request, response);
-            }
-            
-        }else{
-            RequestDispatcher rd = request.getRequestDispatcher("login.html");
+            RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
+            
+        }catch(Exception e){
+            System.out.println(e);
         }
-        
-    } catch(ServletException | IOException e) {
-        System.out.println(e);
-    } finally {
-        System.out.println("LoginServlet Ending...");
-        out.close();
     }
-    
-}
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

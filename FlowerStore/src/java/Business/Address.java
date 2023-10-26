@@ -22,7 +22,7 @@ public class Address {
     private String city;
     private String state;
     private String zipCode;
-    private final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
+    private final String databaseURL = "../FlowerStoreDatabase.accdb";
 
     // Constructors
     public Address() {

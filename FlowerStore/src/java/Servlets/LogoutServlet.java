@@ -1,6 +1,6 @@
 package Servlets;
 
-import Business.*;
+//import Business.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,55 +11,30 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/****************************
- * Project
+/**
+ *
  * @author Jose V Gomez
- * 9/16/23
- ***************************/
-@WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
-public class UpdateUserServlet extends HttpServlet {
+ */
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
         PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, emailInput, passwordInput;
-        
-        
-        try{
-            
-            emailInput = request.getParameter("email");
-            firstNameInput = request.getParameter("firstName");
-            lastNameInput = request.getParameter("lastName");
-            passwordInput = request.getParameter("userPassword");
-            
-            
-            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
-            
-            User u1;
-            HttpSession ses1 = request.getSession();
-            u1 = (User)ses1.getAttribute("u1");
-            
-            
-            u1.setEMail(emailInput);
-            u1.setFirstName(firstNameInput);
-            u1.setLastName(lastNameInput);
-            u1.setUserPassword(passwordInput);
-            
-            
-            u1.updateDB();
-            u1.display();
-            
-            RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
+        System.out.println(out);
+         try{
+             
+            HttpSession session1 = request.getSession();  
+            session1.invalidate(); 
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
+
+        }catch(ServletException | IOException e){
             
-            
-            
-            
-        }catch(Exception e){
             System.out.println(e);
+            
         }
     }
 

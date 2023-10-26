@@ -26,7 +26,7 @@ public class Orders {
     private String cardCVV;
     private int mailingAddressID;
     private int billingAddressID;
-    private final String databaseURL = "../FlowerStore/FlowerStoreDatabase.accdb";
+    private final String databaseURL = "../FlowerStoreDatabase.accdb";
 
     // Default constructor
     public Orders() {
