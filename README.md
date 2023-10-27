@@ -7,7 +7,7 @@
 In this project you will create a Web Application that may be used by Customers who are looking to buy “Flowers” online.  The Customers can place the order for delivery.
 
 <br /><br />A Customer Should be able to:
-- [ ] Search Web Site for different types of Flowers and Prices
+- [x] Search Web Site for different types of Flowers and Prices
 - [ ] Customers should be able to choose the card attached to the Flowers and the saying on the inside of the Card
 - [ ] Make a Purchase without creating a Customer Account
 - [x] Create a new Customer Account
