@@ -12,8 +12,8 @@ public class User {
     String userPassword, firstName,
            lastName, email;
     
-    //String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    //String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //Constructors
     public User(){
@@ -198,9 +198,9 @@ public class User {
      * @param args
 ******************************************************************/
     public static void main(String[] args) {
-        //User u1 = new User();
-        //u1.selectDB("jose@gmail.com");
-        //u1.display();
+        User u1 = new User();
+        u1.selectDB("jose@gmail.com");
+        u1.display();
         
         //User u2 = new User();
         //u2.insertDB("bob@bob.com", "1111", "Jose", "Gomez");
