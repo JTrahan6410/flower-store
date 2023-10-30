@@ -9,7 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <meta name="viewpart" content="width=device-width, intital-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="accountStyle.css">
@@ -21,6 +20,7 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
+                <a href="catalog.jsp">cart</a>
         <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
