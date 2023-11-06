@@ -32,8 +32,8 @@ public class GuestUser {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-    // Getters and setters for class properties
+ 
+    // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
     public int getUserID() { return userID; }
     public void setUserID(int userID) { this.userID = userID; }
     public String getEmail() { return email; }
@@ -42,7 +42,8 @@ public class GuestUser {
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
-
+// </editor-fold>
+    
     // Method to display user information in the console
     public void display() {
         System.out.println("ID = " + getUserID());

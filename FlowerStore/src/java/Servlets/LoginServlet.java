@@ -64,8 +64,9 @@ public class LoginServlet extends HttpServlet {
             }
         } catch (Exception e) {
             // Log the exception for debugging and inform the user
+            System.out.println(e);
             e.printStackTrace(); // For debugging purposes
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal server error occurred.");
+//            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An internal server error occurred.");
         }
         // The PrintWriter is automatically closed by the try-with-resources statement
     }

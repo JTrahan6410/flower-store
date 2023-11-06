@@ -30,18 +30,14 @@ public class User extends GuestUser {
         this.admin = false;
     }
 
-    // Getter for user password
+    // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
     public String getUserPassword() { return userPassword; }
-
-    // Setter for user password
     public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
-
-    // Getter for admin status
     public Boolean getAdminStatus() { return admin; }
-
-    // Setter for admin status
     public void setAdminStatus(Boolean admin) { this.admin = admin; }
 
+    // </editor-fold>
+    
     // Display method overriding the superclass method to include admin status
     @Override
     public void display() {

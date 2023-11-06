@@ -1,12 +1,11 @@
 package Business;
 
+import Database.DatabaseHook;
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * OrderLine class represents a line item in an order.
@@ -19,7 +18,6 @@ public class OrderLine {
     private String productCode;
     private BigDecimal productCost;
     private short productQuantity;
-    private final String databaseURL = "../FlowerStoreDatabase.accdb";
 
     // Constructors
     // Default constructor for OrderLine class
@@ -40,7 +38,7 @@ public class OrderLine {
         this.productQuantity = productQuantity;
     }
 
-    // Setters and getters (one line each)
+    // Setters and getters
     public void setLineItemID(int lineItemID) { this.lineItemID = lineItemID; }
     public int getLineItemID() { return lineItemID; }
     
@@ -68,27 +66,26 @@ public class OrderLine {
     // Database methods
 
     public void selectDB(int lineItemID) {
-    try {
-        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-            String sql = "SELECT * FROM OrderLine WHERE lineItemID = " + lineItemID;
-            try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DatabaseHook.getConnection()) {
+            String sql = "SELECT * FROM OrderLine WHERE lineItemID = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, lineItemID);
+                ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
                     setOrderID(rs.getInt("orderID"));
                     setProductCode(rs.getString("productCode"));
                     setProductCost(rs.getBigDecimal("productCost"));
                     setProductQuantity(rs.getShort("productQuantity"));
                 }
+                rs.close();
             }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (ClassNotFoundException | SQLException e) {
-        System.out.println(e);
     }
-}
-
 
     public void insertDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DatabaseHook.getConnection()) {
             String sql = "INSERT INTO OrderLine (orderID, productCode, productCost, productQuantity) VALUES (?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getOrderID());
@@ -97,13 +94,13 @@ public class OrderLine {
                 pstmt.setShort(4, getProductQuantity());
                 pstmt.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public void updateDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DatabaseHook.getConnection()) {
             String sql = "UPDATE OrderLine SET orderID = ?, productCode = ?, productCost = ?, productQuantity = ? WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getOrderID());
@@ -113,19 +110,19 @@ public class OrderLine {
                 pstmt.setInt(5, getLineItemID());
                 pstmt.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     public void deleteDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DatabaseHook.getConnection()) {
             String sql = "DELETE FROM OrderLine WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getLineItemID());
                 pstmt.executeUpdate();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
