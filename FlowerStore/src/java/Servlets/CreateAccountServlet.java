@@ -38,7 +38,7 @@ public class CreateAccountServlet extends HttpServlet {
             newUser.setUserPassword(passwordInput);
             newUser.setFirstName(firstNameInput);
             newUser.setLastName(lastNameInput);
-            newUser.setAdminStatus(false); // Default admin status set to false for new accounts
+            newUser.setAdmin(false); // Default admin status set to false for new accounts
             
             // Insert the new user into the database
             newUser.insertDB();

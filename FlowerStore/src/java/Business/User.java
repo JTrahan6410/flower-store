@@ -33,8 +33,8 @@ public class User extends GuestUser {
     // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
     public String getUserPassword() { return userPassword; }
     public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
-    public Boolean getAdminStatus() { return admin; }
-    public void setAdminStatus(Boolean admin) { this.admin = admin; }
+    public Boolean getAdmin() { return admin; }
+    public void setAdmin(Boolean admin) { this.admin = admin; }
 
     // </editor-fold>
     
@@ -42,7 +42,7 @@ public class User extends GuestUser {
     @Override
     public void display() {
         super.display(); // Call the display method of the superclass
-        System.out.println("Admin Status = " + getAdminStatus());
+        System.out.println("Admin Status = " + getAdmin());
     }
 
     // Method for selecting a user from the database
@@ -60,7 +60,7 @@ public class User extends GuestUser {
                        setUserPassword(rs.getString("userPassword"));
                        setFirstName(rs.getString("firstName"));
                        setLastName(rs.getString("lastName"));
-                       setAdminStatus(rs.getBoolean("admin"));
+                       setAdmin(rs.getBoolean("admin"));
                    }
                }
            } catch (SQLException e) {
@@ -75,10 +75,10 @@ public class User extends GuestUser {
              PreparedStatement statement = conn.prepareStatement(sql)) {
             
             statement.setString(1, getEmail());
-            statement.setString(2, userPassword);
+            statement.setString(2, getUserPassword());
             statement.setString(3, getFirstName());
             statement.setString(4, getLastName());
-            statement.setBoolean(5, admin);
+            statement.setBoolean(5, getAdmin());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error inserting data into database", e);
