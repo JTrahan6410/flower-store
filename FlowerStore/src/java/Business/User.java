@@ -12,7 +12,8 @@ public class User {
     String userPassword, firstName,
            lastName, email;
     
-    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    String databaseURL = "jdbc:ucanaccess://" + databasePath;
     //String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //Constructors
