@@ -1,149 +1,116 @@
 package Business;
 
+// Utilizing the DatabaseHook class for database connections
+import Database.DatabaseHook;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-/**************************************************************
-
-   JACOB TRAHAN - adapted from Jose Gomez (9/18/23)
-
-   Adv Sys Project - Oct 5, 2023
-
- **************************************************************/
-
+/**
+ * JACOB TRAHAN - adapted from Jose Gomez (9/18/23)
+ * Adv Sys Project - Oct 5, 2023
+ * This class extends the GuestUser class and adds authentication and admin status functionality.
+ */
 public class User extends GuestUser {
-
-    private static String vardatabaseURL;
     private String userPassword;
-    private Boolean admin;
+    private boolean admin;
 
     // Default constructor
-    public User(String databaseURL) {
-        super(); // Call the constructor of the superclass (GuestUser)
-        userPassword = "";
-        admin = false;
+    public User() {
+        super(); // Invoke superclass (GuestUser) constructor
+        this.userPassword = "";
+        this.admin = false;
     }
 
     // Parameterized constructor
-    public User(int userID, String email, String userPassword, String firstName, String lastName, Boolean admin, String databaseURL) {
-        super(userID, email, firstName, lastName, databaseURL);
+    public User(int userID, String email, String userPassword, String firstName, String lastName) {
+        super(userID, email, firstName, lastName);
         this.userPassword = userPassword;
-        this.admin = admin;
+        this.admin = false;
     }
 
+    // Getter for user password
+    public String getUserPassword() { return userPassword; }
 
+    // Setter for user password
+    public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
 
-    // Getter and setter methods for all fields
+    // Getter for admin status
+    public Boolean getAdminStatus() { return admin; }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+    // Setter for admin status
+    public void setAdminStatus(Boolean admin) { this.admin = admin; }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public Boolean getAdminStatus() {
-        return admin;
-    }
-
-    public void setAdminStatus(Boolean admin) {
-        this.admin = admin;
-    }
-
-    // Display method to print user information
+    // Display method overriding the superclass method to include admin status
     @Override
     public void display() {
-        System.out.println("User ID = " + getUserID());
-        System.out.println("User Email = " + getEMail());
-        System.out.println("User Password = " + getUserPassword());
-        System.out.println("First Name = " + getFirstName());
-        System.out.println("Last Name = " + getLastName());
+        super.display(); // Call the display method of the superclass
         System.out.println("Admin Status = " + getAdminStatus());
     }
 
-    /**
-     * Selects user information from the database based on email.
-     *
-     * @param eMail Email of the user to retrieve.
-     */
+    // Method for selecting a user from the database
     @Override
-    public void selectDB(String eMail) {
-        this.eMail = eMail;
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-                String sql = "SELECT * FROM Users WHERE email = ?";
-                try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                    statement.setString(1, getEMail());
-                    ResultSet rs = statement.executeQuery();
-                    if (rs.next()) {
-                        setUserPassword(rs.getString("userPassword"));
-                        setFirstName(rs.getString("firstName"));
-                        setLastName(rs.getString("lastName"));
-                        setAdminStatus(rs.getBoolean("admin"));
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
+       public void selectDB(String email) {
+           String sql = "SELECT * FROM Users WHERE email = ?";
+           try (Connection conn = DatabaseHook.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+               statement.setString(1, email);
+               try (ResultSet rs = statement.executeQuery()) {
+                   if (rs.next()) {
+                       // Assuming that 'userID' and other column names match the field names
+                       setUserID(rs.getInt("userID"));
+                       setUserPassword(rs.getString("userPassword"));
+                       setFirstName(rs.getString("firstName"));
+                       setLastName(rs.getString("lastName"));
+                       setAdminStatus(rs.getBoolean("admin"));
+                   }
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Error accessing database", e);
+           }
+       }
+
+    // Method for inserting a new user into the database
+    public void insertDB() {
+        String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, admin) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseHook.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            
+            statement.setString(1, getEmail());
+            statement.setString(2, userPassword);
+            statement.setString(3, getFirstName());
+            statement.setString(4, getLastName());
+            statement.setBoolean(5, admin);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error inserting data into database", e);
         }
     }
 
-    // Inserts user information into the database.
-    public void insertDB(String eMail, String userPassword, String firstName, String lastName) {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-                String sql = "INSERT INTO Users (email, userPassword, firstName, lastName) VALUES (?, ?, ?, ?)";
-                try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                    statement.setString(1, eMail);
-                    statement.setString(2, userPassword);
-                    statement.setString(3, firstName);
-                    statement.setString(4, lastName);
-                    statement.executeUpdate();
-                    System.out.println(sql);
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
-        }
-    }
-
-    // Updates user information in the database.
+    // Method for updating an existing user's details in the database
     @Override
     public void updateDB() {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
-                String sql = "UPDATE Users SET email = ?, password = ?, firstName = ?, lastName = ?, admin = ? WHERE email = ?";
-                try (PreparedStatement statement = conn.prepareStatement(sql)) {
-                    // Set values for the placeholders in the prepared statement
-                    statement.setString(1, eMail);
-                    statement.setString(2, userPassword);
-                    statement.setString(3, getFirstName());
-                    statement.setString(4, getLastName());
-                    statement.setBoolean(5, admin);
-                    statement.setString(6, eMail);
-
-                    // Execute the UPDATE statement to modify user information
-                    statement.executeUpdate();
-
-                    // Print the generated SQL query (for debugging)
-                    System.out.println(sql);
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e);
+        String sql = "UPDATE Users SET email = ?, userPassword = ?, firstName = ?, lastName = ?, admin = ? WHERE userID = ?";
+        try (Connection conn = DatabaseHook.getConnection();
+             PreparedStatement statement = conn.prepareStatement(sql)) {
+            
+            statement.setString(1, getEmail());
+            statement.setString(2, userPassword);
+            statement.setString(3, getFirstName());
+            statement.setString(4, getLastName());
+            statement.setBoolean(5, admin);
+            statement.setInt(6, getUserID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating database", e);
         }
     }
 
-    // Main method for testing
+    // Main method for testing purposes
     public static void main(String[] args) {
-        User u1 = new User(vardatabaseURL);
+        User u1 = new User();
         u1.selectDB("jtrahan@students.chattahoocheetech.edu");
         u1.display();
     }

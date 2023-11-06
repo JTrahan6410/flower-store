@@ -9,12 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /****************************
  * Project
- * @author Jose V Gomez
- * 9/16/23
+ * @author Jose V Gomez - adapted by Jacob Trahan
+ * 9/16/23 - last updated 11/2/23
  ***************************/
 @WebServlet(name = "CreateAccountServlet", urlPatterns = {"/CreateAccountServlet"})
 public class CreateAccountServlet extends HttpServlet {
@@ -23,35 +22,44 @@ public class CreateAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
         String firstNameInput, lastNameInput, emailInput, passwordInput;
-        try{
             emailInput = request.getParameter("email");
             firstNameInput = request.getParameter("firstname");
             lastNameInput = request.getParameter("lastname");
             passwordInput = request.getParameter("password");
             
-            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
+            //logging for debugging purposes
+            log("User Info: " + firstNameInput + ", " + lastNameInput);
             
-            String databaseURL = getServletContext().getRealPath("../FlowerStoreDatabase.accdb");
-            System.out.println(databaseURL);
+            try {
+            // Create a new User object and set its attributes
+            User newUser = new User();
+            newUser.setEmail(emailInput);
+            newUser.setUserPassword(passwordInput);
+            newUser.setFirstName(firstNameInput);
+            newUser.setLastName(lastNameInput);
+            newUser.setAdminStatus(false); // Default admin status set to false for new accounts
             
-            User u1 = new User(databaseURL);
-            u1.insertDB(emailInput, passwordInput, firstNameInput,lastNameInput);
-             u1.selectDB(emailInput);
-                u1.display();
-                HttpSession session1 = request.getSession();
-                session1.setAttribute("u1", u1);
-                System.out.println("User added to session...");
+            // Insert the new user into the database
+            newUser.insertDB();
+            
+            
+            newUser.selectDB(emailInput);
+            newUser.display();
+            // adds new user to the session
+            HttpSession session = request.getSession();
+            session.setAttribute("user", newUser);
+            log("User added to session...");
 
-
-            u1.display();
-            
+            // Forward to the account page
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-            
-        }catch(Exception e){
-            System.out.println(e);
+
+        } catch (ServletException | IOException e) {
+            log("CreateAccountServlet Exception: " + e.getMessage(), e);
+            // Forward to an error page or handle the exception appropriately
+             response.sendRedirect("errorPage.jsp");
+            // Alternatively, you can use a RequestDispatcher as shown above for consistency.
         }
     }
 

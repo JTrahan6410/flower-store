@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /****************************
  * Project
@@ -19,47 +18,47 @@ import java.io.PrintWriter;
 @WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
 public class UpdateUserServlet extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, emailInput, passwordInput;
-        
-        
-        try{
-            
-            emailInput = request.getParameter("email");
-            firstNameInput = request.getParameter("firstName");
-            lastNameInput = request.getParameter("lastName");
-            passwordInput = request.getParameter("userPassword");
-            
-            
-            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
-            
-            User u1;
-            HttpSession ses1 = request.getSession();
-            u1 = (User)ses1.getAttribute("u1");
-            
-            
-            u1.setEMail(emailInput);
-            u1.setFirstName(firstNameInput);
-            u1.setLastName(lastNameInput);
-            u1.setUserPassword(passwordInput);
-            
-            
-            u1.updateDB();
-            u1.display();
-            
+
+        // Extract user input from request parameters
+        String emailInput = request.getParameter("email");
+        String firstNameInput = request.getParameter("firstName");
+        String lastNameInput = request.getParameter("lastName");
+        String passwordInput = request.getParameter("userPassword");
+
+        // Log for debugging purposes
+        log("Attempting to update user - Email: " + emailInput + ", First Name: " + firstNameInput + ", Last Name: " + lastNameInput + ", Password: " + passwordInput);
+
+        try {
+            // Retrieve the current user from session
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+                throw new IllegalStateException("Session not found");
+            }
+            User user = (User) session.getAttribute("user");
+            if (user == null) {
+                throw new IllegalStateException("User not found in session");
+            }
+
+            // Update user details
+            user.setEmail(emailInput);
+            user.setFirstName(firstNameInput);
+            user.setLastName(lastNameInput);
+            user.setUserPassword(passwordInput);
+            // Persist changes to the database
+            user.updateDB();
+            // Log user info after update
+            user.display();
+            // Forward to the account page
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-            
-            
-            
-            
-        }catch(Exception e){
-            System.out.println(e);
+        } catch (ServletException | IOException | IllegalStateException e) {
+            log("UpdateUserServlet Exception: " + e.getMessage(), e);
+            // Forward to an error page or handle the exception appropriately
+             response.sendRedirect("errorPage.jsp");
+            // Alternatively, use RequestDispatcher for consistency with the rest of the application.
         }
     }
 
