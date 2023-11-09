@@ -3,7 +3,6 @@ package Business;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
     /********************************************
     *                                           *
     *               Jose Gomez                  *
@@ -22,28 +21,35 @@ public class Product {
     private String productCode;
     private String productName;
     private String productDescription;
-    private String productCost;
+    private Double productCost;
     private String productOccasion;
     private String productImage;
     String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
-
+    private Connection con;
+    private String query;
+    private PreparedStatement pst;
+    private ResultSet rs;
 
     /********************************************
     *                                           *
     *               Constructors                *
     *                                           *
     *********************************************/
+    public Product(Connection con){
+        this.con = con;
+    }
+    
     public Product() {
         productCode = "";
         productName = "";
         productDescription = "";
-        productCost = "";
+        productCost = 0.00;
         productOccasion = "";
         productImage = "";
     }
 
-    public Product(String productCode, String productName, String productDescription, String productCost, String productOccasion, String productImage) {
+    public Product(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
         this.productCode = productCode;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -67,14 +73,14 @@ public class Product {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             Connection con = (Connection) DriverManager.getConnection(databaseURL);
             Statement stmt = con.createStatement();
-            ResultSet rs;
+            //ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM Products WHERE productCode ='" + productCode + "'" );
             rs.next();
             
             this.productCode = rs.getString(1);
             productName = rs.getString(2);
             productDescription = rs.getString(3);
-            productCost = rs.getString(4);
+            productCost = rs.getDouble(4);
             productOccasion = rs.getString(5);
             productOccasion = rs.getString(6);
             
@@ -86,7 +92,7 @@ public class Product {
         //getAllProducts();
     }
     
-    public void insertDB(String productCode, String productName, String productDescription, String productCost, String productOccasion, String productImage){
+    public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage){
     
         try{
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -160,7 +166,7 @@ public class Product {
             
             Statement stmt = con.createStatement();
             
-            ResultSet rs;
+            //ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM Products");
             
             while(rs.next()){
@@ -168,7 +174,7 @@ public class Product {
                 row.setProductCode(rs.getString("productCode"));
                 row.setProductName(rs.getString("productName"));
                 row.setProductDescription(rs.getString("productDescription"));
-                row.setProductCost(rs.getString("productCost"));
+                row.setProductCost(rs.getDouble("productCost"));
                 row.setProductOccasion(rs.getString("productOccasion"));
                 row.setProductImage(rs.getString("productImage"));
                 
@@ -182,6 +188,45 @@ public class Product {
         }
         return products;
     }
+    
+    public List<Cart> getCartProducts(ArrayList<Cart> cartList){
+        List<Cart> products = new ArrayList<Cart>();
+        
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            if(!cartList.isEmpty()){
+                for(Cart item:cartList){
+                    query = "SELECT * FROM Products WHERE productCode=?";
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, item.getProductCode());
+                    rs = pst.executeQuery();
+
+                    while(rs.next()){
+                        Cart row = new Cart();
+                        row.setProductCode(rs.getString("productCode"));
+                        row.setProductName(rs.getString("productName"));
+                        row.setProductImage(rs.getString("productImage"));
+                        row.setProductDescription(rs.getString("productDescription"));
+                        row.setProductCost(rs.getDouble("productCost")*item.getQuantity());
+                        row.setQuantity(item.getQuantity());
+                        products.add(row);
+                    }                    
+                }
+            }
+            
+        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            
+        }
+        
+        return products;
+        
+    }
+    
     
     /********************************************
     *                                           *
@@ -212,11 +257,11 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public String getProductCost() {
+    public Double getProductCost() {
         return productCost;
     }
 
-    public void setProductCost(String productCost) {
+    public void setProductCost(Double productCost) {
         this.productCost = productCost;
     }
 
@@ -259,10 +304,10 @@ public class Product {
      * @param args
 ******************************************************************/
     public static void main(String[] args) {
-        Product p1 = new Product();
-        p1.selectDB("P114");
+        //Product p1 = new Product();
+        //p1.selectDB("P114");
         //p1.getProducts();
-        p1.display();
+        //p1.display();
         
         
         //Product p2 = new Product();
@@ -278,8 +323,5 @@ public class Product {
         //Product p4 = new Product();
         //p4.selectDB("P024");
         //p4.deleteDB();
-    }
-    
-    
-        
+    }  
 }

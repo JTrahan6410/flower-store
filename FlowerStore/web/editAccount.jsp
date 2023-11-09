@@ -19,8 +19,12 @@
             <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
             <nav class="navbar">
             <a href="index.jsp">home</a>
-            <a href="product.jsp">products</a>
-            <a href="catalog.jsp">cart</a>
+            <a href="catalog.jsp">products</a>
+            <% if(cart_list!=null){%>
+                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
+        <% }else{%>
+                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
+         <%} %>    
         <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
