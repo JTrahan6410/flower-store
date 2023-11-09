@@ -4,11 +4,21 @@
     Author     : lena
 --%>
 <%@page import="Business.*"%>
+<%@page import="Connection.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+    List<Cart> cartProduct = null;
+    if(cart_list != null){
+        Product prod1 = new Product(DbCon.getConnection());
+        cartProduct = prod1.getCartProducts(cart_list);
+        request.setAttribute("cart_list", cart_list);
 
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +26,7 @@
         <title>Product Page</title>
         <link rel="stylesheet" type ="text/css" href="style.css">
         <link rel="stylesheet" type ="text/css" href="catalogStyle.css">
+        <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -23,7 +34,11 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-                <a href="catalog.jsp">cart</a>
+        <% if(cart_list!=null){%>
+                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
+        <% }else{%>
+                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
+         <%} %>    
         <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
@@ -44,7 +59,7 @@
                 Product prod1 = new Product();
                 List<Product> products = prod1.getAllProducts();
                 //prod1 = (Product)session.getAttribute("p1");
-                prod1.selectDB("P114");
+                //prod1.selectDB("P114");
                 
             %>
 
@@ -55,7 +70,7 @@
                         <img src="<%= p.getProductImage() %>" alt="">
                         <div class="icons">
                             
-                            <a href="#" class="cart-btn">add to cart</a>
+                            <a href="add-to-cart?productCode=<%= p.getProductCode() %>" class="cart-btn">add to cart</a>
                             
                         </div>
                     </div>
