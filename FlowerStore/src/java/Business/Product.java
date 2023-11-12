@@ -24,7 +24,21 @@ public class Product {
     private Double productCost;
     private String productOccasion;
     private String productImage;
-    String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+        // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+    
+    //for Jose
+//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Salena
+//    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Jacob
+    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    
+    //</editor-fold>
+    
+    final String databaseURL = "jdbc:ucanaccess://" + databasePath;
     
     private Connection con;
     private String query;

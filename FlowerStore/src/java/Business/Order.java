@@ -16,8 +16,20 @@ public class Order {
     private int mailZip;
     private String billName, billStreetAddress, billCity, billState;
     private int billZip;
-    //protected final String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    protected final String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+    
+    //for Jose
+//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Salena
+//    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Jacob
+    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    
+    //</editor-fold>
+    
+    final String databaseURL = "jdbc:ucanaccess://" + databasePath;
     
     public Order() {
         orderID = 0;
