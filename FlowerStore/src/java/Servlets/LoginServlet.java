@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("u1", user);
             System.out.println("User added to session...");
 
-            // Decision-making: If user id and user password match, forward to account page; else forward to error page
+            // Decision-making: If email and user password match, forward to account page; else forward to error page
             if (email.equals(user.getEmail()) && pwInput.equals(user.getUserPassword())) {
                 request.getRequestDispatcher("account.jsp").forward(request, response);
             } else {
