@@ -1,21 +1,29 @@
-package business;
+package Business;
 
-import java.sql.*;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
-/**
- *
- * @author lena
- */
+/**************************************************************
+
+   ADAPTED BY JACOB TRAHAN - originally created by Trent Cargle
+
+   Adv Sys Project - Sept 30, 2023
+
+ **************************************************************/
 public class Order {
     private int orderID;
-    private String email;
-    private String productCode;
-    private String orderPlaced;
-    private String requestedDelivery;
-    private String mailName, mailStreetAddress, mailCity, mailState;
-    private int mailZip;
-    private String billName, billStreetAddress, billCity, billState;
-    private int billZip;
+    private int userID;
+    private Date orderDateTime;
+    private Date orderRequested;
+    private BigDecimal orderTotal;
+    private String cardNumber;
+    private Date cardExpiry;
+    private String cardCVV;
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
@@ -28,191 +36,143 @@ public class Order {
     final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
     
     //</editor-fold>
-    
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
     
+    
+
+    // Default constructor
     public Order() {
+        // Initialize variables to default values
         orderID = 0;
-        email = "";
-        productCode = "";
-        orderPlaced = "";
-        requestedDelivery = "";
-        mailName = "";
-        mailStreetAddress = "";
-        mailCity = "";
-        mailState = "";
-        mailZip = 0;
-        billName = "";
-        billStreetAddress = "";
-        billCity = "";
-        billState = "";
-        billZip = 0;
-        
+        userID = 0;
+        orderDateTime = null;
+        orderRequested = null;
+        orderTotal = BigDecimal.ZERO;
+        cardNumber = "";
+        cardExpiry = null;
+        cardCVV = "";
     }
 
-    public Order(int orderID, String email, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip) {
+    // Parameterized constructor
+    public Order(int orderID, int userID, Date orderDateTime, Date orderRequested, BigDecimal orderTotal,
+                  String cardNumber, Date cardExpiry, String cardCVV) {
+        // Set values based on constructor parameters
         this.orderID = orderID;
-        this.email = email;
-        this.productCode = productCode;
-        this.orderPlaced = orderPlaced;
-        this.requestedDelivery = requestedDelivery;
-        this.mailName = mailName;
-        this.mailStreetAddress = mailStreetAddress;
-        this.mailCity = mailCity;
-        this.mailState = mailState;
-        this.mailZip = mailZip;
-        this.billName = billName;
-        this.billStreetAddress = billStreetAddress;
-        this.billCity = billCity;
-        this.billState = billState;
-        this.billZip = billZip;
+        this.userID = userID;
+        this.orderDateTime = orderDateTime;
+        this.orderRequested = orderRequested;
+        this.orderTotal = orderTotal;
+        this.cardNumber = cardNumber;
+        this.cardExpiry = cardExpiry;
+        this.cardCVV = cardCVV;
     }
-    
-    public int getorderID() { return orderID; }
-    public void setoderID(int orderID) { this.orderID = orderID; }
-    
-    public String getemail() { return email; }
-    public void setemail(String email) { this.email = email; }
-    
-    public String getproductCode() { return productCode; }
-    public void setproductCode(String productCode) { this.productCode = productCode; }
-    
-    public String getorderPlaced() { return orderPlaced; }
-    public void setorderPlaced(String orderPlaced) { this.orderPlaced = orderPlaced; }
-    
-    public String getrequestedDelivery() { return requestedDelivery; }
-    public void setrequestedDelivery(String requestedDelivery) { this.requestedDelivery = requestedDelivery; }
-    
-    public String getmailName() { return mailName; }
-    public void setmailName(String mailName) { this.mailName = mailName; }
 
-    public String getmailStreetAddress() { return mailStreetAddress; }
-    public void setmailStreetAddress(String mailStreetAddress) { this.mailStreetAddress = mailStreetAddress; }
-    
-    public String getmailCity() { return mailCity; }
-    public void setmailCity(String mailCity) { this.mailCity = mailCity; }
-    
-    public String getmailState() { return mailState; }
-    public void setmailState(String mailState) { this.mailState = mailState; }
+    // Getters and Setters
+    public int getOrderID() { return orderID; }
+    public void setOrderID(int orderID) { this.orderID = orderID; }
 
-    public int getmailZip() { return mailZip; }
-    public void setmailZip(int mailZip) { this.mailZip = mailZip; }
-    
-    public String getbillName() { return billName; }
-    public void setbillName(String billName) { this.billName = billName; }
+    public int getUserID() { return userID; }
+    public void setUserID(int userID) { this.userID = userID; }
 
-    public String getbillStreetAddress() { return billStreetAddress; }
-    public void setbillStreetAddress(String billStreetAddress) { this.billStreetAddress = billStreetAddress; }
-    
-    public String getbillCity() { return billCity; }
-    public void setbillCity(String billCity) { this.billCity = billCity; }
-    
-    public String getbillState() { return billState; }
-    public void setbillState(String billState) { this.billState = billState; }
+    public Date getOrderDateTime() { return orderDateTime; }
+    public void setOrderDateTime(Date orderDateTime) { this.orderDateTime = orderDateTime; }
 
-    public int getbillZip() { return billZip; }
-    public void setbillZip(int billZip) { this.billZip = billZip; }
+    public Date getOrderRequested() { return orderRequested; }
+    public void setOrderRequested(Date orderRequested) { this.orderRequested = orderRequested; }
+
+    public BigDecimal getOrderTotal() { return orderTotal; }
+    public void setOrderTotal(BigDecimal orderTotal) { this.orderTotal = orderTotal; }
+
+    public String getCardNumber() { return cardNumber; }
+    public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
+
+    public Date getCardExpiry() { return cardExpiry; }
+    public void setCardExpiry(Date cardExpiry) { this.cardExpiry = cardExpiry; }
+
+    public String getCardCVV() { return cardCVV; }
+    public void setCardCVV(String cardCVV) { this.cardCVV = cardCVV; }
+
+    // display method
     
     public void display() {
-        System.out.println("Order ID = " + getorderID());
-        System.out.println("Email = " + getemail());
-        System.out.println("Product Code = " + getproductCode());
-        System.out.println("Order Placed = " + getorderPlaced());
-        System.out.println("Requested Delivery = " + getrequestedDelivery());
-        System.out.println("Mailing Name = " + getmailName());
-        System.out.println("Mailing Street Address= " + getmailStreetAddress());
-        System.out.println("Mailing City = " + getmailCity());
-        System.out.println("Mailing State = " + getmailState());
-        System.out.println("Mailing Zip= " + getmailZip());
-        System.out.println("Billing Name = " + getbillName());
-        System.out.println("Billing Street Address= " + getbillStreetAddress());
-        System.out.println("Billing City = " + getbillCity());
-        System.out.println("Billing State = " + getbillState());
-        System.out.println("Billing Zip= " + getbillZip());
-    }
+        System.out.println("Order ID: " + getOrderID());
+        System.out.println("User ID: " + getUserID());
+        System.out.println("Order Date Time: " + getOrderDateTime());
+        System.out.println("Order Requested Date: " + getOrderRequested());
+        System.out.println("Order Total: $" + getOrderTotal());
+        System.out.println("Card Number: " + getCardNumber());
+        System.out.println("Card Expiry: " + getCardExpiry());
+        System.out.println("Card CVV: " + getCardCVV());
+}
+    
+    // Database methods
     
     public void selectDB(int orderID) {
-        this.orderID = orderID;
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = (Connection) DriverManager.getConnection(databaseURL);
-            Statement stmt = con.createStatement();
-            ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM Orders WHERE orderID = '" + orderID + "'" );
-            rs.next();
-                    this.orderID = rs.getInt(1);
-                    email = rs.getString(2);
-                    productCode = rs.getString(3);
-                    orderPlaced = rs.getString(4);
-                    requestedDelivery = rs.getString(5);
-                    mailName = rs.getString(6);
-                    mailStreetAddress = rs.getString(7);
-                    mailCity = rs.getString(8);
-                    mailState = rs.getString(9);
-                    mailZip = rs.getInt(10);
-                    billName = rs.getString(11);
-                    billStreetAddress = rs.getString(12);
-                    billCity = rs.getString(13);
-                    billState = rs.getString(14);
-                    billZip = rs.getInt(15);
-            con.close();
-   
-        }
-        catch(Exception e){
-            
-            System.out.println(e);   
-        }
-    }
-    
-    public void insertDB(int orderID, String email, String productCode, String orderPlaced, String requestedDelivery, String mailName, String mailStreetAddress, String mailCity, String mailState, int mailZip, String billName, String billStreetAddress, String billCity, String billState, int billZip){
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = DriverManager.getConnection(databaseURL);
-            System.out.println("Database connected...");
-            
-            Statement stmt = con.createStatement();
-            
-            String sql = "INSERT INTO Orders VALUES ('"+orderID+"','" +email+"','" +productCode+"','" +orderPlaced+"','"+requestedDelivery+"','"+mailName+"','"+mailStreetAddress+"','"+mailCity+"','"+mailState+"','"+mailZip+"','"+billName+"','"+billStreetAddress+"','"+billCity+"','"+billState+"','"+billZip+"')";
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            
-            con.close();
-            				
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
+                String sql = "SELECT * FROM Orders WHERE orderID = ?";
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    statement.setInt(1, orderID);
+                    ResultSet rs = statement.executeQuery();
+                    if (rs.next()) {
+                        setOrderID(rs.getInt("orderID"));
+                        setUserID(rs.getInt("userID"));
+                        setOrderDateTime(rs.getDate("orderDateTime"));
+                        setOrderRequested(rs.getDate("orderRequested"));
+                        setOrderTotal(rs.getBigDecimal("orderTotal"));
+                        setCardNumber(rs.getString("cardNumber"));
+                        setCardExpiry(rs.getDate("cardExpiry"));
+                        setCardCVV(rs.getString("cardCVV"));
+                    }
+                }
+            }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         }
     }
-    
-    public void updateDB() {
-     try {
-        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = DriverManager.getConnection(databaseURL);
-            System.out.println("Database connected...");
-            
-            Statement stmt = con.createStatement();
-            String sql = "UPDATE Orders SET orderID = '"+orderID+"', email = '"+email+"', productCode = '"+productCode+"', orderPlaced = '"+orderPlaced+"', requestedDelivery = '"+requestedDelivery+"', mailName = '"+mailName+"', mailStreetAddress = '"+mailStreetAddress+"', mailCity = '"+mailCity+"', mailState = '"+mailState+"', mailZip = '"+mailZip+"', billName = '"+billName+"', billStreetAddress = '"+billStreetAddress+"', billCity = '"+billCity+"', billState = '"+billState+"', billZip = '"+billZip+"'WHERE orderID =" + getorderID();
-            
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            
-            con.close();
-        
-    }catch (ClassNotFoundException | SQLException e) {
-        System.out.println(e);
+
+    public void insertDB() {
+        try {
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
+                String sql = "INSERT INTO Orders (userID, orderDateTime, orderRequested, orderTotal, cardNumber, cardExpiry, cardCVV, mailingAddressID, billingAddressID) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    statement.setInt(1, getUserID());
+                    statement.setDate(2, getOrderDateTime());
+                    statement.setDate(3, getOrderRequested());
+                    statement.setBigDecimal(4, getOrderTotal());
+                    statement.setString(5, getCardNumber());
+                    statement.setDate(6, getCardExpiry());
+                    statement.setString(7, getCardCVV());
+
+                    statement.executeUpdate();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
         }
     }
-    
-    public static void main(String[] args) {
-        //Order o1 = new Order();
-        //o1.selectDB(1);
-        //o1.display();
-        
-        //Order o2 = new Order();
-        //o2.insertDB(4, "6", "P800", "10/18/23 12:35:00 pm", "", "Samuel Smith", "306 Turner St", "Flushing", "NY", 10034, "Elma Clarissa", "600 Mayfair St", "Brooklyn", "NY", 11218);
 
-        //Order o3 = new Order();
-        //o3.selectDB(3);
-        //o3.setbillStreetAddress("648 Eiffle St");
-        //o3.updateDB();
+    public void deleteDB() {
+        try {
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
+                String sql = "DELETE FROM Orders WHERE orderID = ?";
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    statement.setInt(1, getOrderID());
+                    statement.executeUpdate();
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        Order o1 = new Order();
+        o1.selectDB(1);
+        o1.display();
     }
 }
