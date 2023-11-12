@@ -4,19 +4,15 @@
     Author     : Nick Boudreaux
 --%>
 <%@page import="Business.*"%>
-<%@page import="Connection.*"%>
 <%@page import="java.util.*"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
     List<Cart> cartProduct = null;
     if(cart_list != null){
-        Product prod1 = new Product(DbCon.getConnection());
+        Product prod1 = new Product();
         cartProduct = prod1.getCartProducts(cart_list);
         request.setAttribute("cart_list", cart_list);
-
     }
 %>
 <!DOCTYPE html>
@@ -27,14 +23,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
         <link rel="stylesheet" href="style.css">
-        <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+        <!--<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">-->
         <script>
             //Function to validate customer id and password
             function validateForm(){
-                let x = document.forms["login-form"]["email"].value;
-                let x2 = document.forms["login-form"]["userpw"].value;
+                let email = document.forms["login-form"]["email"].value;
+                let password = document.forms["login-form"]["userpw"].value;
             //Pop-up a message if customerid or password is empty 
-                if(x === "" || x2 === ""){
+                if(email === "" || password === ""){
                     alert("Please enter a valid Email and password.");
                     return false;
                 }    
@@ -43,7 +39,7 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
+            <a href="index.jsp" class="logo">Atlanta flowers<span></span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
@@ -71,35 +67,36 @@
         </section>
 	<section class="footer">
             <div class="box-container">
-		<div class="box">
+                <div class="box">
                     <h3>quick links</h3>
-                        <a href="index.html">home</a>
-			<a href="#">about</a>
-			<a href="product.jsp">products</a>
-			<a href="#">review</a>
-			<a href="#">contact</a>
-		</div>
-		<div class="box">
+                        <a href="index.jsp">home</a>
+                        <!--<a href="#">about</a>-->
+                        <a href="product.jsp">products</a>
+                        <!--<a href="#">review</a>-->
+                        <!--<a href="#">contact</a>-->
+                </div>
+                <div class="box">
                     <h3>extra links</h3>
-			<a href="account.jsp">my account</a>
-			<a href="#">my order</a>
-			<a href="#">my favorite</a>
-		</div>
+                        <a href="account.jsp">my account</a>
+                        <a href="cart.jsp">my cart</a>
+                        <!--<a href="#">my favorite</a>-->
+                </div>
                 <div class="box">
                     <h3>locations</h3>
-			<a href="#">india</a>
-			<a href="#">USA</a>
-			<a href="#">japan</a>
-			<a href="#">france</a>
-		</div>
-		<div class="box">
+                    Georgia<br>
+                    Florida<br>
+                    Tennessee <br>
+                    Alabama <br>
+                </div>
+                <div class="box">
                     <h3>contact info</h3>
-			<a href="#">+123-456-7890</a>
-			<a href="#">example@email.com</a>
-			<a href="#">mumbai,india -400104</a>
-			<img src="pymnt-1.jpg" alt="">
-		</div>
+                        <a href=“tel:4041234567”>404-123-4567</a>
+                        <a href="mailto:help@atlflowers.com">help@atlflowers.com</a>
+                        <a href="#">Atlanta, GA 30116</a>
+                        <img src="assets/pymnt-1.jpg" alt="">
+                </div>
             </div>
-	</section>
+            <div class="credit"> created by <span> Group 2 CIST 2931 </span> | all rights reserved </div>
+        </section>
     </body>
 </html>

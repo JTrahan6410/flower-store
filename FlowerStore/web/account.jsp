@@ -4,19 +4,15 @@
     Author     : cargle
 --%>
 <%@page import="Business.*"%>
-<%@page import="Connection.*"%>
 <%@page import="java.util.*"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
     List<Cart> cartProduct = null;
     if(cart_list != null){
-        Product prod1 = new Product(DbCon.getConnection());
+        Product prod1 = new Product();
         cartProduct = prod1.getCartProducts(cart_list);
         request.setAttribute("cart_list", cart_list);
-
     }
 %>
 <!DOCTYPE html>
@@ -119,7 +115,7 @@
                 </div>
                 <div class="box">
                     <h3>contact info</h3>
-                        <a href=“tel:404-123-4567”>404-123-4567</a>
+                        <a href=“tel:4041234567”>404-123-4567</a>
                         <a href="mailto:help@atlflowers.com">help@atlflowers.com</a>
                         <a href="#">Atlanta, GA 30116</a>
                         <img src="assets/pymnt-1.jpg" alt="">

@@ -18,70 +18,50 @@ import java.util.ArrayList;
 @WebServlet(name = "AddToCartServlet", urlPatterns = {"/add-to-cart"})
 public class AddToCartServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-        }
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         
         try (PrintWriter out = response.getWriter()) {
-            ArrayList<Cart> cartList = new ArrayList<>();
-            
             String productCode = request.getParameter("productCode");
-            Cart cm = new Cart();
-            cm.setProductCode(productCode);
-            cm.setQuantity(1);
+            HttpSession session = request.getSession();
+            ArrayList<Cart> cartList = (ArrayList<Cart>) session.getAttribute("cart-list");
             
-            HttpSession session1 = request.getSession();
-            session1.getAttribute("cart-list");
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session1.getAttribute("cart-list");
-            
-            if(cart_list == null){
-                
-                cartList.add(cm);
-                session1.setAttribute("cart-list", cartList);
+            if (cartList == null) {
+                cartList = new ArrayList<>();
+                Cart cartItem = new Cart();
+                cartItem.setProductCode(productCode);
+                cartItem.setQuantity(1);
+                cartList.add(cartItem);
+                session.setAttribute("cart-list", cartList);
                 response.sendRedirect("catalog.jsp");
-                
-            }else{
-                
-                cartList = cart_list;
-                boolean exist = false;
-                
-                for(Cart c:cart_list){
-                    if(c.getProductCode().equals(productCode)){
-                        exist = true;
-                        out.println("<h3 style='color:crimson; text-align:center'>Item already exist in cart.<a href='cart.jsp'>Go to Cart Page</a>");
+            } else {
+                boolean exists = false;
+                for (Cart item : cartList) {
+                    if (item.getProductCode().equals(productCode)) {
+                        exists = true;
+                        out.println("<h3 style='color:crimson; text-align:center'>Item already exists in cart. <a href='cart.jsp'>Go to Cart Page</a></h3>");
+                        break;
                     }
                 }
-                    if(!exist){
-                        cartList.add(cm);
-                        response.sendRedirect("catalog.jsp");
-                    }
+                if (!exists) {
+                    Cart cartItem = new Cart();
+                    cartItem.setProductCode(productCode);
+                    cartItem.setQuantity(1);
+                    cartList.add(cartItem);
+                    response.sendRedirect("catalog.jsp");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        
     /**
      * Returns a short description of the servlet.
      *
@@ -89,7 +69,7 @@ public class AddToCartServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Adds Product to Cart";
     }// </editor-fold>
 
 }

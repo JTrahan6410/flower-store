@@ -108,7 +108,7 @@
                 </div>
                 <div class="box">
                     <h3>contact info</h3>
-                        <a href=“tel:404-123-4567”>404-123-4567</a>
+                        <a href=“tel:4041234567”>404-123-4567</a>
                         <a href="mailto:help@atlflowers.com">help@atlflowers.com</a>
                         <a href="#">Atlanta, GA 30116</a>
                         <img src="assets/pymnt-1.jpg" alt="">
