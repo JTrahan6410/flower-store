@@ -16,11 +16,15 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
+            <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
             <a href="index.jsp">home</a>
-            <a href="product.jsp">products</a>
-            <a href="catalog.jsp">cart</a>
+            <a href="catalog.jsp">products</a>
+            <% if(cart_list!=null){%>
+                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
+        <% }else{%>
+                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
+         <%} %>    
         <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
@@ -83,31 +87,31 @@
             <div class="box-container">
                 <div class="box">
                     <h3>quick links</h3>
-                    <a href="#">home</a>
-                    <a href="#">about</a>
-                    <a href="#">products</a>
-                    <a href="#">review</a>
-                    <a href="#">contact</a>
+                        <a href="index.jsp">home</a>
+                        <!--<a href="#">about</a>-->
+                        <a href="product.jsp">products</a>
+                        <!--<a href="#">review</a>-->
+                        <!--<a href="#">contact</a>-->
                 </div>
                 <div class="box">
                     <h3>extra links</h3>
-                    <a href="#">my account</a>
-                    <a href="#">my order</a>
-                    <a href="#">my favorite</a>
+                        <a href="account.jsp">my account</a>
+                        <a href="cart.jsp">my cart</a>
+                        <!--<a href="#">my favorite</a>-->
                 </div>
                 <div class="box">
                     <h3>locations</h3>
-                    <a href="#">Georgia</a>
-                    <a href="#">Florida</a>
-                    <a href="#">Tennesee</a>
-                    <a href="#">Alabama</a>
+                    Georgia<br>
+                    Florida<br>
+                    Tennessee <br>
+                    Alabama <br>
                 </div>
                 <div class="box">
                     <h3>contact info</h3>
-                    <a href="#">+123-456-7890</a>
-                    <a href="#">example@email.com</a>
-                    <a href="#">Mumbai,India -400104</a>
-                    <img src="assets/pymnt-1.jpg" alt="">
+                        <a href=“tel:404-123-4567”>404-123-4567</a>
+                        <a href="mailto:help@atlflowers.com">help@atlflowers.com</a>
+                        <a href="#">Atlanta, GA 30116</a>
+                        <img src="assets/pymnt-1.jpg" alt="">
                 </div>
             </div>
             <div class="credit"> created by <span> Group 2 CIST 2931 </span> | all rights reserved </div>

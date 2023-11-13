@@ -16,8 +16,20 @@ public class Order {
     private int mailZip;
     private String billName, billStreetAddress, billCity, billState;
     private int billZip;
-    //protected final String databaseURL = "jdbc:ucanaccess://E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    protected final String databaseURL = "jdbc:ucanaccess://C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+    
+    //for Jose
+//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Salena
+//    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Jacob
+    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    
+    //</editor-fold>
+    
+    final String databaseURL = "jdbc:ucanaccess://" + databasePath;
     
     public Order() {
         orderID = 0;
@@ -191,9 +203,9 @@ public class Order {
     }
     
     public static void main(String[] args) {
-        Order o1 = new Order();
-        o1.selectDB(1);
-        o1.display();
+        //Order o1 = new Order();
+        //o1.selectDB(1);
+        //o1.display();
         
         //Order o2 = new Order();
         //o2.insertDB(4, "6", "P800", "10/18/23 12:35:00 pm", "", "Samuel Smith", "306 Turner St", "Flushing", "NY", 10034, "Elma Clarissa", "600 Mayfair St", "Brooklyn", "NY", 11218);

@@ -3,8 +3,22 @@
     Created on : Oct 4, 2023, 4:21:25 PM
     Author     : Nick Boudreaux
 --%>
-
+<%@page import="Business.*"%>
+<%@page import="Connection.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+    List<Cart> cartProduct = null;
+    if(cart_list != null){
+        Product prod1 = new Product(DbCon.getConnection());
+        cartProduct = prod1.getCartProducts(cart_list);
+        request.setAttribute("cart_list", cart_list);
+
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,6 +27,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
         <link rel="stylesheet" href="style.css">
+        <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
         <script>
             //Function to validate customer id and password
             function validateForm(){
@@ -32,7 +47,11 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-                <a href="catalog.jsp">cart</a>
+                <% if(cart_list!=null){%>
+                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
+        <% }else{%>
+                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
+         <%} %>    
                 <a href="login.jsp" style="float: right">login</a>
             </nav>
         </header>
