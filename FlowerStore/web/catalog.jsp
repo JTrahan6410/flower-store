@@ -51,6 +51,10 @@
                 <a href="LogoutServlet" style="float: right">logout</a>
         <%}%>
             </nav>
+            <form id="search-form">
+                <input type="text" id="search-box" placeholder="Search...">
+                <a><button>Search</button></a>
+            </form>
         </header>
         <section class="products" id="products">
             <h1 class="heading"> latest <span>products</span></h1>
