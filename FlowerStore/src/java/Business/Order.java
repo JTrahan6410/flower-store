@@ -1,6 +1,5 @@
 package Business;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,14 +15,16 @@ import java.sql.ResultSet;
 
  **************************************************************/
 public class Order {
-    private int orderID;
+    protected int orderID;
     private int userID;
     private Date orderDateTime;
     private Date orderRequested;
-    private BigDecimal orderTotal;
+    private double orderTotal;
     private String cardNumber;
     private Date cardExpiry;
     private String cardCVV;
+    private boolean hasCard;
+    private String cardMessage;
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
@@ -47,15 +48,17 @@ public class Order {
         userID = 0;
         orderDateTime = null;
         orderRequested = null;
-        orderTotal = BigDecimal.ZERO;
+        orderTotal = 0;
         cardNumber = "";
         cardExpiry = null;
         cardCVV = "";
+        hasCard = false;
+        cardMessage = "";
     }
 
     // Parameterized constructor
-    public Order(int orderID, int userID, Date orderDateTime, Date orderRequested, BigDecimal orderTotal,
-                  String cardNumber, Date cardExpiry, String cardCVV) {
+    public Order(int orderID, int userID, Date orderDateTime, Date orderRequested, double orderTotal,
+                  String cardNumber, Date cardExpiry, String cardCVV, boolean hasCard, String cardMessage) {
         // Set values based on constructor parameters
         this.orderID = orderID;
         this.userID = userID;
@@ -65,6 +68,8 @@ public class Order {
         this.cardNumber = cardNumber;
         this.cardExpiry = cardExpiry;
         this.cardCVV = cardCVV;
+        this.hasCard = hasCard;
+        this.cardMessage = cardMessage;
     }
 
     // Getters and Setters
@@ -80,8 +85,8 @@ public class Order {
     public Date getOrderRequested() { return orderRequested; }
     public void setOrderRequested(Date orderRequested) { this.orderRequested = orderRequested; }
 
-    public BigDecimal getOrderTotal() { return orderTotal; }
-    public void setOrderTotal(BigDecimal orderTotal) { this.orderTotal = orderTotal; }
+    public double getOrderTotal() { return orderTotal; }
+    public void setOrderTotal(double orderTotal) { this.orderTotal = orderTotal; }
 
     public String getCardNumber() { return cardNumber; }
     public void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
@@ -91,6 +96,12 @@ public class Order {
 
     public String getCardCVV() { return cardCVV; }
     public void setCardCVV(String cardCVV) { this.cardCVV = cardCVV; }
+    
+    public boolean getHasCard() { return hasCard; }
+    public void setHasCard(boolean cardCVV) { this.hasCard = hasCard; }
+    
+    public String getCardMessage() { return cardMessage; }
+    public void setCardMessage(String cardMessage) { this.cardMessage = cardMessage; }
 
     // display method
     
@@ -106,7 +117,7 @@ public class Order {
 }
     
     // Database methods
-    
+  
     public void selectDB(int orderID) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -120,7 +131,7 @@ public class Order {
                         setUserID(rs.getInt("userID"));
                         setOrderDateTime(rs.getDate("orderDateTime"));
                         setOrderRequested(rs.getDate("orderRequested"));
-                        setOrderTotal(rs.getBigDecimal("orderTotal"));
+                        setOrderTotal(rs.getDouble("orderTotal"));
                         setCardNumber(rs.getString("cardNumber"));
                         setCardExpiry(rs.getDate("cardExpiry"));
                         setCardCVV(rs.getString("cardCVV"));
@@ -142,7 +153,7 @@ public class Order {
                     statement.setInt(1, getUserID());
                     statement.setDate(2, getOrderDateTime());
                     statement.setDate(3, getOrderRequested());
-                    statement.setBigDecimal(4, getOrderTotal());
+                    statement.setDouble(4, getOrderTotal());
                     statement.setString(5, getCardNumber());
                     statement.setDate(6, getCardExpiry());
                     statement.setString(7, getCardCVV());
@@ -154,7 +165,7 @@ public class Order {
             System.out.println(e);
         }
     }
-
+    
     public void deleteDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");

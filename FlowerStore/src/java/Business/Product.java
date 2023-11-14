@@ -1,6 +1,14 @@
 package Business;
 
+<<<<<<< Updated upstream
 import java.sql.*;
+=======
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+>>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
     /********************************************
@@ -21,6 +29,7 @@ public class Product {
     private String productCode;
     private String productName;
     private String productDescription;
+<<<<<<< Updated upstream
     private Double productCost;
     private String productOccasion;
     private String productImage;
@@ -44,6 +53,25 @@ public class Product {
     private String query;
     private PreparedStatement pst;
     private ResultSet rs;
+=======
+    private double productCost;
+    private String productOccasion;
+    private String productImage;
+    
+    // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+    
+    //for Jose
+//    private final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Salena
+//    private final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
+    //for Jacob
+    private final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    
+    //</editor-fold>
+    private final String databaseURL = "jdbc:ucanaccess://" + databasePath;
+>>>>>>> Stashed changes
 
     /********************************************
     *                                           *
@@ -58,7 +86,11 @@ public class Product {
         productCode = "";
         productName = "";
         productDescription = "";
+<<<<<<< Updated upstream
         productCost = 0.00;
+=======
+        productCost = 0;
+>>>>>>> Stashed changes
         productOccasion = "";
         productImage = "";
     }
@@ -72,6 +104,7 @@ public class Product {
         this.productImage = productImage;
     }
 
+<<<<<<< Updated upstream
     /********************************************
     *                                           *
     *               Behaviors                   *
@@ -102,6 +135,92 @@ public class Product {
         
         }catch(Exception e){
             System.out.println(e);
+=======
+    public void selectDB(String productCode) {
+        String sql = "SELECT * FROM Product WHERE productCode = ?";
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, productCode);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                setProductCode(rs.getString("productCode"));
+                setProductName(rs.getString("productName"));
+                setProductDescription(rs.getString("productDescription"));
+                setProductCost(rs.getDouble("productCost"));
+                setProductOccasion(rs.getString("productOccasion"));
+                setProductImage(rs.getString("productImage"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void insertDB() {
+        String sql = "INSERT INTO Product (productCode, productName, productDescription, productCost, productOccasion, productImage) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, getProductCode());
+            stmt.setString(2, getProductName());
+            stmt.setString(3, getProductDescription());
+            stmt.setDouble(4, getProductCost());
+            stmt.setString(5, getProductOccasion());
+            stmt.setString(6, getProductImage());
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateDB() {
+        String sql = "UPDATE Product SET productName = ?, productDescription = ?, productCost = ?, productOccasion = ?, productImage = ? WHERE productCode = ?";
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, getProductName());
+            stmt.setString(2, getProductDescription());
+            stmt.setDouble(3, getProductCost());
+            stmt.setString(4, getProductOccasion());
+            stmt.setString(5, getProductImage());
+            stmt.setString(6, getProductCode());
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteDB() {
+        String sql = "DELETE FROM Product WHERE productCode = ?";
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, this.productCode);
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<Product> getAllProducts(){
+    List<Product> products = new ArrayList<>();
+    String sql = "SELECT * FROM Products";
+    try (Connection con = DriverManager.getConnection(databaseURL);
+         PreparedStatement stmt = con.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+        
+        while(rs.next()){
+            Product row = new Product();
+            row.setProductCode(rs.getString("productCode"));
+            row.setProductName(rs.getString("productName"));
+            row.setProductDescription(rs.getString("productDescription"));
+            row.setProductCost(rs.getDouble("productCost"));
+            row.setProductOccasion(rs.getString("productOccasion"));
+            row.setProductImage(rs.getString("productImage"));
+            products.add(row);
+>>>>>>> Stashed changes
         }
         //getAllProducts();
     }
@@ -204,6 +323,7 @@ public class Product {
     }
     
     public List<Cart> getCartProducts(ArrayList<Cart> cartList){
+<<<<<<< Updated upstream
         List<Cart> products = new ArrayList<Cart>();
         
         try{
@@ -216,6 +336,13 @@ public class Product {
                     pst = con.prepareStatement(query);
                     pst.setString(1, item.getProductCode());
                     rs = pst.executeQuery();
+=======
+    List<Cart> products = new ArrayList<>();
+    if (!cartList.isEmpty()) {
+        String sql = "SELECT * FROM Products WHERE productCode = ?";
+        try (Connection con = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+>>>>>>> Stashed changes
 
                     while(rs.next()){
                         Cart row = new Cart();
@@ -223,7 +350,11 @@ public class Product {
                         row.setProductName(rs.getString("productName"));
                         row.setProductImage(rs.getString("productImage"));
                         row.setProductDescription(rs.getString("productDescription"));
+<<<<<<< Updated upstream
                         row.setProductCost(rs.getDouble("productCost")*item.getQuantity());
+=======
+                        row.setProductCost(rs.getDouble("productCost"));
+>>>>>>> Stashed changes
                         row.setQuantity(item.getQuantity());
                         products.add(row);
                     }                    
@@ -240,6 +371,7 @@ public class Product {
         return products;
         
     }
+<<<<<<< Updated upstream
     
     
     /********************************************
@@ -247,6 +379,13 @@ public class Product {
     *           Getters and Setters             *
     *                                           *
     *********************************************/
+=======
+    return products;
+}
+
+    // <editor-fold defaultstate="collapsed" desc="Getter and setters">
+
+>>>>>>> Stashed changes
     public String getProductCode() {
         return productCode;
     }
@@ -271,11 +410,19 @@ public class Product {
         this.productDescription = productDescription;
     }
 
+<<<<<<< Updated upstream
     public Double getProductCost() {
         return productCost;
     }
 
     public void setProductCost(Double productCost) {
+=======
+    public double getProductCost() {
+        return productCost;
+    }
+
+    public void setProductCost(double productCost) {
+>>>>>>> Stashed changes
         this.productCost = productCost;
     }
 
@@ -295,6 +442,8 @@ public class Product {
         this.productImage = productImage;
     }
 
+    // </editor-fold>
+    
     @Override
     public String toString() {
         return "Product{" + "productCode=" + productCode + ", productName=" + productName + ", productDescription=" + productDescription + ", productCost=" + productCost + ", productOccasion=" + productOccasion + '}';
