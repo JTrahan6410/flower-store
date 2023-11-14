@@ -31,7 +31,7 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" class="logo">Atlanta flowers<span>.</span></a>
+            <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
@@ -52,6 +52,10 @@
             <a href="LogoutServlet" style="float: right">logout</a>
         <%}%>
             </nav>
+            <form id="search">
+                <input type="text" id="search-box" placeholder="Search...">
+                <a><button>Search</button></a>
+            </form>
         </header>
         <section class="home" id="home">
             <div class="content">
@@ -69,7 +73,7 @@
                 </div>
                 <div class="content">
                     <h3>Why choose us?</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores necessitatibus, alias provident libero nam deleniti soluta iste, qui numquam incidunt perferendis! Perferendis error aperiam laudantium! Sed numquam eveniet consequatur sapiente! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium harum hic culpa aperiam consequatur ipsam. Sed facere animi nemo aspernatur? Quod, ex. Voluptas, amet. At labore laudantium ex optio explicabo.</p>
+                    <p>Atlanta Flowers offers beautiful, fresh flower arrangements in Atlanta, GA. Our expert florists create the perfect floral gifts to suit any special occasion and offer quick and easy floral delivery throughout the nation for your convenience. Need flowers delivered across the country? Atlanta Flowers’s trusted network of florists deliver nationwide! Ordering beautiful, fresh flowers with Atlanta Flowers is easy and convenient. Browse our website to find the perfect floral gift. You can trust our professional florists to arrange a beautiful bouquet for your special occasion.</p>
                     <a href="#" class="btn">Learn More</a>
                 </div>
             </div>
@@ -155,7 +159,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore voluptatibus soluta nesciunt provident odio eveniet voluptatum minus blanditiis ipsam cumque. Atque optio nam cumque fugiat minima unde voluptatibus alias adipisci. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consequatur adipisci labore est, quidem eaque quae, nisi ad consequuntur tempore minus dolor ipsa. Corrupti facere modi ad architecto pariatur enim!</p>
+                    <p>These flowers are beautiful and just as vibrant as the picture. One of the most beautiful bouquets I have ever seen!</p>
                     <div class="user">
                         <img src="assets/smiling-lady.jpg" alt="">
                         <div class="user-info">
@@ -173,7 +177,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore voluptatibus soluta nesciunt provident odio eveniet voluptatum minus blanditiis ipsam cumque. Atque optio nam cumque fugiat minima unde voluptatibus alias adipisci. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint consequatur adipisci labore est, quidem eaque quae, nisi ad consequuntur tempore minus dolor ipsa. Corrupti facere modi ad architecto pariatur enim!</p>
+                    <p>Spectacular arrangement that lasted forever! The flowers were beautiful, super fresh and arrived right on time. You may think it pricey but when you realize the flowers last for weeks, it’s not at all pricey. I will surely use them for all my future orders.</p>
                     <div class="user">
                         <img src="assets/smiling-man.jpg" alt="">
                         <div class="user-info">
@@ -204,30 +208,30 @@
             <div class="box-container">
                 <div class="box">
                     <h3>quick links</h3>
-                        <a href="index.html">home</a>
-                        <a href="#">about</a>
+                        <a href="index.jsp">home</a>
+                        <!--<a href="#">about</a>-->
                         <a href="product.jsp">products</a>
-                        <a href="#">review</a>
-                        <a href="#">contact</a>
+                        <!--<a href="#">review</a>-->
+                        <!--<a href="#">contact</a>-->
                 </div>
                 <div class="box">
                     <h3>extra links</h3>
                         <a href="account.jsp">my account</a>
-                        <a href="#">my order</a>
-                        <a href="#">my favorite</a>
+                        <a href="cart.jsp">my cart</a>
+                        <!--<a href="#">my favorite</a>-->
                 </div>
                 <div class="box">
                     <h3>locations</h3>
-                        <a href="#">Georgia</a>
-                        <a href="#">Florida</a>
-                        <a href="#">Tennessee</a>
-                        <a href="#">Alabama</a>
+                    Georgia<br>
+                    Florida<br>
+                    Tennessee <br>
+                    Alabama <br>
                 </div>
                 <div class="box">
                     <h3>contact info</h3>
-                        <a href="#">+123-456-7890</a>
-                        <a href="#">example@email.com</a>
-                        <a href="#">mumbai,india -400104</a>
+                        <a href=“tel:404-123-4567”>404-123-4567</a>
+                        <a href="mailto:help@atlflowers.com">help@atlflowers.com</a>
+                        <a href="#">Atlanta, GA 30116</a>
                         <img src="assets/pymnt-1.jpg" alt="">
                 </div>
             </div>
