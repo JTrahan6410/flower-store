@@ -531,7 +531,7 @@
  #create-account-form{
     background-color: pink;
     position: relative;
-    height: 500px;
+    height: 800px;
     width: 500px;
     border: none;
     padding: 50px;
@@ -542,7 +542,7 @@
   #update-form{
     background-color: pink;
     position: relative;
-    height: 500px;
+    height: 800px;
     width: 500px;
     border: none;
     padding: 50px;

@@ -89,9 +89,18 @@ public class Product {
         }catch(Exception e){
             System.out.println(e);
         }
-        //getAllProducts();
     }
-    
+   /*********************************************
+    *                                           *
+    *               InsertDB Method             *
+    *                                           *
+    * @param productCode                        *
+    * @param productName                        *
+    * @param productDescription                 *
+    * @param productCost                        *
+    * @param productOccasion                    *
+    * @param productImage                       *
+    *********************************************/
     public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage){
     
         try{
@@ -113,7 +122,11 @@ public class Product {
             
         }
     }
-    
+    /********************************************
+    *                                           *
+    *               UpdateDB Method             *
+    *                                           *
+    *********************************************/
     public void updateDB(){
         try{
             
@@ -134,7 +147,11 @@ public class Product {
             System.out.println(e);
         }
     }
-    
+    /********************************************
+    *                                           *
+    *               DeleteDB Method             *
+    *                                           *
+    *********************************************/
     public void deleteDB(){
         try{
             Connection con = DriverManager.getConnection(databaseURL);
@@ -152,11 +169,14 @@ public class Product {
             System.out.println(e);
         }
     }
-    
+    /********************************************
+    *                                           *
+    *          GetAllProducts Method            *
+    *                                           *
+    * @return                                   *
+    *********************************************/
     public List<Product> getAllProducts(){
         
-        String an;
-        Product p1;
         List<Product> products = new ArrayList<Product>();
         try{
             
@@ -166,7 +186,6 @@ public class Product {
             
             Statement stmt = con.createStatement();
             
-            //ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM Products");
             
             while(rs.next()){
@@ -188,7 +207,13 @@ public class Product {
         }
         return products;
     }
-    
+    /********************************************
+    *                                           *
+    *        GetCartProducts Method             *
+    *                                           *
+     * @param cartList
+     * @return 
+    *********************************************/
     public List<Cart> getCartProducts(ArrayList<Cart> cartList){
         List<Cart> products = new ArrayList<Cart>();
         
@@ -226,7 +251,37 @@ public class Product {
         return products;
         
     }
-    
+    /********************************************
+    *                                           *
+    *        GetTotalCartPrice Method           *
+    *                                           *
+     * @param cartList
+     * @return 
+    *********************************************/
+    public double getTotalCartPrice(ArrayList<Cart> cartList){
+        double sum = 0;
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            if(!cartList.isEmpty()){
+                for(Cart item:cartList){
+                    query = "SELECT productCost FROM Products WHERE productCode=?";
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, item.getProductCode());
+                    rs = pst.executeQuery();
+                    
+                    while(rs.next()){
+                        sum += rs.getDouble("productCost") * item.getQuantity();
+                    }
+                }
+            }
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return sum;
+    }
     
     /********************************************
     *                                           *
