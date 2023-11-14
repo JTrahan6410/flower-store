@@ -81,6 +81,18 @@
                 <label for="password">Password:</label>
 		<input type="password" id="password" name="password" placeholder="Password"><br>
                 
+                <label for="password">Street:</label>
+		<input type="password" id="password" name="password" placeholder="Street"><br>
+                
+                <label for="password">City:</label>
+                <input type="password" id="password" name="password" placeholder="City"><br>
+                
+                <label for="password">State:</label>
+		<input type="password" id="password" name="password" placeholder="State"><br>
+                
+                <label for="password">Zip:</label>
+		<input type="password" id="password" name="password" placeholder="Zip"><br>
+                
                 <input class="btn" type="submit" value="Create"><br>
 		<p>Already have an account with us? <a href="login.jsp">Click here to log in!</a></p>
             </form>

@@ -9,13 +9,18 @@
 <%@page import="java.util.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    DecimalFormat dcf = new DecimalFormat("#.##");
+    request.setAttribute("dcf", dcf);
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
     List<Cart> cartProduct = null;
     if(cart_list != null){
         Product prod1 = new Product(DbCon.getConnection());
         cartProduct = prod1.getCartProducts(cart_list);
+        double total = prod1.getTotalCartPrice(cart_list);
+        request.setAttribute("total", total);
         request.setAttribute("cart_list", cart_list);
 
     }
@@ -59,6 +64,7 @@
             
             
             <div id="accounts-box">
+                <h2><a class="btn" href="checkout.jsp">Check Out</a> Total Price: $ ${ (total>0)?dcf.format(total):0 }</h2>
             <table id="accounts-table" style="width:100%">
                 <tr>
                         <th>Product Name</th>
@@ -75,7 +81,7 @@
                         <td><%= c.getProductName() %></td>
                         <td><img width="200" height="220" src="<%= c.getProductImage() %>" alt="alt"/></td>
                         <td><%= c.getProductDescription() %></td>
-                        <td><%= c.getProductCost() %></td>
+                        <td><%= dcf.format(c.getProductCost()) %></td>
                         <td><%= c.getQuantity() %></td>
                         <td><a class="btn" href="">Remove</a> </td>
                     </tr>

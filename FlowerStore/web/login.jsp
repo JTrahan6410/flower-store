@@ -27,7 +27,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login</title>
         <link rel="stylesheet" href="style.css">
-        <!--<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">-->
+        <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
         <script>
             //Function to validate customer id and password
             function validateForm(){
@@ -43,7 +43,7 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" class="logo">Atlanta flowers<span></span></a>
+            <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>

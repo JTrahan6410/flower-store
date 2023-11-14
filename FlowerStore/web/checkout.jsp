@@ -110,7 +110,7 @@
       <p>Total <span class="price" style="color:black"><b>$70</b></span></p>  
         </div>
               
-      <a href="success.html" class="button">Place your Order</a>
+      <a href="success.jsp" class="button">Place your Order</a>
              </div>
             </div>
           </div>
