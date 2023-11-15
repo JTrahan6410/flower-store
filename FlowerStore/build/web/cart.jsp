@@ -83,7 +83,7 @@
                         <td><%= c.getProductDescription() %></td>
                         <td><%= dcf.format(c.getProductCost()) %></td>
                         <td><%= c.getQuantity() %></td>
-                        <td><a class="btn" href="">Remove</a> </td>
+                        <td><a class="btn" href="remove-from-cart?productCode=<%= c.getProductCode() %>">Remove</a> </td>
                     </tr>
                     <%}
                     }%>
