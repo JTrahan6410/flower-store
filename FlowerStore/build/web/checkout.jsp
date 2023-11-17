@@ -1,15 +1,19 @@
-<%-- 
+<!--
     Document   : checkout
     Created on : Oct 4, 2023, 12:38:25 PM
     Author     : lena
---%>
-
+    
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    -->
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
         <title>Checkout Page</title>
+      
+  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="checkout.css">
@@ -41,9 +45,9 @@
           <div class="col-75">
             <h2>Billing Address</h2>
             <label for="fname">Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+            <input type="text" id="fname" name="firstname" placeholder="Full Name">
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com">
+            <input type="text" id="email" name="email" placeholder="example@example.com">
             <label for="adr">Address</label>
             <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
             <label for="city">City</label>
@@ -61,7 +65,7 @@
             </div>
             <h2>Shipping Address</h2>
             <label for="fname">Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+            <input type="text" id="fname" name="firstname" placeholder="Full Name">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" placeholder="john@example.com">
             <label for="adr">Address</label>
@@ -84,7 +88,7 @@
           <div class="col-75">
             <h2>Payment</h2>
             <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <input type="text" id="cname" name="cardname" placeholder="Name On Card">
             <label for="ccnum">Credit card number</label>
             <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
             <label for="expmonth">Exp Month</label>
@@ -109,15 +113,67 @@
       <p><a href="#">Variety Mix Summer</a> <span class="price">$25</span></p>
       <p>Total <span class="price" style="color:black"><b>$70</b></span></p>  
         </div>
+        <br>
+        <div class="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+              <a href="#">Birthday</a>
+              <a href="#">Valentine's</a>
+              <a href="#">Anniversary</a>
+            </div>
+                 </div>
+                 <br>
+                 <br>
+        
               
-      <a href="success.jsp" class="button">Place your Order</a>
-             </div>
+        <br><a href="success.jsp" class="button">Place your Order</a><br>
+      
             </div>
           </div>
 
         </div>
     </div>
   </div>
+
+  
+  <section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="#">home</a>
+            <a href="#">about</a>
+            <a href="#">products</a>
+            <a href="#">review</a>
+            <a href="#">contact</a>
+        </div>
+        <div class="box">
+            <h3>extra links</h3>
+            <a href="#">my account</a>
+            <a href="#">my order</a>
+            <a href="#">my favorite</a>
+        </div>
+    
+        <div class="box">
+            <h3>locations</h3>
+            <a href="#">Georgia</a>
+            <a href="#">New York</a>
+            <a href="#">California</a>
+            <a href="#">Texas</a>
+        </div>
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#">+123-456-7890</a>
+            <a href="#">flowershop@email.com</a>
+            <a href="#">Atlanta, Georia </a>
+          <img src="pymnt-1.jpg" alt="">
+        </div>
+    
+    </div>
+    
+    <div class="credit"> created by <span> The Flower Shop </span> | all rights reserved </div>
+    
+    </section>
+
 
 </body>
 </html>
