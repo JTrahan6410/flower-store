@@ -8,8 +8,11 @@
 <%@page import="java.util.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    DecimalFormat dcf = new DecimalFormat("#.##");
+    request.setAttribute("dcf", dcf);
     ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
     List<Cart> cartProduct = null;
     if(cart_list != null){
@@ -80,7 +83,7 @@
                     </div>
                     <div class="content">
                         <h3><%= p.getProductName() %></h3>
-                        <div class="price">$ <%= p.getProductCost() %> <span>$15.99</span></div>
+                        <div class="price">$ <%= dcf.format(p.getProductCost()) %> </div>
                     </div>
                 </div>
           <%}%>

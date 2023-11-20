@@ -67,6 +67,10 @@
                     <th>Password</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
                 </tr>
                 <tr>
                     
@@ -74,6 +78,10 @@
                     <td><%=u1.getUserPassword()%></td>
                     <td><%=u1.getFirstName()%></td>
                     <td><%=u1.getLastName()%></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
             <a class="btn" href="editAccount.jsp"> edit account info </a>
