@@ -92,6 +92,29 @@
      border: 1rem solid rgba(0,0,0, .3);
      display: none;
 }
+
+search{
+    display: flex;
+}
+
+search input{
+    flex: 1;
+    height: 100%;
+    font-size: 2rem; 
+    padding: 0 30px;
+}
+
+form button{
+    position: absolute;
+    padding: 0 15px;
+    height: 55%;
+    background: #d3d3d3;
+    border: 0;
+    outline: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
  .home{
      display:flex;
      align-items:center;
