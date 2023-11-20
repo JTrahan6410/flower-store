@@ -1,234 +1,114 @@
 package Business;
 
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- *
- * @author Jose V Gomez
+ * JACOB TRAHAN - adapted from Jose Gomez (9/18/23)
+ * Adv Sys Project - Oct 5, 2023
+ * This class extends the GuestUser class and adds authentication and admin status functionality.
+ * THE DATABASE URL IS EXTENDED FROM GUESTUSER.JAVA
  */
-public class User {
-    //Properties
-    String userPassword, firstName,
-           lastName, email;
-    
-    
-    // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
-    
-    //for Jose
-    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    
-    //for Salena
-//    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    
-    //for Jacob
-    //final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    
-    //</editor-fold>
-    
-    final String databaseURL = "jdbc:ucanaccess://" + databasePath;
-    
-    //Constructors
-    public User(){
-        super();
-        email = "";
-        userPassword = "";
-        firstName = "";
-        lastName = "";
+
+public class User extends GuestUser {
+    private String userPassword;
+    private boolean admin;
+
+    // Default constructor
+    public User() {
+        super(); // Invoke superclass (GuestUser) constructor
+        this.userPassword = "";
+        this.admin = false;
     }
-    
-    public User(String email, String userPassword, String firstName, String lastName){
-        
-        this.email = email;
+
+    // Parameterized constructor
+    public User(int userID, String email, String userPassword, String firstName, String lastName) {
+        super(userID, email, firstName, lastName);
         this.userPassword = userPassword;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        
+        this.admin = false;
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
+    public String getUserPassword() { return userPassword; }
+    public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
+    public Boolean getAdmin() { return admin; }
+    public void setAdmin(Boolean admin) { this.admin = admin; }
+
+    // </editor-fold>
     
-    //Behaviors
-    
-/*************************************************************
-* selectDB() gets one patient from the DB
-     * @param email
-**************************************************************/
-    
-    public void selectDB(String email){
-        this.email = email;
-        
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = (Connection) DriverManager.getConnection(databaseURL);
-            Statement stmt = con.createStatement();
-            ResultSet rs;
-            rs = stmt.executeQuery("SELECT * FROM Users WHERE email = '" + email + "'" );
-            
-            rs.next();
-            
-            this.email = rs.getString(1);
-            userPassword = rs.getString(2);
-            firstName = rs.getString(3);
-            lastName = rs.getString(4);
-            
-            
-            con.close();
-            
-            
-            
-            
-        }catch(Exception e){
-            
-            System.out.println(e);
-            
-        }
-        
+    // Display method overriding the superclass method to include admin status
+    @Override
+    public void display() {
+        super.display(); // Call the display method of the superclass
+        System.out.println("Admin Status = " + getAdmin());
     }
-    
-/*************************************************************
-* insertDB() inserts one patient from the DB
-     * @param userPassword
-     * @param firstName
-     * @param lastName
-     * @param email
-**************************************************************/
-    public void insertDB(String email, String userPassword,String firstName, String lastName ){
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = DriverManager.getConnection(databaseURL);
-            System.out.println("Database connected...");
+
+    // Method for selecting a user from the database
+    @Override
+       public void selectDB(String email) {
+           String sql = "SELECT * FROM Users WHERE email = ?";
+           try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+                PreparedStatement statement = conn.prepareStatement(sql)) {
+
+               statement.setString(1, email);
+               try (ResultSet rs = statement.executeQuery()) {
+                   if (rs.next()) {
+                       // Assuming that 'userID' and other column names match the field names
+                       setUserID(rs.getInt("userID"));
+                       setUserPassword(rs.getString("userPassword"));
+                       setFirstName(rs.getString("firstName"));
+                       setLastName(rs.getString("lastName"));
+                       setAdmin(rs.getBoolean("admin"));
+                   }
+               }
+           } catch (SQLException e) {
+               throw new RuntimeException("Error accessing database", e);
+           }
+       }
+
+    // Method for inserting a new user into the database
+    public void insertDB(String emailInput, String passwordInput, String firstNameInput, String lastNameInput, boolean par) {
+        String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, admin) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+             PreparedStatement statement = conn.prepareStatement(sql)) {
             
-            Statement stmt = con.createStatement();
-            
-            String sql = "INSERT INTO Users VALUES ('"+email+"','"+userPassword+"','"+firstName+"','"+lastName+"')";
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            
-            con.close();
-        
-        }catch(Exception e){
-            
-            System.out.println(e);
-            
+            statement.setString(1, getEmail());
+            statement.setString(2, getUserPassword());
+            statement.setString(3, getFirstName());
+            statement.setString(4, getLastName());
+            statement.setBoolean(5, getAdmin());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error inserting data into database", e);
         }
     }
-    
-/*************************************************************
-* updateDB() updates one patient from the DB
-**************************************************************/
-    public void updateDB(){
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            Connection con = DriverManager.getConnection(databaseURL);
-            System.out.println("Database connected...");
+
+    // Method for updating an existing user's details in the database
+    @Override
+    public void updateDB() {
+        String sql = "UPDATE Users SET email = ?, userPassword = ?, firstName = ?, lastName = ?, admin = ? WHERE userID = ?";
+        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+             PreparedStatement statement = conn.prepareStatement(sql)) {
             
-            Statement stmt = con.createStatement();
-            
-            String sql = "UPDATE Users SET email = '"+email+"',userPassword = '"+userPassword+"',firstName = '"+firstName+"',lastName = '"+lastName+"'WHERE email ='"+email+"'";
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            
-            con.close();
-        }catch(Exception e){
-            System.out.println(e);
+            statement.setString(1, getEmail());
+            statement.setString(2, userPassword);
+            statement.setString(3, getFirstName());
+            statement.setString(4, getLastName());
+            statement.setBoolean(5, admin);
+            statement.setInt(6, getUserID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating database", e);
         }
     }
-/*************************************************************
-* deleteDB() deletes one patient from the DB
-**************************************************************/
-    /*public void deleteDB(){
-        try{
-            Connection con = DriverManager.getConnection(databaseURL);
-            System.out.println("DatabaseConnected...");
-            
-            Statement stmt = con.createStatement();
-            String sql = "DELETE FROM Users WHERE email='"+email+"'";
-            System.out.println(sql);
-            stmt.executeUpdate(sql);
-            
-            con.close();
-            
-            
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
-    
-/*****************************************************************
-* getOrders() gets all the patient appointments from the DB
-******************************************************************/
-    
-/*****************************************************************
-* getOrderDesciption() gets the patient procedure from the DB 
-     * @return 
-******************************************************************/
-    
-    //Get and Set Methods
-    
-    
-    public String getUserPassword(){
-        return userPassword;
-    }
-    public void setUserPassword(String userPassword){
-        this.userPassword = userPassword;
-    }
-    
-    public String getFirstName(){
-        return firstName;
-    }
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
-    }
-    
-    public String getLastName(){
-        return lastName;
-    }
-    public void setLastName(String lastName){
-        this.lastName = lastName;
-    }
-    
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(String email){
-        this.email = email;
-    }
-    
-    
-    
-    
-    
-    //Display Method
-    public void display(){
-        
-        System.out.println("Email = " + email);
-        System.out.println("Password = " + userPassword);
-        System.out.println("First Name = " + firstName);
-        System.out.println("Last Name = " + lastName);
-    }
-    
-/*****************************************************************
-*  Testing Business Object
-     * @param args
-******************************************************************/
+
+    // Main method for testing purposes
     public static void main(String[] args) {
         User u1 = new User();
-        u1.selectDB("jose@gmail.com");
+        u1.selectDB("jtrahan@students.chattahoocheetech.edu");
         u1.display();
-        
-        //User u2 = new User();
-        //u2.insertDB("bob@bob.com", "1111", "Jose", "Gomez");
-        
-        
-        
-        //User u3 = new User();
-        //u3.selectDB("jose@gmail.com");
-        //u3.setFirstName("Bob");
-        //u3.setLastName("Joe");
-        
-        //u3.updateDB();
-        
-        //User u4 = new User();
-        //u4.selectDB("A912");
-        //u4.deleteDB();
     }
 }

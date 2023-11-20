@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Oct 11, 2023, 1:46:56 PM
-    Author     : 
+    Author     : Destiny / Jose
 --%>
 <%@page import="Business.*"%>
 <%@page import="Connection.*"%>
