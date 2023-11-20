@@ -25,12 +25,6 @@
                 <a href="catalog.jsp">cart</a>
             </nav>
 	</header>
-            <% 
-            Order o1;
-            o1 = (Order)session.getAttribute("o1");
-            
-            o1.getAllOrders();
-            %>
              <div id="orders-box">
                 <h2 id="pending-Orders">Pending Orders</h2>
                 <table id="orders-table">
@@ -41,46 +35,37 @@
                     %>
                    <tr>
                         <th>Order ID</th>
-                        <th>Email</th>
-                        <th>Product Code</th>
+                        <th>User ID</th>
                         <th>Order Date</th>
                         <th>Requested Delivery</th>
-                        <th>Mail Name</th>
-                        <th>Mail Street Addr.</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Zip</th>
-                        <th>Billing Name</th>
-                        <th>Billing Street Addr.</th>
-                        <th>Billing City</th>
-                        <th>Billing State</th>
-                        <th>billing Zip</th>
+                        <th>Order Total</th>
+                        <th>Card Number</th>
+                        <th>Card Exp.</th>
+                        <th>CVV</th>
+                        <th>Has Card</th>
+                        <th>Card message</th>
                         <th>Status</th>
                     </tr>
                     <%-- Table to display all orders in the database --%>
                     <%for(Order o:Orders){%>
                     <tr>
-                       <td><%=o1.getorderID()%></td>
-                        <td><%=o1.getemail()%></td>
-                        <td><%=o1.getproductCode()%></td>
-                        <td><%=o1.getorderPlaced()%></td>
-                        <td><%=o1.getrequestedDelivery()%></td>
-                        <td><%=o1.getmailName()%></td>
-                        <td><%=o1.getmailStreetAddress()%></td>
-                        <td><%=o1.getmailCity()%></td>
-                        <td><%=o1.getmailState()%></td>
-                        <td><%=o1.getmailZip()%></td>
-                        <td><%=o1.getbillName()%></td>
-                        <td><%=o1.getbillStreetAddress()%></td>
-                        <td><%=o1.getbillCity()%></td>
-                        <td><%=o1.getbillState()%></td>
-                        <td><%=o1.getbillZip()%></td>
+                       <td><%=o1.getOrderID()%></td>
+                        <td><%=o1.getUserID()%></td>
+                        <td><%=o1.getOrderDateTime()%></td>
+                        <td><%=o1.getOrderRequested()%></td>
+                        <td><%=o1.getOrderTotal()%></td>
+                        <td><%=o1.getCardNumber()%></td>
+                        <td><%=o1.getCardExpiry()%></td>
+                        <td><%=o1.getCardCVV()%></td>
+                        <td><%=o1.getHasCard()%></td>
+                        <td><%=o1.getCardMessage()%></td>
+                        <td><%=o1.getStatus()%></td>
                         <%-- Status drop down menu  open/ready/delivered --%>
                         <td><select style="width:101%" name="status" id="status-menu">
-                        <option value="Open">Open</option> 
-                        <option value="Ready">Ready</option> 
-                        <option value="Delivered">Delivered</option> 
-                    </select<%--=o1.getStatus()--%></td> 
+                        <option value="Open"<%=o1.setStatus()%>>Open</option> 
+                        <option value="Ready"<%=o1.setStatus()%>>Ready</option> 
+                        <option value="Delivered"<%=o1.setStatus()%>>Delivered</option> 
+                        </select></td> 
                     </tr> 
                     <%}%>
                 </table>
