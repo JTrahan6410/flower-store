@@ -82,3 +82,47 @@ form {
     color:var(--pink);
     text-decoration: underline;
 }
+
+#orders-box{
+     padding-top: 10px;
+   
+}
+
+#pending-Orders{
+    font-weight: 1000;
+    text-decoration: underline;
+    font-size: 250%;
+    margin: 0;
+    padding: .25em 0 .5em;
+    padding-top: 100px;
+}
+
+#orders-table{
+    border: solid;
+    width: 1000px;
+}
+
+#orders-table th{
+    width: 500px;
+    padding: 30px;
+}
+
+#orders-table tr{
+    border: solid;
+    border-width: thin;
+    font-size: 150%;
+    padding: .25em 0 .5em;
+    width: 100px;
+}
+
+#orders-table td{
+    border: solid;
+    border-width: thin;
+    font-size: 110%;
+    padding: .25em 0 .5em;
+    width:100%;
+}
+
+#status-menu{
+    font-size:65%;
+}
