@@ -49,6 +49,7 @@ public class Product {
     *                                           *
     *               Constructors                *
     *                                           *
+     * @param con
     *********************************************/
     public Product(Connection con){
         this.con = con;

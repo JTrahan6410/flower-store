@@ -81,7 +81,7 @@
                         <td><%= c.getProductName() %></td>
                         <td><img width="200" height="220" src="<%= c.getProductImage() %>" alt="alt"/></td>
                         <td><%= c.getProductDescription() %></td>
-                        <td><%= dcf.format(c.getProductCost()) %></td>
+                        <td>$<%= dcf.format(c.getProductCost()) %></td>
                         <td><%= c.getQuantity() %></td>
                         <td><a class="btn" href="remove-from-cart?productCode=<%= c.getProductCode() %>">Remove</a> </td>
                     </tr>

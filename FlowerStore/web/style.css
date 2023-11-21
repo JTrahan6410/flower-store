@@ -642,6 +642,7 @@ form {
     font-family: verdana, Arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-size: 15px;
 }
 #accounts-table caption{
     font-weight: bold;
