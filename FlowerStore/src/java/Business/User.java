@@ -108,7 +108,7 @@ public class User extends GuestUser {
     // Main method for testing purposes
     public static void main(String[] args) {
         User u1 = new User();
-        u1.selectDB("jtrahan@students.chattahoocheetech.edu");
+        u1.selectDB("jake@yahoo.com");
         u1.display();
     }
 }

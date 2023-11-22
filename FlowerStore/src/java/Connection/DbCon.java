@@ -18,7 +18,7 @@ public class DbCon {
 //    private static final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
     private static final String databaseURL = "jdbc:ucanaccess://" + databasePath;

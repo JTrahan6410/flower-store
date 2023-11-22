@@ -34,7 +34,7 @@ public class Product {
     //for Salena
 //    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     //for Jacob
-    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase_v4.accdb";
+    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
 

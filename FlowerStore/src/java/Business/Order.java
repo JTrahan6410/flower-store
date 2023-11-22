@@ -35,7 +35,7 @@ public class Order {
 //    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\web\\WEB-INF\\FlowerStoreDatabase.accdb";
+    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
@@ -177,7 +177,8 @@ public class Order {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                String sql = "INSERT INTO Orders (userID, orderDateTime, orderRequested, orderTotal, cardNumber, cardExpiry, cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Orders (userID, orderDateTime, orderRequested, orderTotal, cardNumber, cardExpiry,"
+                        + " cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
                     statement.setDate(2, getOrderDateTime());
@@ -201,7 +202,8 @@ public class Order {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                String sql = "UPDATE Orders SET userID = ?, orderDateTime = ?, orderRequested = ?, orderTotal = ?, cardNumber = ?, cardExpiry = ?, cardCVV = ?, hasGreetingCard = ?, greetingCardType = ?, greetingCardMessage = ? WHERE orderID = ?";
+                String sql = "UPDATE Orders SET userID = ?, orderDateTime = ?, orderRequested = ?, orderTotal = ?, cardNumber = ?, cardExpiry = ?,"
+                        + " cardCVV = ?, hasGreetingCard = ?, greetingCardType = ?, greetingCardMessage = ? WHERE orderID = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
                     statement.setDate(2, getOrderDateTime());
