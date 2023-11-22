@@ -57,11 +57,12 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-                <% if(cart_list!=null){%>
-                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
-        <% }else{%>
-                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
-         <%} %>    
+                <% if(cart_list != null && !cart_list.isEmpty()){ %>
+                    <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart">${ cart_list.size() }</i></a>
+                <% } else { %>
+                    <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
+                <% } %>
+   
                 <a href="login.jsp" style="float: right">login</a>
             </nav>
 	</header>
@@ -70,28 +71,28 @@
                 <h1 style="text-align: center; font-weight: bolder; font-size: 25px">Create Account</h1>
                 
                 <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname" placeholder="First Name"><br>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br>
                 
                 <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Last Name"><br>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br>
                 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email"><br>
+                <input type="email" id="email" name="email" placeholder="Email" required><br>
                 
                 <label for="password">Password:</label>
-		<input type="password" id="password" name="password" placeholder="Password"><br>
+		<input type="password" id="password" name="password" placeholder="Password" required><br>
                 
-                <label for="password">Street:</label>
-		<input type="password" id="password" name="password" placeholder="Street"><br>
+                <label for="street">Street:</label>
+		<input type="text" id="street" name="street" placeholder="Street" required><br>
                 
-                <label for="password">City:</label>
-                <input type="password" id="password" name="password" placeholder="City"><br>
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" placeholder="City" required><br>
                 
-                <label for="password">State:</label>
-		<input type="password" id="password" name="password" placeholder="State"><br>
+                <label for="state">State:</label>
+		<input type="text" id="state" name="state" placeholder="State" required><br>
                 
-                <label for="password">Zip:</label>
-		<input type="password" id="password" name="password" placeholder="Zip"><br>
+                <label for="zip">Zip:</label>
+		<input type="text" id="zip" name="zip" placeholder="Zip" required><br>
                 
                 <input class="btn" type="submit" value="Create"><br>
 		<p>Already have an account with us? <a href="login.jsp">Click here to log in!</a></p>

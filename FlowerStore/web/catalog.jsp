@@ -37,11 +37,11 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-        <% if (cart_list != null) { %>
-        <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart"><%= cart_list.size() %></i></a>
-        <% } else { %>
-            <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
-        <% } %>
+                <% if(cart_list != null && !cart_list.isEmpty()){ %>
+                    <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart">${ cart_list.size() }</i></a>
+                <% } else { %>
+                    <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
+                <% } %>
 
         <% 
             HttpSession session1 = request.getSession(false);
