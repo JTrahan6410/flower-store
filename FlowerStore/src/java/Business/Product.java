@@ -38,9 +38,15 @@ public class Product {
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
 
-    // JSP Constructor
+    /********************************************
+    *                                           *
+    *               Constructors                *
+    *                                           *
+     * @param con
+    *********************************************/
     public Product(Connection con) {
         this.con = con; // Initialize with external connection
+
     }
 
     // Default constructor
