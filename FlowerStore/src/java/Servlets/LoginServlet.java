@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
                 rd.forward(request, response);
             }   
         
-        }catch(Exception e){
+        }catch(ServletException | IOException e){
 
             System.out.println(e);
             

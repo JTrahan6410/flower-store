@@ -1,176 +1,165 @@
 package Business;
 
-import java.sql.*;
-/**************************************************************
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-   Trent Cargle
-
-   Adv Sys Project - Sept 18, 2023
-
- **************************************************************/
+/**
+ * JACOB TRAHAN - adapted from Trent Cargle (9/18/23)
+ * Adv Sys Project - Oct 5, 2023
+ */
 public class GuestUser {
-    String userID;
-    String fName;
-    String lName;
-    String eMail;
-    String address;
-    String city;
-    String state;
-    int zip;
-    String nameOnCard;
-    String cardNum;
-    String expMonth;
-    int expYear;
-    int cvv;
+    // Field members of the class
+    protected int userID;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+        // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
-    public GuestUser(){
-        userID = "";
-        fName = "";
-        lName = "";
-        eMail = "";
-        address = "";
-        city = "";
-        state = "";
-        zip = 0;
-        nameOnCard = "";
-        cardNum = "";
-        expMonth = "";
-        expYear = 0;
-        cvv = 0;
-    }
+    //for Jose
+//    private static final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
-    public GuestUser(String uid, String fn, String ln, String em, String add, String ci, String st, int z, String noc, String cn, String exm, int exy, int cv){
-        userID = uid;
-        fName = fn;
-        lName = ln;
-        eMail = em;
-        address = add;
-        city = ci;
-        state = st;
-        zip = z;
-        nameOnCard = noc;
-        cardNum = cn;
-        expMonth = exm;
-        expYear = exy;
-        cvv = cv;
-    }
+    //for Salena
+//    private static final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
-    public String getUserID() { return userID; }
-    public void setUserID(String uid) { userID = uid; }
-    public String getFName() { return fName; }
-    public void setFName(String fn) { fName = fn; }
-    public String getLName() { return lName; }
-    public void setLName(String ln) { lName = ln; }
-    public String getEMail() { return eMail; }
-    public void setEMail(String em) { eMail = em; }
-    public String getAddress() { return address; }
-    public void setAddress(String add) { address = add; }
-    public String getCity() { return city; }
-    public void setCity(String ci) { city = ci; }
-    public String getState() { return state; }
-    public void setState(String st) { state = st; }
-    public int getZip() { return zip; }
-    public void setZip(int z) { zip = z; }
-    public String getNameOnCard() { return nameOnCard; }
-    public void setNameOnCard(String noc) { nameOnCard = noc; }
-    public String getCardNum() { return cardNum; }
-    public void setCardNum(String cn) { cardNum = cn; }
-    public String getExpMonth() { return expMonth; }
-    public void setExpMonth(String exm) { expMonth = exm; }
-    public int getExpYear() { return expYear; }
-    public void setExpYear(int exy) { expYear = exy; }
-    public int getCvv() { return cvv; }
-    public void setCvv(int cv) { cvv = cv; }
+    //for Jacob
+    private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
-    public void display(){
-        System.out.println("Guest ID = "+ getUserID());
-        System.out.println("Guest First Name = "+ getFName());
-        System.out.println("Guest last Name = "+ getLName());
-        System.out.println("Guest Email = "+ getEMail());
-        System.out.println("Guest Address = "+ getAddress());
-        System.out.println("Guest City = "+ getCity());
-        System.out.println("Guest State = "+ getState());
-        System.out.println("Guest Zip = "+ getZip());
-        System.out.println("Guest Card Name = "+ getNameOnCard());
-        System.out.println("Guest Card Number = "+ getCardNum());
-        System.out.println("Card Expiration Month = "+ getExpMonth());
-        System.out.println("Card Expiration Year= "+ getExpYear());
-        System.out.println("Guest cvv = "+ getCvv());
-    }
-    
-    public void selectDB(String uid) {
-        userID = uid;
-	try { 
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+    //</editor-fold>
+    protected static final String databaseURL = "jdbc:ucanaccess://" + databasePath;
 
-            Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + 
-                "FlowerStore//FlowerStoreMDB.mdb");
-            Statement stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM Users WHERE userID = "+getUserID()+"";
-            System.out.println(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            setFName(rs.getString(2));
-            setLName(rs.getString(3));
-            setEMail(rs.getString(4));
-            setAddress(rs.getString(5));
-            setCity(rs.getString(6));
-            setState(rs.getString(7));
-            setZip(rs.getInt(8));
-            setNameOnCard(rs.getString(9));
-            setCardNum(rs.getString(10));
-            setExpMonth(rs.getString(11));
-            setExpYear(rs.getInt(12));
-            setCvv(rs.getInt(13));
-            conn.close();            
-	}
-        catch(Exception e) {
-            System.out.println(e);
-	}
+    // Default constructor initializing fields to default values
+    public GuestUser() {
+        userID = 0;
+        email = "";
+        firstName = "";
+        lastName = "";
     }
+
+    // Parameterized constructor for setting user properties during instantiation
+    public GuestUser(int userID, String email, String firstName, String lastName) {
+        this.userID = userID;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+ 
+    // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
+    public int getUserID() { return userID; }
+    public void setUserID(int userID) { this.userID = userID; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+// </editor-fold>
+    
+    // Method to display user information in the console
+    public void display() {
+        System.out.println("ID = " + getUserID());
+        System.out.println("Email = " + getEmail());
+        System.out.println("First Name = " + getFirstName());
+        System.out.println("Last Name = " + getLastName());
+    }
+
+     // Method to retrieve a user from the database based on their email
+    public void selectDB(String email) {
+        // Setting the instance email to the provided email
+        this.email = email;
+        // SQL query to select a user from the Users table by email
+        String sql = "SELECT * FROM Users WHERE email = ?";
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    setUserID(rs.getInt("userID"));
+                    setFirstName(rs.getString("firstName"));
+                    setLastName(rs.getString("lastName"));
+                }
+            }
+        } catch (SQLException e) {
+            // Throwing a runtime exception if there is an SQL exception
+            throw new RuntimeException("Error accessing database", e);
+        }
+    }
+
+    // Method to insert a new user into the database
+    public void insertDB(String email, String firstName, String lastName) {
+        // SQL command for inserting a new user into the Users table
+        String sql = "INSERT INTO Users (email, firstName, lastName) VALUES (?, ?, ?)";
         
-        public void insertDB(int uid, String fn, String ln, String em, String add, String ci, String st, int z, String noc, String cn, String exm, int exy, int cv){
-        try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-
-            Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + 
-            "FlowerStore/FlowerStoreMDB.mdb");
+        // Try-with-resources to handle the database connection and statement
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            Statement sta = conn.createStatement();
-            String sql;
-            sql = "INSERT into Users(userID, firstName, lastName, userMailAddress, email) VALUES("+uid+","+fn+","+ln+""+ci+","+em+")";
-            System.out.println(sql);
-            sta.executeUpdate(sql);
-            conn.close();				
-	}
-	catch(Exception e){
-            System.out.println( e);
-	}
-    }
-      
-    public void deleteDB(){
-       try{
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-
-            Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + 
-                "FlowerStore/FlowerStoreMDB.mdb");
+            // Setting the email, firstName, and lastName parameters in the prepared statement
+            stmt.setString(1, email);
+            stmt.setString(2, firstName);
+            stmt.setString(3, lastName);
             
-            Statement st = conn.createStatement();
-            String sql;
-            sql = "DELETE from Users Where userID = "+getUserID()+"";
-            System.out.println(sql);
-            st.executeUpdate(sql);
-            conn.close();				
-	}
-	catch(Exception e){
-            System.out.println( e);
-	}
+            // Executing the update to insert the user
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            // Throwing a runtime exception if there is an SQL exception
+            throw new RuntimeException("Error inserting data into database", e);
+        }
     }
-    
-      public static void main(String[] args) {
-          GuestUser gu1 = new GuestUser();
-		gu1.selectDB("A900");
-		gu1.display();
+
+    // Method to update existing user information in the database
+    public void updateDB() {
+        // SQL command for updating a user's details in the Users table
+        String sql = "UPDATE Users SET email = ?, firstName = ?, lastName = ? WHERE userID = ?";
+        
+        // Try-with-resources to handle the database connection and statement
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            // Setting the email, firstName, and lastName parameters in the prepared statement
+            stmt.setString(1, email);
+            stmt.setString(2, firstName);
+            stmt.setString(3, lastName);
+            // Setting the userID parameter in the prepared statement
+            stmt.setInt(4, userID);
+            
+            // Executing the update to modify the user details
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            // Throwing a runtime exception if there is an SQL exception
+            throw new RuntimeException("Error updating database", e);
+        }
+    }
+
+    // Method to delete a user from the database
+    public void deleteDB() {
+        // SQL command for deleting a user from the Users table based on userID
+        String sql = "DELETE FROM Users WHERE userID = ?";
+        
+        // Try-with-resources to handle the database connection and statement
+        try (Connection conn = DriverManager.getConnection(databaseURL);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            // Setting the userID parameter in the prepared statement
+            stmt.setInt(1, userID);
+            
+            // Executing the update to delete the user
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            // Throwing a runtime exception if there is an SQL exception
+            throw new RuntimeException("Error deleting from database", e);
+        }
+    }
+
+    // Main method for testing the functionality of the GuestUser class
+    public static void main(String[] args) {
+        GuestUser gu1 = new GuestUser();
+        gu1.selectDB("guest@test.net");
+        gu1.display();
     }
 }
