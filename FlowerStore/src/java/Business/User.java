@@ -25,8 +25,8 @@ public class User extends GuestUser {
     }
 
     // Parameterized constructor
-    public User(int userID, String email, String userPassword, String firstName, String lastName) {
-        super(userID, email, firstName, lastName);
+    public User(String email, String userPassword, String firstName, String lastName, boolean admin) {
+        super(email, firstName, lastName);
         this.userPassword = userPassword;
         this.admin = false;
     }
@@ -56,7 +56,6 @@ public class User extends GuestUser {
                statement.setString(1, email);
                try (ResultSet rs = statement.executeQuery()) {
                    if (rs.next()) {
-                       // Assuming that 'userID' and other column names match the field names
                        setUserID(rs.getInt("userID"));
                        setUserPassword(rs.getString("userPassword"));
                        setFirstName(rs.getString("firstName"));
@@ -70,11 +69,10 @@ public class User extends GuestUser {
        }
 
     // Method for inserting a new user into the database
-    public void insertDB(String emailInput, String passwordInput, String firstNameInput, String lastNameInput, boolean par) {
+    public void insertDB() {
         String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, admin) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement statement = conn.prepareStatement(sql)) {
-            
             statement.setString(1, getEmail());
             statement.setString(2, getUserPassword());
             statement.setString(3, getFirstName());
@@ -92,12 +90,11 @@ public class User extends GuestUser {
         String sql = "UPDATE Users SET email = ?, userPassword = ?, firstName = ?, lastName = ?, admin = ? WHERE userID = ?";
         try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement statement = conn.prepareStatement(sql)) {
-            
             statement.setString(1, getEmail());
-            statement.setString(2, userPassword);
+            statement.setString(2, getUserPassword());
             statement.setString(3, getFirstName());
             statement.setString(4, getLastName());
-            statement.setBoolean(5, admin);
+            statement.setBoolean(5, getAdmin());
             statement.setInt(6, getUserID());
             statement.executeUpdate();
         } catch (SQLException e) {

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ************************************************************
- *
- * JACOB TRAHAN - in tandem with Jose Gomez
- *
- * Adv Sys Project - Oct 23, 2023
- *
- *************************************************************
+ * Represents a product and handles database operations related to products.
+ * This class includes functionalities to select, insert, update, delete,
+ * and retrieve products from the database.
+ * 
+ * @author Jacob Trahan - in tandem with Jose Gomez
+ * @version 1.9
+ * @since 2023-10-23
  */
 public class Product {
 
@@ -25,7 +25,7 @@ public class Product {
     private double productCost;
     private String productOccasion;
     private String productImage;
-    private Connection con;
+    private Connection con; // Database connection
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
 
     //for Jose
@@ -38,23 +38,33 @@ public class Product {
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
 
-    /********************************************
-    *                                           *
-    *               Constructors                *
-    *                                           *
-     * @param con
-    *********************************************/
+    /**
+     * Constructor with a database connection.
+     *
+     * @param con The database connection
+     */
     public Product(Connection con) {
         this.con = con; // Initialize with external connection
 
     }
 
-    // Default constructor
+    /**
+     * Default constructor.
+     */
     public Product() {
         this(null); // Default constructor uses null connection
     }
 ;
-    //Parameterized constructor
+    /**
+     * Parameterized constructor to create a product with specific details.
+     *
+     * @param productCode        The product code
+     * @param productName        The name of the product
+     * @param productDescription The description of the product
+     * @param productCost        The cost of the product
+     * @param productOccasion    The occasion for the product
+     * @param productImage       The image URL of the product
+     */
     public Product(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
         this();
         this.productCode = productCode;
@@ -117,7 +127,9 @@ public class Product {
     }
     //</editor-fold>    
     
-    // Display method
+    /**
+     * Displays product details to the console.
+     */
     public void display() {
         System.out.println("Product Code: " + getProductCode());
         System.out.println("Product Name: " + getProductName());
@@ -128,7 +140,12 @@ public class Product {
     }
 
     // Database methods
-    // Method to retrieve product data from the database based on the product code
+    
+    /**
+     * Retrieves product data from the database based on the product code.
+     *
+     * @param productCode The product code to search for
+     */
     public void selectDB(String productCode) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -155,8 +172,16 @@ public class Product {
         }
     }
 
-    // Method to insert product data into the database
-    public void insertDB() {
+    /**
+     * Inserts product data into the database.
+     * @param productCode
+     * @param productName
+     * @param productDescription
+     * @param productCost
+     * @param productOccasion
+     * @param productImage
+     */
+    public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
@@ -165,12 +190,12 @@ public class Product {
                         + "VALUES (?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                     // Set values for placeholders in the prepared stmt
-                    stmt.setString(1, getProductCode());
-                    stmt.setString(2, getProductName());
-                    stmt.setString(3, getProductDescription());
-                    stmt.setDouble(4, getProductCost());
-                    stmt.setString(5, getProductOccasion());
-                    stmt.setString(6, getProductImage());
+                    stmt.setString(1, productCode);
+                    stmt.setString(2, productName);
+                    stmt.setString(3, productDescription);
+                    stmt.setDouble(4, productCost);
+                    stmt.setString(5, productOccasion);
+                    stmt.setString(6, productImage);
                     // Execute the insert query
                     stmt.executeUpdate();
                 }
@@ -181,7 +206,9 @@ public class Product {
         }
     }
 
-    // Method to update product data in the database
+    /**
+     * Updates product data in the database.
+     */
     public void updateDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -207,7 +234,9 @@ public class Product {
         }
     }
 
-    // Method to delete product data from the database
+    /**
+     * Deletes product data from the database.
+     */
     public void deleteDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -227,14 +256,12 @@ public class Product {
         }
     }
     
-       /********************************************
-    *                                           *
-    *          GetAllProducts Method            *
-    *           created by Jose                 *
-    *           adapted by Jacob                *
-    *                                           *
-    * @return                                   *
-    *********************************************/
+    /**
+     * Retrieves all products from the database.
+     *
+     * @return A list of all products
+     * @author Jose Gomez
+     */
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         try {
@@ -267,14 +294,12 @@ public class Product {
         return products;
     }
 
-    /********************************************
-    *                                           *
-    *        GetCartProducts Method             *
-    *           created by Jose                 *
-    *           adapted by Jacob                *
-    * @param cartList
-    * @return 
-    *********************************************/
+    /**
+     * Retrieves products for a given shopping cart.
+     * @author Jose Gomez
+     * @param cartList The shopping cart list
+     * @return A list of products in the cart
+     */
     public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
         List<Cart> products = new ArrayList<>();
         try {
@@ -315,14 +340,12 @@ public class Product {
     return products;
 }
 
-    /********************************************
-    *                                           *
-    *        GetTotalCartPrice Method           *
-    *           created by Jose                 *
-    *           adapted by Jacob                *
-     * @param cartList                          *
-     * @return                                  *
-    *********************************************/
+    /**
+     * Calculates the total price of products in a cart.
+     * @author Jose Gomez
+     * @param cartList The shopping cart list
+     * @return The total price
+     */
     public double getTotalCartPrice(ArrayList<Cart> cartList) {
         double sum = 0;
 

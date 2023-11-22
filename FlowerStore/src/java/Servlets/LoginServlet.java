@@ -1,7 +1,6 @@
 package Servlets;
 
 import Business.*;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,73 +10,67 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/****************************
- * Project
+/**
+ * Servlet for handling user login functionality.
+ * This servlet processes user login requests, authenticates credentials,
+ * and redirects to the appropriate page based on the authentication result.
+ *
  * @author Jose V Gomez
- * 9/16/23
- ***************************/
+ * @since 2023-09-16
+ * @author Jacob
+ * @since 2023-10-24
+ * @version 1.3
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        PrintWriter out = response.getWriter();
-        
-        //properties
-        String email, pwInput;
-       
-        try{
-            
-            //Read user input from login form
-            //userIDInput = Integer.parseInt(request.getParameter("userid"));
-            email = request.getParameter("email");
-            pwInput = request.getParameter("userpw");
-            
-            //make a decision to continue 
-            //If email input and password input is not empty
-            if(!email.isEmpty() && !pwInput.isEmpty()){
-                
-                User u1 = new User();
-                u1.selectDB(email);
-                u1.display();
-                HttpSession session1 = request.getSession(true);
-                session1.setAttribute("u1", u1);
-                System.out.println("User added to session...");
-                
-            //if user id and user pw are in database forward to patient account page
-            if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
-                RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
-                rd.forward(request, response);
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");
-                rd.forward(request, response);
-            }
-                
-            }else{
-                RequestDispatcher rd = request.getRequestDispatcher("loginError.html");
-                rd.forward(request, response);
-            }   
-        
-        }catch(Exception e){
-
-            System.out.println(e);
-            
-        }finally{
-            System.out.println("LoginServlet Ending...");
-            out.close();
-        }
-    }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Processes requests for both HTTP {@code GET} and {@code POST} methods.
+     * Handles user login by verifying credentials and managing session attributes.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    
+    try (PrintWriter out = response.getWriter()) {
+        String email = request.getParameter("email");
+        String pwInput = request.getParameter("userpw");
+        
+        // Validate user inputs
+        if (email != null && !email.isEmpty() && pwInput != null && !pwInput.isEmpty()) {
+            User u1 = new User();
+            u1.selectDB(email);  // Load user details from the database
+
+            // Check if the loaded user matches the email and password
+            if (email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("u1", u1);  // Add user to session
+                request.getRequestDispatcher("account.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("loginError.jsp").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("loginError.html").forward(request, response);
+        }   
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP {@code GET} request.
+     * Delegates to {@code processRequest}.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -86,12 +79,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP {@code POST} request.
+     * Delegates to {@code processRequest}.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +100,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for user login handling";
     }// </editor-fold>
 
 }

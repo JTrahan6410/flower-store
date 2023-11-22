@@ -5,10 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * JACOB TRAHAN - adapted from Trent Cargle (9/18/23)
- * Adv Sys Project - Oct 5, 2023
+ * Represents a guest user with basic functionalities for database operations.
+ * Provides methods to select, insert, update, and delete guest user records in the database.
+ * Adapted from original work by Trent Cargle.
+ * 
+ * @author Jacob Trahan
+ * @version 1.8
+ * @since 2023-10-05
  */
 public class GuestUser {
     // Field members of the class
@@ -38,9 +44,14 @@ public class GuestUser {
         lastName = "";
     }
 
-    // Parameterized constructor for setting user properties during instantiation
-    public GuestUser(int userID, String email, String firstName, String lastName) {
-        this.userID = userID;
+    /**
+    * Parameterized constructor for setting user properties during instantiation, excluding userID.
+    *
+    * @param email The user's email.
+    * @param firstName The user's first name.
+    * @param lastName The user's last name.
+    */
+    public GuestUser(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -87,25 +98,32 @@ public class GuestUser {
         }
     }
 
-    // Method to insert a new user into the database
+    /**
+     * Inserts a new user into the database and retrieves the generated userID.
+     *
+     * @param email The user's email.
+     * @param firstName The user's first name.
+     * @param lastName The user's last name.
+     */
     public void insertDB(String email, String firstName, String lastName) {
-        // SQL command for inserting a new user into the Users table
         String sql = "INSERT INTO Users (email, firstName, lastName) VALUES (?, ?, ?)";
-        
-        // Try-with-resources to handle the database connection and statement
         try (Connection conn = DriverManager.getConnection(databaseURL);
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            // Setting the email, firstName, and lastName parameters in the prepared statement
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setString(1, email);
             stmt.setString(2, firstName);
             stmt.setString(3, lastName);
-            
-            // Executing the update to insert the user
             stmt.executeUpdate();
-            
+
+            // Retrieving the generated userID
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    this.userID = generatedKeys.getInt(1); // Assuming userID is the first column
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
-            // Throwing a runtime exception if there is an SQL exception
             throw new RuntimeException("Error inserting data into database", e);
         }
     }

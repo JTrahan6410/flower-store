@@ -177,19 +177,18 @@ public class Order {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                String sql = "INSERT INTO Orders (userID, orderDateTime, orderRequested, orderTotal, cardNumber, cardExpiry,"
-                        + " cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Orders (userID, orderRequested, orderTotal, cardNumber, cardExpiry,"
+                        + " cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
-                    statement.setDate(2, getOrderDateTime());
-                    statement.setDate(3, getOrderRequested());
-                    statement.setDouble(4, getOrderTotal());
-                    statement.setString(5, getCardNumber());
-                    statement.setDate(6, getCardExpiry());
-                    statement.setString(7, getCardCVV());
-                    statement.setBoolean(8, getHasGreetingCard());
-                    statement.setString(9, getGreetingCardType());
-                    statement.setString(10, getGreetingCardMessage());
+                    statement.setDate(2, getOrderRequested());
+                    statement.setDouble(3, getOrderTotal());
+                    statement.setString(4, getCardNumber());
+                    statement.setDate(5, getCardExpiry());
+                    statement.setString(6, getCardCVV());
+                    statement.setBoolean(7, getHasGreetingCard());
+                    statement.setString(8, getGreetingCardType());
+                    statement.setString(9, getGreetingCardMessage());
                     statement.executeUpdate();
                 }
             }
