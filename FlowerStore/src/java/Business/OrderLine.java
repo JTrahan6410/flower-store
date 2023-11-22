@@ -79,7 +79,7 @@ public class OrderLine {
     // Database methods
 
     public void selectDB(int lineItemID) {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "SELECT * FROM OrderLine WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, lineItemID);
@@ -98,7 +98,7 @@ public class OrderLine {
     }
 
     public void insertDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "INSERT INTO OrderLine (orderID, productCode, productCost, productQuantity) VALUES (?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getOrderID());
@@ -113,7 +113,7 @@ public class OrderLine {
     }
 
     public void updateDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "UPDATE OrderLine SET orderID = ?, productCode = ?, productCost = ?, productQuantity = ? WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getOrderID());
@@ -129,7 +129,7 @@ public class OrderLine {
     }
 
     public void deleteDB() {
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "DELETE FROM OrderLine WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, getLineItemID());

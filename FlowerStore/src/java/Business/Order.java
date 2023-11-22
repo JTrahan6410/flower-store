@@ -148,7 +148,7 @@ public class Order {
     public void selectDB(int orderID) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 String sql = "SELECT * FROM Orders WHERE orderID = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, orderID);
@@ -176,7 +176,7 @@ public class Order {
     public void insertDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 String sql = "INSERT INTO Orders (userID, orderDateTime, orderRequested, orderTotal, cardNumber, cardExpiry, cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
@@ -200,7 +200,7 @@ public class Order {
     public void updateDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 String sql = "UPDATE Orders SET userID = ?, orderDateTime = ?, orderRequested = ?, orderTotal = ?, cardNumber = ?, cardExpiry = ?, cardCVV = ?, hasGreetingCard = ?, greetingCardType = ?, greetingCardMessage = ? WHERE orderID = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
@@ -225,7 +225,7 @@ public class Order {
     public void deleteDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 String sql = "DELETE FROM Orders WHERE orderID = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getOrderID());

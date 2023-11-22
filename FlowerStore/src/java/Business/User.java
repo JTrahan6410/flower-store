@@ -50,7 +50,7 @@ public class User extends GuestUser {
     @Override
        public void selectDB(String email) {
            String sql = "SELECT * FROM Users WHERE email = ?";
-           try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+           try (Connection conn = DriverManager.getConnection(databaseURL);
                 PreparedStatement statement = conn.prepareStatement(sql)) {
 
                statement.setString(1, email);
@@ -72,7 +72,7 @@ public class User extends GuestUser {
     // Method for inserting a new user into the database
     public void insertDB(String emailInput, String passwordInput, String firstNameInput, String lastNameInput, boolean par) {
         String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, admin) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement statement = conn.prepareStatement(sql)) {
             
             statement.setString(1, getEmail());
@@ -90,7 +90,7 @@ public class User extends GuestUser {
     @Override
     public void updateDB() {
         String sql = "UPDATE Users SET email = ?, userPassword = ?, firstName = ?, lastName = ?, admin = ? WHERE userID = ?";
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement statement = conn.prepareStatement(sql)) {
             
             statement.setString(1, getEmail());

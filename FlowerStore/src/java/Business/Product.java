@@ -132,7 +132,7 @@ public class Product {
     public void selectDB(String productCode) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 // SQL query to select product data based on the product code
                 String sql = "SELECT * FROM Product WHERE productCode = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -159,7 +159,7 @@ public class Product {
     public void insertDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 // SQL query to insert product data into the database
                 String sql = "INSERT INTO Product (productCode, productName, productDescription, productCost, productOccasion, productImage) "
                         + "VALUES (?, ?, ?, ?, ?, ?)";
@@ -185,7 +185,7 @@ public class Product {
     public void updateDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 // SQL query to update product data in the database
                 String sql = "UPDATE Product SET productName = ?, productDescription = ?, productCost = ?, "
                         + "productOccasion = ?, productImage = ? WHERE productCode = ?";
@@ -211,7 +211,7 @@ public class Product {
     public void deleteDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 // SQL query to delete product data from the database
                 String sql = "DELETE FROM Product WHERE productCode = ?";
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -243,7 +243,7 @@ public class Product {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             // Use try-with-resources for automatic resource management
             System.out.println("Establishing connection..."); //debug
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+            try (Connection conn = DriverManager.getConnection(databaseURL);
                  PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Products");
                  ResultSet rs = stmt.executeQuery()) {
                 // Iterate through the result set
@@ -282,7 +282,7 @@ public class Product {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 
             // Use try-with-resources for automatic resource management
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 if (!cartList.isEmpty()) {
                     for (Cart item : cartList) {
                         String query = "SELECT * FROM Products WHERE productCode = ?";
@@ -331,7 +331,7 @@ public class Product {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
 
             // Use try-with-resources for automatic resource management
-            try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL)) {
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 if (!cartList.isEmpty()) {
                     for (Cart item : cartList) {
                         String query = "SELECT productCost FROM Products WHERE productCode = ?";

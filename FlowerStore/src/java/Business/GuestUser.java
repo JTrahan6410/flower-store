@@ -71,7 +71,7 @@ public class GuestUser {
         this.email = email;
         // SQL query to select a user from the Users table by email
         String sql = "SELECT * FROM Users WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -93,7 +93,7 @@ public class GuestUser {
         String sql = "INSERT INTO Users (email, firstName, lastName) VALUES (?, ?, ?)";
         
         // Try-with-resources to handle the database connection and statement
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             // Setting the email, firstName, and lastName parameters in the prepared statement
@@ -116,7 +116,7 @@ public class GuestUser {
         String sql = "UPDATE Users SET email = ?, firstName = ?, lastName = ? WHERE userID = ?";
         
         // Try-with-resources to handle the database connection and statement
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             // Setting the email, firstName, and lastName parameters in the prepared statement
@@ -141,7 +141,7 @@ public class GuestUser {
         String sql = "DELETE FROM Users WHERE userID = ?";
         
         // Try-with-resources to handle the database connection and statement
-        try (Connection conn = DriverManager.getConnection("jdbc:ucanaccess://" + databaseURL);
+        try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             // Setting the userID parameter in the prepared statement
