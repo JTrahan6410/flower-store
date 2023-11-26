@@ -75,17 +75,17 @@
             <label for="lastName">Last Name:</label><br>
             <input type="text" id="lastName" name="lastName" value="<%=u1.getLastName()%>"><br><br>
             
-            <label for="lastName">Street:</label><br>
-            <input type="text" id="lastName" name="lastName" value=""><br><br>
+            <label for="streetAddress">Street:</label><br>
+            <input type="text" id="streetAddress" name="streetAddress" value="<%=u1.getStreetAddress()%>"><br><br>
             
-            <label for="lastName">City:</label><br>
-            <input type="text" id="lastName" name="lastName" value=""><br><br>
+            <label for="city">City:</label><br>
+            <input type="text" id="city" name="city" value="<%=u1.getCity()%>"><br><br>
             
-            <label for="lastName">State:</label><br>
-            <input type="text" id="lastName" name="lastName" value=""><br><br>
+            <label for="state">State:</label><br>
+            <input type="text" id="state" name="state" value="<%=u1.getState()%>"><br><br>
             
-            <label for="lastName">Zip:</label><br>
-            <input type="text" id="lastName" name="lastName" value=""><br><br>
+            <label for="ZIP">Zip:</label><br>
+            <input type="text" id="ZIP" name="ZIP" value="<%=u1.getZIP()%>"><br><br>
                         
             <input class="btn" type="submit" value="Update">
             <input class="btn" type="reset" value="Reset">
