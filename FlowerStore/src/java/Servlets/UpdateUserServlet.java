@@ -25,7 +25,7 @@ public class UpdateUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, emailInput, passwordInput;
+        String firstNameInput, lastNameInput, emailInput, passwordInput, streetAddressInput, cityInput, stateInput, ZIPInput;
         
         
         try{
@@ -34,6 +34,11 @@ public class UpdateUserServlet extends HttpServlet {
             firstNameInput = request.getParameter("firstName");
             lastNameInput = request.getParameter("lastName");
             passwordInput = request.getParameter("userPassword");
+            streetAddressInput = request.getParameter("streetAddress");
+            cityInput = request.getParameter("city");
+            stateInput = request.getParameter("state");
+            ZIPInput = request.getParameter("ZIP");
+            
             
             
             System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
@@ -47,6 +52,10 @@ public class UpdateUserServlet extends HttpServlet {
             u1.setFirstName(firstNameInput);
             u1.setLastName(lastNameInput);
             u1.setUserPassword(passwordInput);
+            u1.setStreetAddress(streetAddressInput);
+            u1.setCity(cityInput);
+            u1.setState(stateInput);
+            u1.setZIP(ZIPInput);
             
             
             u1.updateDB();

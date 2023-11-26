@@ -16,16 +16,17 @@ public class GuestUser {
     protected String firstName;
     protected String lastName;
     protected String email;
+    protected String streetAddress, city, state, ZIP;
         // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
-//    private static final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    private static final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //for Salena
 //    private static final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    //private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
     protected static final String databaseURL = "jdbc:ucanaccess://" + databasePath;
@@ -36,14 +37,22 @@ public class GuestUser {
         email = "";
         firstName = "";
         lastName = "";
+        streetAddress = "";
+        city = "";
+        state = "";
+        ZIP = "";
     }
 
     // Parameterized constructor for setting user properties during instantiation
-    public GuestUser(int userID, String email, String firstName, String lastName) {
+    public GuestUser(int userID, String email, String firstName, String lastName, String streetAddress, String city, String state, String ZIP) {
         this.userID = userID;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.state = state;
+        this.ZIP = ZIP;
     }
  
     // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
@@ -55,6 +64,39 @@ public class GuestUser {
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZIP() {
+        return ZIP;
+    }
+
+    public void setZIP(String ZIP) {
+        this.ZIP = ZIP;
+    }
+    
 // </editor-fold>
     
     // Method to display user information in the console
@@ -63,6 +105,10 @@ public class GuestUser {
         System.out.println("Email = " + getEmail());
         System.out.println("First Name = " + getFirstName());
         System.out.println("Last Name = " + getLastName());
+        System.out.println("Street Address = " + getStreetAddress());
+        System.out.println("City = " + getCity());
+        System.out.println("State = " + getState());
+        System.out.println("ZIP = " + getZIP());
     }
 
      // Method to retrieve a user from the database based on their email

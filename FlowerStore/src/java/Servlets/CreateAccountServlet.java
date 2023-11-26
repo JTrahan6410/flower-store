@@ -24,17 +24,21 @@ public class CreateAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, emailInput, passwordInput;
+        String firstNameInput, lastNameInput, emailInput, passwordInput, streetAddressInput, cityInput, stateInput, ZIPInput;
         try{
             emailInput = request.getParameter("email");
             firstNameInput = request.getParameter("firstname");
             lastNameInput = request.getParameter("lastname");
             passwordInput = request.getParameter("password");
+            streetAddressInput = request.getParameter("streetAddress");
+            cityInput = request.getParameter("city");
+            stateInput = request.getParameter("state");
+            ZIPInput = request.getParameter("ZIP");
             
             System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
             
             User u1 = new User();
-            u1.insertDB(emailInput, passwordInput, firstNameInput, lastNameInput, false);
+            u1.insertDB(emailInput, passwordInput, firstNameInput, lastNameInput, streetAddressInput, cityInput, stateInput, ZIPInput);
              u1.selectDB(emailInput);
                 u1.display();
                 HttpSession session1 = request.getSession();
