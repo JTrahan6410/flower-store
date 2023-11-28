@@ -13,7 +13,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" type ="text/css" href="style.css">
-        <link rel="stylesheet" type ="text/css" href="successStyle.css"> 
+        <link rel="stylesheet" type ="text/css" href="orderConfirmationStyle.css"> 
     </head>
         <header>
             <input type="checkbox" name="toggler" id="toggler">

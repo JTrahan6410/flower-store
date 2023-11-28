@@ -18,7 +18,7 @@ public class OrderLine {
     private double productCost;
     private short productQuantity;
     
-            // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+        // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
 //    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
@@ -83,14 +83,14 @@ public class OrderLine {
             String sql = "SELECT * FROM OrderLine WHERE lineItemID = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, lineItemID);
-                ResultSet rs = pstmt.executeQuery();
-                if (rs.next()) {
-                    setOrderID(rs.getInt("orderID"));
-                    setProductCode(rs.getString("productCode"));
-                    setProductCost(rs.getDouble("productCost"));
-                    setProductQuantity(rs.getShort("productQuantity"));
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        setOrderID(rs.getInt("orderID"));
+                        setProductCode(rs.getString("productCode"));
+                        setProductCost(rs.getDouble("productCost"));
+                        setProductQuantity(rs.getShort("productQuantity"));
+                    }
                 }
-                rs.close();
             }
         } catch (SQLException e) {
             System.out.println(e);

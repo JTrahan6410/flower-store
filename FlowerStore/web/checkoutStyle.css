@@ -103,6 +103,36 @@ span.price {
   color: grey;
 }
 
+.select-box-container {
+  display: flex;
+  /*gap: 20px;  Spacing between select boxes */
+  align-items: center;
+}
+
+.select-box {
+  flex: 1; /* Each select box takes equal width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+  display: flex;
+  margin-right: 5px;
+}
+
+ .date-separator {
+    margin-right: 5px; /* Adjust space as needed */
+ }
+
+ .checkbox-container {
+    display: flex;
+    align-items: center; /* Aligns items vertically center */
+ }
+
+ .checkbox-container label {
+    margin-left: 12px; /* Adds some space between the checkbox and the label */
+ }
+
+
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
   .row {
@@ -110,5 +140,9 @@ span.price {
   }
   .col-25 {
     margin-bottom: 20px;
+  }
+  .select-box-container {
+    flex-direction: column;
+    gap: 10px;
   }
 }
