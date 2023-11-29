@@ -25,16 +25,16 @@ public class GuestUser {
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
-//    protected static final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+//    protected static final String DATABASE_PATH = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Salena
-//    protected static final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+//    protected static final String DATABASE_PATH = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    protected static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    protected static final String DATABASE_PATH = "E:/Users/Documents/GitHub/flower-store/FlowerStore/FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
-    protected static final String databaseURL = "jdbc:ucanaccess://" + databasePath;
+    protected static String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
 
     // Default constructor initializing fields to default values
     public GuestUser() {

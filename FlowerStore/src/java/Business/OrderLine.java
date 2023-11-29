@@ -21,16 +21,16 @@ public class OrderLine {
         // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
-//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+//    final String DATABASE_PATH = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Salena
-//    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+//    final String DATABASE_PATH = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    final String DATABASE_PATH = "E:/Users/Documents/GitHub/flower-store/FlowerStore/FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
-    protected final String databaseURL = "jdbc:ucanaccess://" + databasePath;
+    protected final String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
 
     // Constructors
     // Default constructor for OrderLine class
