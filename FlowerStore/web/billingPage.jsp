@@ -22,7 +22,7 @@
     <form action="">
       <div class="row">
         <div class="col">
-          <h3 class="title">billig address</h3>
+          <h3 class="title">billing address</h3>
           <div class="inputBox">
             <span>full name :</span> <input type="text" placeholder="Billy Bob">
           </div>
@@ -30,7 +30,7 @@
             <span>email :</span> <input type="email" placeholder="123@email.com">
           </div>
           <div class="inputBox">
-            <span>adress :</span> <input type="text" placeholder="room - street- location">
+            <span>address :</span> <input type="text" placeholder="room - street- location">
           </div>
           <div class="inputBox">
             <span>city :</span> <input type="text" placeholder="Atlanta">
