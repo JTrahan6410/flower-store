@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : createAccount
     Created on : Oct 4, 2023, 4:23:35 PM
     Author     : Nick Boudreaux
@@ -33,11 +33,11 @@
             function validateForm(){
                 let x = document.forms["create-account-form"]["customerid"].value;
                 let x2 = document.forms["create-account-form"]["pwd"].value;
-            //Pop-up a message if customerid or password is empty 
+            //Pop-up a message if customerid or password is empty
                 if(x === "" || x2 === ""){
                     alert("Must enter a valid Customer ID and password.");
                     return false;
-                }    
+                }
             //Pop-up a message when customerid is not a number
                 if(isNaN(x)){
                     alert("Customer ID must be a number.");
@@ -62,38 +62,38 @@
                 <% } else { %>
                     <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
                 <% } %>
-   
+
                 <a href="login.jsp" style="float: right">login</a>
             </nav>
 	</header>
 	<section class="home" id="home">
             <form action="CreateAccountServlet" method="post" id="create-account-form" name="create-account-form" onsubmit="return validateForn()">
                 <h1 style="text-align: center; font-weight: bolder; font-size: 25px">Create Account</h1>
-                
+
                 <label for="firstname">First Name:</label>
                 <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br>
-                
+
                 <label for="lastname">Last Name:</label>
                 <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br>
-                
+
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Email" required><br>
-                
+
                 <label for="password">Password:</label>
 		<input type="password" id="password" name="password" placeholder="Password" required><br>
-                
-                <label for="street">Street:</label>
-		<input type="text" id="street" name="street" placeholder="Street" required><br>
-                
+
+                <label for="streetAddress">Street:</label>
+		<input type="text" id="streetAddress" name="streetAddress" placeholder="Street"><br>
+
                 <label for="city">City:</label>
-                <input type="text" id="city" name="city" placeholder="City" required><br>
-                
+                <input type="text" id="city" name="city" placeholder="City"><br>
+
                 <label for="state">State:</label>
-		<input type="text" id="state" name="state" placeholder="State" required><br>
-                
-                <label for="zip">Zip:</label>
-		<input type="text" id="zip" name="zip" placeholder="Zip" required><br>
-                
+		<input type="text" id="state" name="state" placeholder="State"><br>
+
+                <label for="ZIP">Zip:</label>
+		<input type="Text" id="ZIP" name="ZIP" placeholder="Zip"><br>
+
                 <input class="btn" type="submit" value="Create"><br>
 		<p>Already have an account with us? <a href="login.jsp">Click here to log in!</a></p>
             </form>

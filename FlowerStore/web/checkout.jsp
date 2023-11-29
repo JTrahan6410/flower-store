@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : checkout
     Created on : Oct 4, 2023, 12:38:25 PM
     Author     : lena
@@ -55,8 +55,8 @@
                     <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart">${ cart_list.size() }</i></a>
                 <% } else { %>
                     <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
-                <% } %>   
-        <% 
+                <% } %>
+        <%
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
         %>
@@ -100,7 +100,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Payment Section -->
           <div class="col-50">
             <h3>Payment</h3>
@@ -165,7 +165,7 @@
          }%>
       <hr>
       <p>Total <span class="price" style="color:black"><b>$ ${ (total>0)?dcf.format(total):0 }</b></span></p>
-      
+
       <br>
       <form>
           <div class="checkbox-container">
@@ -176,10 +176,10 @@
             <!-- Text box for greeting card message -->
             <!--<textarea class="resize-y rounded-md" id="greetingCardMessage" placeholder="Your greeting card message" disabled> </textarea>-->
             <input type="text" id="greetingCardMessage" placeholder="Your greeting card message" disabled>
-          
+
       </form>
     </div>
-    
+
   </div>
 </div>
 <section class="footer">
@@ -188,11 +188,16 @@
                     <h3>quick links</h3>
                         <a href="index.jsp">home</a>
                         <a href="product.jsp">products</a>
+                        <!--<a href="#">about</a>-->
+                        <a href="product.jsp">products</a>
+                        <!--<a href="#">review</a>-->
+                        <!--<a href="#">contact</a>-->
                 </div>
                 <div class="box">
                     <h3>extra links</h3>
                         <a href="account.jsp">my account</a>
                         <a href="cart.jsp">my cart</a>
+                        <!--<a href="#">my favorite</a>-->
                 </div>
                 <div class="box">
                     <h3>locations</h3>

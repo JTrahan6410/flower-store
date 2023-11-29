@@ -78,10 +78,10 @@
                     <td><%=u1.getUserPassword()%></td>
                     <td><%=u1.getFirstName()%></td>
                     <td><%=u1.getLastName()%></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><%=u1.getStreetAddress()%></td>
+                    <td><%=u1.getCity()%></td>
+                    <td><%=u1.getState()%></td>
+                    <td><%=u1.getZIP()%></td>
                 </tr>
             </table>
             <a class="btn" href="editAccount.jsp"> edit account info </a>

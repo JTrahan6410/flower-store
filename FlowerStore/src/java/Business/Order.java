@@ -27,20 +27,20 @@ public class Order {
     private String greetingCardType;
     private String greetingCardMessage;
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
-    
+
     //for Jose
 //    final String DATABASE_PATH = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    
+
     //for Salena
 //    final String DATABASE_PATH = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-    
+
     //for Jacob
     final String DATABASE_PATH = "E:/Users/Documents/GitHub/flower-store/FlowerStore/FlowerStoreDatabase_v4.accdb";
-    
+
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
-    
-    
+
+
 
     // Default constructor
     public Order() {
@@ -116,19 +116,19 @@ public class Order {
 
     public String getCardCVV() { return cardCVV; }
     public void setCardCVV(String cardCVV) { this.cardCVV = cardCVV; }
-    
+
     public boolean getHasGreetingCard() { return hasGreetingCard; }
     public void setHasGreetingCard(boolean hasGreetingCard) { this.hasGreetingCard = hasGreetingCard; }
-    
+
     public String getGreetingCardType() { return greetingCardType; }
     public void setGreetingCardType(String greetingCardType) {  this.greetingCardType = greetingCardType; }
-    
+
     public String getGreetingCardMessage() { return greetingCardMessage; }
     public void setGreetingCardMessage(String greetingCardMessage) { this.greetingCardMessage = greetingCardMessage; }
 
     //</editor-fold>
     // display method
-    
+
     public void display() {
         System.out.println("Order ID: " + getOrderID());
         System.out.println("User ID: " + getUserID());
@@ -142,9 +142,9 @@ public class Order {
         System.out.println("Greeting Card Type: " + getGreetingCardType());
         System.out.println("Greeting Card Message: " + getGreetingCardMessage());
 }
-    
+
     // Database methods
-    
+
     public void selectDB(int orderID) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -222,7 +222,7 @@ public class Order {
             System.out.println(e);
         }
     }
-    
+
     public void deleteDB() {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");

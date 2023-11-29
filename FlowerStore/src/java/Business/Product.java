@@ -12,7 +12,7 @@ import java.util.List;
  * Represents a product and handles database operations related to products.
  * This class includes functionalities to select, insert, update, delete,
  * and retrieve products from the database.
- * 
+ *
  * @author Jacob Trahan - in tandem with Jose Gomez
  * @version 1.9
  * @since 2023-10-23
@@ -75,7 +75,7 @@ public class Product {
         this.productImage = productImage;
     }
 
-    
+
     // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
     // Getters and Setters
     public String getProductCode() {
@@ -125,8 +125,8 @@ public class Product {
     public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
-    //</editor-fold>    
-    
+    //</editor-fold>
+
     /**
      * Displays product details to the console.
      */
@@ -140,7 +140,7 @@ public class Product {
     }
 
     // Database methods
-    
+
     /**
      * Retrieves product data from the database based on the product code.
      *
@@ -255,7 +255,7 @@ public class Product {
             System.out.println(e);
         }
     }
-    
+
     /**
      * Retrieves all products from the database.
      *
