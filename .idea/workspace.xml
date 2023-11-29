@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4b2ab4f-064f-45b4-9568-a4a30d804e5a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/FlowerStore/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FlowerStore/nbproject/private/private.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlowerStore/src/java/Business/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/FlowerStore/src/java/Business/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/CreateAccountServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/CreateAccountServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/UpdateUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/FlowerStore/src/java/Servlets/UpdateUserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nb-configuration.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group2/FlowerShop/JakartaRestConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/group2/FlowerShop/resources/JakartaEE10Resource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,20 +35,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -53,8 +58,6 @@
       <option name="presentableId" value="Default" />
       <updated>1693246957163</updated>
       <workItem from="1693246959005" duration="1142000" />
-      <workItem from="1701231160551" duration="7000" />
-      <workItem from="1701231239995" duration="1000" />
     </task>
     <servers />
   </component>

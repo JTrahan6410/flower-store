@@ -1,6 +1,6 @@
 package Servlets;
 
-import Business.User;
+import Business.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,12 +34,12 @@ public class CreateAccountServlet extends HttpServlet {
             cityInput = request.getParameter("city");
             stateInput = request.getParameter("state");
             ZIPInput = request.getParameter("ZIP");
-
+            
             System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
-
-            User u1 = new User(emailInput, passwordInput, firstNameInput, lastNameInput, streetAddressInput, cityInput, stateInput, ZIPInput, false);
-            u1.insertDB();
-            u1.selectDB(emailInput);
+            
+            User u1 = new User();
+            u1.insertDB(emailInput, passwordInput, firstNameInput, lastNameInput, streetAddressInput, cityInput, stateInput, ZIPInput);
+             u1.selectDB(emailInput);
                 u1.display();
                 HttpSession session1 = request.getSession();
                 session1.setAttribute("u1", u1);
@@ -47,11 +47,11 @@ public class CreateAccountServlet extends HttpServlet {
 
 
             u1.display();
-
+            
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-
-        }catch(ServletException | IOException e){
+            
+        }catch(Exception e){
             System.out.println(e);
         }
     }

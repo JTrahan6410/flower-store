@@ -11,85 +11,84 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/**
- * Servlet implementation for updating user details.
- * This servlet handles the process of updating user information such as email, first name,
- * last name, and password, and then redirects to the account page.
- *
+/****************************
+ * Project
  * @author Jose V Gomez
- * @since 2023-09-16
- * @author Jacob Trahan
- * @since 2023-11-16
- * @version 1.5
- *
- */
+ * 9/16/23
+ ***************************/
 @WebServlet(name = "UpdateUserServlet", urlPatterns = {"/UpdateUserServlet"})
 public class UpdateUserServlet extends HttpServlet {
 
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();
-            User u1 = (User)session.getAttribute("u1");
+        
+        PrintWriter out = response.getWriter();
+        String firstNameInput, lastNameInput, emailInput, passwordInput, streetAddressInput, cityInput, stateInput, ZIPInput;
+        
+        
+        try{
             
-            // Only update attributes that have non-null and non-empty values
-            String emailInput = request.getParameter("email");
-            if (emailInput != null && !emailInput.isEmpty()) u1.setEmail(emailInput);
+            emailInput = request.getParameter("email");
+            firstNameInput = request.getParameter("firstName");
+            lastNameInput = request.getParameter("lastName");
+            passwordInput = request.getParameter("userPassword");
+            streetAddressInput = request.getParameter("streetAddress");
+            cityInput = request.getParameter("city");
+            stateInput = request.getParameter("state");
+            ZIPInput = request.getParameter("ZIP");
             
-            String firstNameInput = request.getParameter("firstName");
-            if (firstNameInput != null && !firstNameInput.isEmpty()) u1.setFirstName(firstNameInput);
-
-            String lastNameInput = request.getParameter("lastName");
-            if (lastNameInput != null && !lastNameInput.isEmpty()) u1.setLastName(lastNameInput);
-
-            String passwordInput = request.getParameter("userPassword");
-            if (passwordInput != null && !passwordInput.isEmpty()) u1.setUserPassword(passwordInput);
-
-            String streetAddressInput = request.getParameter("streetAddress");
-            if (streetAddressInput != null && !streetAddressInput.isEmpty()) u1.setStreetAddress(streetAddressInput);
-
-            String cityInput = request.getParameter("city");
-            if (cityInput != null && !cityInput.isEmpty()) u1.setCity(cityInput);
-
-            String stateInput = request.getParameter("state");
-            if (stateInput != null && !stateInput.isEmpty()) u1.setState(stateInput);
-
-            String ZIPInput = request.getParameter("ZIP");
-            if (ZIPInput != null && !ZIPInput.isEmpty()) u1.setZIP(ZIPInput);
-
-            // Update user information in the database
+            
+            
+            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
+            
+            User u1;
+            HttpSession ses1 = request.getSession();
+            u1 = (User)ses1.getAttribute("u1");
+            
+            
+            u1.setEmail(emailInput);
+            u1.setFirstName(firstNameInput);
+            u1.setLastName(lastNameInput);
+            u1.setUserPassword(passwordInput);
+            u1.setStreetAddress(streetAddressInput);
+            u1.setCity(cityInput);
+            u1.setState(stateInput);
+            u1.setZIP(ZIPInput);
+            
+            
             u1.updateDB();
             u1.display();
-
-            // Forward to account page
+            
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-        } catch (Exception e) {
-            System.out.println("Error in UpdateUserServlet: " + e.getMessage());
-            e.printStackTrace();
-            response.sendRedirect("errorPage.jsp"); // Redirect to error page on exception
+            
+            
+            
+            
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Processes requests for both HTTP {@code GET} and {@code POST} methods.
-     * Updates the user information in the session and database.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
     /**
-     * Handles the HTTP {@code POST} request.
-     * Calls {@code processRequest} to process the request.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -109,6 +108,7 @@ public class UpdateUserServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet for updating user information";
+        return "Short description";
     }// </editor-fold>
+
 }

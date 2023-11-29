@@ -1,4 +1,4 @@
-<%--
+<%-- 
     Document   : checkout
     Created on : Oct 4, 2023, 12:38:25 PM
     Author     : lena
@@ -33,30 +33,19 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="checkoutStyle.css">
-        <script>
-            function toggleGreetingCardTextbox() {
-            var checkbox = document.getElementById("greetingCardCheckbox");
-            var textbox = document.getElementById("greetingCardMessage");
-
-            textbox.disabled = !checkbox.checked; // Disable if checkbox is not checked
-            if(!checkbox.checked) {
-                textbox.value = ''; // Clear the text box if checkbox is unchecked
-            }
-        }
-        </script>
+        <link rel="stylesheet" href="checkout.css">
     </head>
     <header>
             <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-                <% if(cart_list != null && !cart_list.isEmpty()){ %>
-                    <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart">${ cart_list.size() }</i></a>
-                <% } else { %>
-                    <a href="cart.jsp">cart<i class="fa fa-shopping-cart"></i></a>
-                <% } %>
-        <%
+                <% if(cart_list!=null){%>
+                <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
+        <% }else{%>
+                <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
+         <%} %>    
+        <% 
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
         %>
@@ -75,20 +64,17 @@
     <div class="container1">
       <form action="CheckoutServlet" method="post">
         <div class="row">
-          <!-- Billing Address Section -->
-            <div class="col-50">
+          <div class="col-50">
             <h3>Billing Address</h3>
-            <br>
-            <label for="fname"><i class="fa fa-user"></i> First Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John">
-            <label for="lname"><i class="fa fa-user"></i> Last Name</label>
-            <input type="text" id="lname" name="lasttname" placeholder="Doe">
+            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
             <label for="email"><i class="fa fa-envelope"></i> Email</label>
             <input type="text" id="email" name="email" placeholder="john@example.com">
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
             <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
             <label for="city"><i class="fa fa-institution"></i> City</label>
             <input type="text" id="city" name="city" placeholder="New York">
+
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
@@ -101,7 +87,6 @@
             </div>
           </div>
 
-          <!-- Payment Section -->
           <div class="col-50">
             <h3>Payment</h3>
             <label for="fname">Accepted Cards</label>
@@ -111,42 +96,24 @@
               <i class="fa fa-cc-mastercard" style="color:red;"></i>
               <i class="fa fa-cc-discover" style="color:orange;"></i>
             </div>
-            <!-- Name on card not used, pulls from userID -->
-            <label for="cardName">Name on Card</label>
-            <input type="text" id="cardName" name="cardName" placeholder="John More Doe">
-            <label for="cardNumber">Credit Card Number</label>
-            <input type="text" id="cardNumber" name="cardNumber" placeholder="1111-2222-3333-4444">
-            <label for="cardCVV">CVV</label>
-            <input type="text" id="cardCVV" name="cardCVV" placeholder="352">
-            <label for="expiry">Card Expiry</label>
-            <div class="select-box-container">
-            <select class="select-box" id="month" name="month">
-                <option value="" disabled selected>Month</option>
-                <option value="1">01</option>
-                <option value="2">02</option>
-                <option value="3">03</option>
-                <option value="4">04</option>
-                <option value="5">05</option>
-                <option value="6">06</option>
-                <option value="7">07</option>
-                <option value="8">08</option>
-                <option value="9">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-            <span class="date-separator">/</span>
-            <select class="select-box" id="year" name="year">
-                <option value="" disabled selected>Year</option>
-                <option value="2023">23</option>
-                <option value="2024">24</option>
-                <option value="2025">25</option>
-                <option value="2026">26</option>
-                <option value="2027">27</option>
-                <option value="2028">28</option>
-            </select>
+            <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2018">
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352">
+              </div>
             </div>
           </div>
+          
         </div>
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
@@ -165,21 +132,7 @@
          }%>
       <hr>
       <p>Total <span class="price" style="color:black"><b>$ ${ (total>0)?dcf.format(total):0 }</b></span></p>
-
-      <br>
-      <form>
-          <div class="checkbox-container">
-            <!-- Checkbox for adding a greeting card -->
-            <input type="checkbox" id="greetingCardCheckbox" onclick="toggleGreetingCardTextbox()">
-            <label for="greetingCardCheckbox">Add a custom greeting card for $1?</label>
-            </div>
-            <!-- Text box for greeting card message -->
-            <!--<textarea class="resize-y rounded-md" id="greetingCardMessage" placeholder="Your greeting card message" disabled> </textarea>-->
-            <input type="text" id="greetingCardMessage" placeholder="Your greeting card message" disabled>
-
-      </form>
     </div>
-
   </div>
 </div>
 <section class="footer">
@@ -187,7 +140,6 @@
                 <div class="box">
                     <h3>quick links</h3>
                         <a href="index.jsp">home</a>
-                        <a href="product.jsp">products</a>
                         <!--<a href="#">about</a>-->
                         <a href="product.jsp">products</a>
                         <!--<a href="#">review</a>-->

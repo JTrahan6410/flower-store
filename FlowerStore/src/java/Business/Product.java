@@ -1,72 +1,70 @@
 package Business;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Represents a product and handles database operations related to products.
- * This class includes functionalities to select, insert, update, delete,
- * and retrieve products from the database.
- *
- * @author Jacob Trahan - in tandem with Jose Gomez
- * @version 1.9
- * @since 2023-10-23
- */
+    /********************************************
+    *                                           *
+    *               Jose Gomez                  *
+    *               10/24/23                    *
+    *        Product Business Object            *
+    *                                           *
+    *********************************************/
 public class Product {
 
+
+    /********************************************
+    *                                           *
+    *               Properties                  *
+    *                                           *
+    *********************************************/
     private String productCode;
     private String productName;
     private String productDescription;
-    private double productCost;
+    private Double productCost;
     private String productOccasion;
     private String productImage;
-    private Connection con; // Database connection
-    // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
-
+    
+        // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
+    
     //for Jose
-//    final String DATABASE_PATH = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
-
+    private static final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    
     //for Salena
-//    final String DATABASE_PATH = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+//    private static final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    
     //for Jacob
-    final String DATABASE_PATH = "E:/Users/Documents/GitHub/flower-store/FlowerStore/FlowerStoreDatabase_v4.accdb";
+    //private static final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    
     //</editor-fold>
-    final String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
+    
+    private static final String databaseURL = "jdbc:ucanaccess://" + databasePath;
+    
+    private Connection con;
+    private String query;
+    private PreparedStatement pst;
+    private ResultSet rs;
 
-    /**
-     * Constructor with a database connection.
-     *
-     * @param con The database connection
-     */
-    public Product(Connection con) {
-        this.con = con; // Initialize with external connection
-
+    /********************************************
+    *                                           *
+    *               Constructors                *
+    *                                           *
+     * @param con
+    *********************************************/
+    public Product(Connection con){
+        this.con = con;
     }
-
-    /**
-     * Default constructor.
-     */
+    
     public Product() {
-        this(null); // Default constructor uses null connection
+        productCode = "";
+        productName = "";
+        productDescription = "";
+        productCost = 0.00;
+        productOccasion = "";
+        productImage = "";
     }
-;
-    /**
-     * Parameterized constructor to create a product with specific details.
-     *
-     * @param productCode        The product code
-     * @param productName        The name of the product
-     * @param productDescription The description of the product
-     * @param productCost        The cost of the product
-     * @param productOccasion    The occasion for the product
-     * @param productImage       The image URL of the product
-     */
+
     public Product(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
-        this();
         this.productCode = productCode;
         this.productName = productName;
         this.productDescription = productDescription;
@@ -75,9 +73,236 @@ public class Product {
         this.productImage = productImage;
     }
 
+    /********************************************
+    *                                           *
+    *               Behaviors                   *
+    *                                           *
+    *********************************************/
+    
+    public void selectDB(String productCode){
+        
+        this.productCode = productCode;
+        
+        try{
+            
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = (Connection) DriverManager.getConnection(databaseURL);
+            Statement stmt = con.createStatement();
+            //ResultSet rs;
+            rs = stmt.executeQuery("SELECT * FROM Products WHERE productCode ='" + productCode + "'" );
+            rs.next();
+            
+            this.productCode = rs.getString(1);
+            productName = rs.getString(2);
+            productDescription = rs.getString(3);
+            productCost = rs.getDouble(4);
+            productOccasion = rs.getString(5);
+            productOccasion = rs.getString(6);
+            
+            con.close();
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+   /*********************************************
+    *                                           *
+    *               InsertDB Method             *
+    *                                           *
+    * @param productCode                        *
+    * @param productName                        *
+    * @param productDescription                 *
+    * @param productCost                        *
+    * @param productOccasion                    *
+    * @param productImage                       *
+    *********************************************/
+    public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage){
+    
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = DriverManager.getConnection(databaseURL);
+            System.out.println("Database connected...");
+            
+            Statement stmt = con.createStatement();
+            
+            String sql = "INSERT INTO Products VALUES ('"+productCode+"','"+productName+"','"+productDescription+"','"+productCost+"','"+productOccasion+"','"+productImage+"')";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            
+            con.close();
+        
+        }catch(Exception e){
+            
+            System.out.println(e);
+            
+        }
+    }
+    /********************************************
+    *                                           *
+    *               UpdateDB Method             *
+    *                                           *
+    *********************************************/
+    public void updateDB(){
+        try{
+            
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            Connection con = DriverManager.getConnection(databaseURL);
+            System.out.println("Database connected...");
+            
+            Statement stmt = con.createStatement();
+            
+            String sql = "UPDATE Products SET productCode = '"+productCode+"',productName = '"+productName+"',productDescription = '"+productDescription+"',productCost = '"+productCost+"',productOccasion = '"+productOccasion+"',productImage = '"+productImage+"'WHERE productCode ='"+productCode+"'";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            
+            con.close();
+            
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    /********************************************
+    *                                           *
+    *               DeleteDB Method             *
+    *                                           *
+    *********************************************/
+    public void deleteDB(){
+        try{
+            Connection con = DriverManager.getConnection(databaseURL);
+            System.out.println("DatabaseConnected...");
+            
+            Statement stmt = con.createStatement();
+            String sql = "DELETE FROM Products WHERE productCode='"+productCode+"'";
+            System.out.println(sql);
+            stmt.executeUpdate(sql);
+            
+            con.close();
+            
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    /********************************************
+    *                                           *
+    *          GetAllProducts Method            *
+    *                                           *
+    * @return                                   *
+    *********************************************/
+    public List<Product> getAllProducts(){
+        
+        List<Product> products = new ArrayList<Product>();
+        try{
+            
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            
+            Statement stmt = con.createStatement();
+            
+            rs = stmt.executeQuery("SELECT * FROM Products");
+            
+            while(rs.next()){
+                Product row = new Product();
+                row.setProductCode(rs.getString("productCode"));
+                row.setProductName(rs.getString("productName"));
+                row.setProductDescription(rs.getString("productDescription"));
+                row.setProductCost(rs.getDouble("productCost"));
+                row.setProductOccasion(rs.getString("productOccasion"));
+                row.setProductImage(rs.getString("productImage"));
+                
+                products.add(row);
+            }
+            
+            con.close();
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return products;
+    }
+    /********************************************
+    *                                           *
+    *        GetCartProducts Method             *
+    *                                           *
+     * @param cartList
+     * @return 
+    *********************************************/
+    public List<Cart> getCartProducts(ArrayList<Cart> cartList){
+        List<Cart> products = new ArrayList<Cart>();
+        
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            if(!cartList.isEmpty()){
+                for(Cart item:cartList){
+                    query = "SELECT * FROM Products WHERE productCode=?";
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, item.getProductCode());
+                    rs = pst.executeQuery();
 
-    // <editor-fold defaultstate="collapsed" desc="Getters and setters for class properties. Click on the + sign on the left to edit the code.">
-    // Getters and Setters
+                    while(rs.next()){
+                        Cart row = new Cart();
+                        row.setProductCode(rs.getString("productCode"));
+                        row.setProductName(rs.getString("productName"));
+                        row.setProductImage(rs.getString("productImage"));
+                        row.setProductDescription(rs.getString("productDescription"));
+                        row.setProductCost(rs.getDouble("productCost")*item.getQuantity());
+                        row.setQuantity(item.getQuantity());
+                        products.add(row);
+                    }                    
+                }
+            }
+            
+        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e);
+            
+        }
+        
+        return products;
+        
+    }
+    /********************************************
+    *                                           *
+    *        GetTotalCartPrice Method           *
+    *                                           *
+     * @param cartList
+     * @return 
+    *********************************************/
+    public double getTotalCartPrice(ArrayList<Cart> cartList){
+        double sum = 0;
+        try{
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            if(!cartList.isEmpty()){
+                for(Cart item:cartList){
+                    query = "SELECT productCost FROM Products WHERE productCode=?";
+                    pst = con.prepareStatement(query);
+                    pst.setString(1, item.getProductCode());
+                    rs = pst.executeQuery();
+                    
+                    while(rs.next()){
+                        sum += rs.getDouble("productCost") * item.getQuantity();
+                    }
+                }
+            }
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return sum;
+    }
+    
+    /********************************************
+    *                                           *
+    *           Getters and Setters             *
+    *                                           *
+    *********************************************/
     public String getProductCode() {
         return productCode;
     }
@@ -102,11 +327,11 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public double getProductCost() {
+    public Double getProductCost() {
         return productCost;
     }
 
-    public void setProductCost(double productCost) {
+    public void setProductCost(Double productCost) {
         this.productCost = productCost;
     }
 
@@ -117,264 +342,56 @@ public class Product {
     public void setProductOccasion(String productOccasion) {
         this.productOccasion = productOccasion;
     }
-
-    public String getProductImage() {
+    
+    public String getProductImage(){
         return productImage;
     }
-
-    public void setProductImage(String productImage) {
+    
+    public void setProductImage(String productImage){
         this.productImage = productImage;
     }
-    //</editor-fold>
 
-    /**
-     * Displays product details to the console.
-     */
-    public void display() {
-        System.out.println("Product Code: " + getProductCode());
-        System.out.println("Product Name: " + getProductName());
-        System.out.println("Product Description: " + getProductDescription());
-        System.out.println("Product Cost: $" + getProductCost());
-        System.out.println("Product Occasion: " + getProductOccasion());
-        System.out.println("Product Image: " + getProductImage());
+    @Override
+    public String toString() {
+        return "Product{" + "productCode=" + productCode + ", productName=" + productName + ", productDescription=" + productDescription + ", productCost=" + productCost + ", productOccasion=" + productOccasion + '}';
     }
 
-    // Database methods
-
-    /**
-     * Retrieves product data from the database based on the product code.
-     *
-     * @param productCode The product code to search for
-     */
-    public void selectDB(String productCode) {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                // SQL query to select product data based on the product code
-                String sql = "SELECT * FROM Product WHERE productCode = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    stmt.setString(1, productCode);
-                    ResultSet rs = stmt.executeQuery();
-                    if (rs.next()) {
-                        // Set product data based on the result set
-                        setProductCode(rs.getString("productCode"));
-                        setProductName(rs.getString("productName"));
-                        setProductDescription(rs.getString("productDescription"));
-                        setProductCost(rs.getDouble("productCost"));
-                        setProductOccasion(rs.getString("productOccasion"));
-                        setProductImage(rs.getString("productImage"));
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println(e);
-        }
+    
+    //Display Method
+    public void display(){
+        
+        System.out.println("Code = " + productCode);
+        System.out.println("Name = " + productName);
+        System.out.println("Description = " + productDescription);
+        System.out.println("Cost = " + productCost);
+        System.out.println("Occasion = " + productOccasion);
+        System.out.println("Image = " + productImage);
     }
 
-    /**
-     * Inserts product data into the database.
-     * @param productCode
-     * @param productName
-     * @param productDescription
-     * @param productCost
-     * @param productOccasion
-     * @param productImage
-     */
-    public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                // SQL query to insert product data into the database
-                String sql = "INSERT INTO Product (productCode, productName, productDescription, productCost, productOccasion, productImage) "
-                        + "VALUES (?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    // Set values for placeholders in the prepared stmt
-                    stmt.setString(1, productCode);
-                    stmt.setString(2, productName);
-                    stmt.setString(3, productDescription);
-                    stmt.setDouble(4, productCost);
-                    stmt.setString(5, productOccasion);
-                    stmt.setString(6, productImage);
-                    // Execute the insert query
-                    stmt.executeUpdate();
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println(e);
-        }
-    }
+    
+    /*****************************************************************
+*  Testing Business Object
+     * @param args
+******************************************************************/
+    public static void main(String[] args) {
+        //Product p1 = new Product();
+        //p1.selectDB("P114");
+        //p1.getProducts();
+        //p1.display();
+        
+        
+        //Product p2 = new Product();
+        //p2.insertDB("P024", "Braves Bouquet", "Go Braves!", "100.00","gameday");
+        
 
-    /**
-     * Updates product data in the database.
-     */
-    public void updateDB() {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                // SQL query to update product data in the database
-                String sql = "UPDATE Product SET productName = ?, productDescription = ?, productCost = ?, "
-                        + "productOccasion = ?, productImage = ? WHERE productCode = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    // Set values for placeholders in the prepared stmt
-                    stmt.setString(1, getProductName());
-                    stmt.setString(2, getProductDescription());
-                    stmt.setDouble(3, getProductCost());
-                    stmt.setString(4, getProductOccasion());
-                    stmt.setString(5, getProductImage());
-                    stmt.setString(6, getProductCode());
-                    // Execute the update query
-                    stmt.executeUpdate();
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println(e);
-        }
-    }
-
-    /**
-     * Deletes product data from the database.
-     */
-    public void deleteDB() {
-        try {
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                // SQL query to delete product data from the database
-                String sql = "DELETE FROM Product WHERE productCode = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    // Set values for placeholders in the prepared stmt
-                    stmt.setString(1, getProductCode());
-                    // Execute the delete query
-                    stmt.executeUpdate();
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println(e);
-        }
-    }
-
-    /**
-     * Retrieves all products from the database.
-     *
-     * @return A list of all products
-     * @author Jose Gomez
-     */
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        try {
-            System.out.println("Launching Get All Products..."); //debug
-            // Load JDBC driver
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-            // Use try-with-resources for automatic resource management
-            System.out.println("Establishing connection..."); //debug
-            try (Connection conn = DriverManager.getConnection(databaseURL);
-                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Products");
-                 ResultSet rs = stmt.executeQuery()) {
-                // Iterate through the result set
-                System.out.println("Iterating through RS");
-                while (rs.next()) {
-                    Product row = new Product();
-                    row.setProductCode(rs.getString("productCode"));
-                    row.setProductName(rs.getString("productName"));
-                    row.setProductDescription(rs.getString("productDescription"));
-                    row.setProductCost(rs.getDouble("productCost"));
-                    row.setProductOccasion(rs.getString("productOccasion"));
-                    row.setProductImage(rs.getString("productImage"));
-                    // Add each product to the list
-                    products.add(row);
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.err.println("Error in getAllProducts: " + e.getMessage());
-        }
-        return products;
-    }
-
-    /**
-     * Retrieves products for a given shopping cart.
-     * @author Jose Gomez
-     * @param cartList The shopping cart list
-     * @return A list of products in the cart
-     */
-    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
-        List<Cart> products = new ArrayList<>();
-        try {
-            // Load JDBC driver
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-
-            // Use try-with-resources for automatic resource management
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                if (!cartList.isEmpty()) {
-                    for (Cart item : cartList) {
-                        String query = "SELECT * FROM Products WHERE productCode = ?";
-                        try (PreparedStatement pst = conn.prepareStatement(query)) {
-                            pst.setString(1, item.getProductCode());
-
-                            try (ResultSet rs = pst.executeQuery()) {
-                                while (rs.next()) {
-                                    Cart row = new Cart();
-                                    row.setProductCode(rs.getString("productCode"));
-                                    row.setProductName(rs.getString("productName"));
-                                    row.setProductImage(rs.getString("productImage"));
-                                    row.setProductDescription(rs.getString("productDescription"));
-                                    row.setProductCost(rs.getDouble("productCost") * item.getQuantity());
-                                    row.setQuantity(item.getQuantity());
-
-                                    products.add(row);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-
-    return products;
-}
-
-    /**
-     * Calculates the total price of products in a cart.
-     * @author Jose Gomez
-     * @param cartList The shopping cart list
-     * @return The total price
-     */
-    public double getTotalCartPrice(ArrayList<Cart> cartList) {
-        double sum = 0;
-
-        try {
-            // Load JDBC driver
-            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-
-            // Use try-with-resources for automatic resource management
-            try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                if (!cartList.isEmpty()) {
-                    for (Cart item : cartList) {
-                        String query = "SELECT productCost FROM Products WHERE productCode = ?";
-                        try (PreparedStatement pst = conn.prepareStatement(query)) {
-                            pst.setString(1, item.getProductCode());
-                            try (ResultSet rs = pst.executeQuery()) {
-                                while (rs.next()) {
-                                    sum += rs.getDouble("productCost") * item.getQuantity();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            // Handle exceptions
-            System.out.println("Error calculating total cart price: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return sum;
-    }
+        //Product p3 = new Product();
+        //p3.selectDB("P024");
+        //p3.setProductCost("75.00");
+        //p3.setProductDescription("Braves Themed assortments of flowers for GameDAY!!!");
+        //p3.updateDB();
+        
+        //Product p4 = new Product();
+        //p4.selectDB("P024");
+        //p4.deleteDB();
+    }  
 }
