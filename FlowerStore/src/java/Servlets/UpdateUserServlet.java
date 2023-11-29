@@ -1,6 +1,7 @@
 package Servlets;
 
 import Business.*;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Servlet implementation for updating user details.
@@ -29,53 +31,49 @@ public class UpdateUserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        PrintWriter out = response.getWriter();
-        String firstNameInput, lastNameInput, emailInput, passwordInput, streetAddressInput, cityInput, stateInput, ZIPInput;
+        try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            User u1 = (User)session.getAttribute("u1");
+            
+            // Only update attributes that have non-null and non-empty values
+            String emailInput = request.getParameter("email");
+            if (emailInput != null && !emailInput.isEmpty()) u1.setEmail(emailInput);
+            
+            String firstNameInput = request.getParameter("firstName");
+            if (firstNameInput != null && !firstNameInput.isEmpty()) u1.setFirstName(firstNameInput);
 
+            String lastNameInput = request.getParameter("lastName");
+            if (lastNameInput != null && !lastNameInput.isEmpty()) u1.setLastName(lastNameInput);
 
-        try{
+            String passwordInput = request.getParameter("userPassword");
+            if (passwordInput != null && !passwordInput.isEmpty()) u1.setUserPassword(passwordInput);
 
-            emailInput = request.getParameter("email");
-            firstNameInput = request.getParameter("firstName");
-            lastNameInput = request.getParameter("lastName");
-            passwordInput = request.getParameter("userPassword");
-            streetAddressInput = request.getParameter("streetAddress");
-            cityInput = request.getParameter("city");
-            stateInput = request.getParameter("state");
-            ZIPInput = request.getParameter("ZIP");
+            String streetAddressInput = request.getParameter("streetAddress");
+            if (streetAddressInput != null && !streetAddressInput.isEmpty()) u1.setStreetAddress(streetAddressInput);
 
+            String cityInput = request.getParameter("city");
+            if (cityInput != null && !cityInput.isEmpty()) u1.setCity(cityInput);
 
+            String stateInput = request.getParameter("state");
+            if (stateInput != null && !stateInput.isEmpty()) u1.setState(stateInput);
 
-            System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
+            String ZIPInput = request.getParameter("ZIP");
+            if (ZIPInput != null && !ZIPInput.isEmpty()) u1.setZIP(ZIPInput);
 
-            User u1;
-            HttpSession ses1 = request.getSession();
-            u1 = (User)ses1.getAttribute("u1");
-
-
-            u1.setEmail(emailInput);
-            u1.setFirstName(firstNameInput);
-            u1.setLastName(lastNameInput);
-            u1.setUserPassword(passwordInput);
-            u1.setStreetAddress(streetAddressInput);
-            u1.setCity(cityInput);
-            u1.setState(stateInput);
-            u1.setZIP(ZIPInput);
-
-
+            // Update user information in the database
             u1.updateDB();
             u1.display();
 
+            // Forward to account page
             RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
             rd.forward(request, response);
-
-
-
-
-        }catch(Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println("Error in UpdateUserServlet: " + e.getMessage());
+            e.printStackTrace();
+            response.sendRedirect("errorPage.jsp"); // Redirect to error page on exception
         }
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -87,43 +85,7 @@ public class UpdateUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // Extract user information from request parameters
-        String firstNameInput = request.getParameter("firstName");
-        String lastNameInput = request.getParameter("lastName");
-        String emailInput = request.getParameter("email");
-        String passwordInput = request.getParameter("userPassword");
-
-        try {
-            // Retrieve user object from session
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("u1");
-
-            // Check if user object exists and update user information
-            if (user != null) {
-                user.setEmail(emailInput);
-                user.setFirstName(firstNameInput);
-                user.setLastName(lastNameInput);
-                user.setUserPassword(passwordInput);
-
-                // Update user details in database
-                user.updateDB();
-
-                // Update user object in session
-                session.setAttribute("u1", user);
-            }
-
-            // Forward request to account page
-            request.getRequestDispatcher("account.jsp").forward(request, response);
-
-        } catch (ServletException | IOException e) {
-            // Log the exception for debugging purposes
-            e.printStackTrace();
-        }
-    }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP {@code POST} request.

@@ -46,12 +46,12 @@ public class User extends GuestUser {
     @Override
     public void display() {
         super.display(); // Call the display method of the superclass
-        System.out.println("User Password: " + userPassword);
+        System.out.println("User Password: " + getUserPassword());
         System.out.println("Admin Status = " + getAdmin());
     }
 
     /*************************************************************
-    * selectDB() gets one patient from the DB
+    * selectDB() gets one User from the Database (READ)
      * @param email used to select user from database
     **************************************************************/
     @Override
@@ -85,7 +85,9 @@ public class User extends GuestUser {
            }
        }
 
-    // <editor-fold defaultstate="collapsed" desc="Proper Procedure for insertDB() method, does not use parameters. Not using because of confusion from devs.">
+    /*************************************************************
+    * insertDB() inserts a User into the Database (CREATE)
+    **************************************************************/
      @Override
      public void insertDB() {
          String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, streetAddress, city, state, ZIP, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -115,9 +117,10 @@ public class User extends GuestUser {
              throw new RuntimeException("Error inserting data into database", e);
          }
      }
-// </editor-fold>
+    
 
-    /*************************************************************
+    // <editor-fold defaultstate="collapsed" desc="DEPRECIATED insertDB() method accepting parameters">
+     /*************************************************************
     * insertDB() inserts one user into the database
      * @param emailInput used to insert user email
      * @param passwordInput used to insert user password
@@ -128,7 +131,8 @@ public class User extends GuestUser {
      * @param stateInput
      * @param ZIPInput
     **************************************************************/
-    public void insertDB(String emailInput, String passwordInput, String firstNameInput, String lastNameInput, String streetAddressInput, String cityInput, String stateInput, String ZIPInput) {
+    /*
+     public void insertDB(String emailInput, String passwordInput, String firstNameInput, String lastNameInput, String streetAddressInput, String cityInput, String stateInput, String ZIPInput) {
         String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, streetAddress, city, state, ZIP, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(databaseURL);
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -148,9 +152,10 @@ public class User extends GuestUser {
             throw new RuntimeException("Error inserting data into database", e);
         }
     }
-
+    */
+    // </editor-fold>
     /*************************************************************
-    * updateDB() update one user from the database
+    * updateDB() update one user from the database (UPDATE)
     **************************************************************/
     @Override
     public void updateDB() {
@@ -174,7 +179,7 @@ public class User extends GuestUser {
         }
     }
 
-    //deleteDB not needed, inhereted from GuestUser
+    //deleteDB not needed, inhereted from GuestUser (DELETE)
 
     // Main method for testing purposes
     public static void main(String[] args) {

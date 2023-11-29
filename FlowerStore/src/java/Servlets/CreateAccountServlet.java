@@ -37,8 +37,8 @@ public class CreateAccountServlet extends HttpServlet {
 
             System.out.println("User Updated Info: " + firstNameInput + ", " + lastNameInput);
 
-            User u1 = new User();
-            u1.insertDB(emailInput, passwordInput, firstNameInput, lastNameInput, streetAddressInput, cityInput, stateInput, ZIPInput, false);
+            User u1 = new User(emailInput, passwordInput, firstNameInput, lastNameInput, streetAddressInput, cityInput, stateInput, ZIPInput, false);
+            u1.insertDB();
             u1.selectDB(emailInput);
                 u1.display();
                 HttpSession session1 = request.getSession();
