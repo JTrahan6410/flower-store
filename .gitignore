@@ -7,9 +7,6 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-# Accidentals from IntelliJ #
-.idea/
-
 # Class Files #
 *.class
 
@@ -17,4 +14,3 @@ nb-configuration.xml
 *.jar
 *.war
 *.ear
-/FlowerStore/nbproject/private/
