@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Represents a guest user with basic functionalities for database operations.
@@ -141,13 +140,21 @@ public class GuestUser {
         }
     }
     
+    // <editor-fold defaultstate="collapsed" desc="Outmoded insertDB method">
+    /*
     /**
      * Inserts a new user into the database and retrieves the generated userID.
      *
      * @param email The user's email.
      * @param firstName The user's first name.
      * @param lastName The user's last name.
+     * @param streetAddress  The user's street address.
+     * @param city           The user's city of residence.
+     * @param state          The user's state of residence.
+     * @param ZIP            The user's ZIP code of residence.
      */
+    
+    /*
     public void insertDB(String email, String firstName, String lastName, String streetAddress, String city, String state, String ZIP) {
         String sql = "INSERT INTO Users (email, firstName, lastName, streetAddress, city, state, ZIP) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(databaseURL);
@@ -174,6 +181,8 @@ public class GuestUser {
             throw new RuntimeException("Error inserting data into database", e);
         }
     }
+    */
+    // </editor-fold>
 
     // Method to update existing user information in the database
     public void updateDB() {

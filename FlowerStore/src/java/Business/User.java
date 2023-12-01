@@ -194,7 +194,5 @@ public class User extends GuestUser {
         //u3.selectDB("jose@gmail.com");
         //u3.setStreetAddress("111 Smith");
         //u3.updateDB();
-
-
     }
 }

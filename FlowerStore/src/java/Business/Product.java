@@ -172,6 +172,37 @@ public class Product {
         }
     }
 
+    
+    /**
+    * Inserts product data into the database.
+    */
+    public void insertDB() {
+    try {
+        Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
+            // SQL query to insert product data into the database
+            String sql = "INSERT INTO Product (productCode, productName, productDescription, productCost, productOccasion, productImage) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Set values for placeholders in the prepared stmt using getter methods
+                stmt.setString(1, getProductCode());
+                stmt.setString(2, getProductName());
+                stmt.setString(3, getProductDescription());
+                stmt.setDouble(4, getProductCost());
+                stmt.setString(5, getProductOccasion());
+                stmt.setString(6, getProductImage());
+                // Execute the insert query
+                stmt.executeUpdate();
+            }
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        // Handle exceptions
+        System.out.println(e);
+    }
+}
+    
+    // <editor-fold defaultstate="collapsed" desc="DEPRECIATED insertDB() method accepting parameters">
+    /*
     /**
      * Inserts product data into the database.
      * @param productCode
@@ -181,6 +212,7 @@ public class Product {
      * @param productOccasion
      * @param productImage
      */
+    /*
     public void insertDB(String productCode, String productName, String productDescription, double productCost, String productOccasion, String productImage) {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
@@ -206,6 +238,8 @@ public class Product {
         }
     }
 
+    // </editor-fold>
+    
     /**
      * Updates product data in the database.
      */

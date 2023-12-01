@@ -42,7 +42,15 @@ public class OrderLine {
         productQuantity = 0;
     }
 
-    // Parameterized constructor for OrderLine class
+    /**
+     * Parameterized constructor for the OrderLine class.
+     *
+     * @param lineItemID     The unique identifier for the line item.
+     * @param orderID        The ID of the order this line item belongs to.
+     * @param productCode    The product code associated with this line item.
+     * @param productCost    The cost of the product in this line item.
+     * @param productQuantity The quantity of the product in this line item.
+     */
     public OrderLine(int lineItemID, int orderID, String productCode, double productCost, short productQuantity) {
         this.lineItemID = lineItemID;
         this.orderID = orderID;
@@ -77,7 +85,11 @@ public class OrderLine {
     }
 
     // Database methods
-
+    /**
+     * Selects an OrderLine from the database based on its line item ID.
+     *
+     * @param lineItemID The line item ID to select from the database.
+     */
     public void selectDB(int lineItemID) {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "SELECT * FROM OrderLine WHERE lineItemID = ?";
@@ -96,7 +108,9 @@ public class OrderLine {
             System.out.println(e);
         }
     }
-
+    /**
+     * Inserts this OrderLine into the database.
+     */
     public void insertDB() {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "INSERT INTO OrderLine (orderID, productCode, productCost, productQuantity) VALUES (?, ?, ?, ?)";
@@ -111,7 +125,9 @@ public class OrderLine {
             System.out.println(e);
         }
     }
-
+    /**
+     * Updates the database with the changes made to this OrderLine.
+     */
     public void updateDB() {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "UPDATE OrderLine SET orderID = ?, productCode = ?, productCost = ?, productQuantity = ? WHERE lineItemID = ?";
@@ -127,7 +143,9 @@ public class OrderLine {
             System.out.println(e);
         }
     }
-
+    /**
+     * Deletes this OrderLine from the database.
+     */
     public void deleteDB() {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             String sql = "DELETE FROM OrderLine WHERE lineItemID = ?";

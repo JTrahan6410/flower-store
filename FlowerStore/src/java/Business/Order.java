@@ -3,17 +3,18 @@ package Business;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
 
-/**************************************************************
-
-   ADAPTED BY JACOB TRAHAN - originally created by Trent Cargle
-
-   Adv Sys Project - Sept 30, 2023
-
- **************************************************************/
+/**
+ * Represents an order with various properties and database operations.
+ * Adapted from the original work by Trent Cargle.
+ *
+ * @author Jacob Trahan
+ * @version 1.7
+ * @since 2023-09-30
+ */
 public class Order {
     private int orderID;
     private int userID;
@@ -61,18 +62,19 @@ public class Order {
     // Parameterized constructor
 
     /**
+     * Parameterized constructor for creating an order.
      *
-     * @param orderID
-     * @param userID
-     * @param orderDateTime
-     * @param orderRequested
-     * @param orderTotal
-     * @param cardNumber
-     * @param cardExpiry
-     * @param cardCVV
-     * @param hasGreetingCard
-     * @param greetingCardType
-     * @param greetingCardMessage
+     * @param orderID           The unique identifier for the order.
+     * @param userID            The ID of the user who placed the order.
+     * @param orderDateTime     The date and time when the order was created.
+     * @param orderRequested    The date when the order is requested to be delivered.
+     * @param orderTotal        The total cost of the order.
+     * @param cardNumber        The credit card number used for payment.
+     * @param cardExpiry        The expiry date of the credit card.
+     * @param cardCVV           The CVV (Card Verification Value) of the credit card.
+     * @param hasGreetingCard   A flag indicating whether the order includes a greeting card.
+     * @param greetingCardType  The type of greeting card included in the order.
+     * @param greetingCardMessage The message inside the greeting card.
      */
     public Order(int orderID, int userID, Date orderDateTime, Date orderRequested, double orderTotal,
                   String cardNumber, Date cardExpiry, String cardCVV, boolean hasGreetingCard, String greetingCardType, String greetingCardMessage) {
