@@ -8,13 +8,13 @@ In this project you will create a Web Application that may be used by Customers 
 
 <br /><br />A Customer Should be able to:
 - [x] Search Web Site for different types of Flowers and Prices
-- [ ] Customers should be able to choose the card attached to the Flowers and the saying on the inside of the Card
-- [ ] Make a Purchase without creating a Customer Account
+- [x] Customers should be able to choose the card attached to the Flowers and the saying on the inside of the Card
+- [x] Make a Purchase without creating a Customer Account
 - [x] Create a new Customer Account
-- [ ] Login, Search Products and Make Purchases with their Customer Account
+- [x] Login, Search Products and Make Purchases with their Customer Account
 - [x] Change the information in their Customer Account, like Address, etc.
 
 <br /><br />An Order Processing Person Should be able to:
-- [ ] Login 
-- [ ] View a list of orders that need to be fulfilled
+- [x] Login 
+- [x] View a list of orders that need to be fulfilled
 - [ ] Change the state of an order from Open to Ready to Delivered
