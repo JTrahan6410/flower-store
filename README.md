@@ -18,3 +18,10 @@ In this project you will create a Web Application that may be used by Customers 
 - [x] Login 
 - [x] View a list of orders that need to be fulfilled
 - [ ] Change the state of an order from Open to Ready to Delivered
+
+## Preview Screenshot
+<img src = "screenshotpreview/homepagepreview.JPG" width = "500"> <img src = "screenshotpreview/loginpagepreview.JPG" width = "500">
+<img src = "screenshotpreview/accountpagepreview.JPG" width = "500"> <img src = "screenshotpreview/editaccountpagepreview.JPG" width = "500">
+<img src = "screenshotpreview/catalogpagepreview.JPG" width = "500"> <img src = "screenshotpreview/cartpagepreview.JPG" width = "500">
+<img src = "screenshotpreview/checkoutpagepreview.JPG" width = "500"> <img src = "screenshotpreview/orderconfirmationpreview.JPG" width = "500">
+<img src = "screenshotpreview/loginerrorpagepreview.JPG" width = "500"> <img src = "screenshotpreview/orderprocessingpagepreview.JPG" width = "500">
