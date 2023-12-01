@@ -20,9 +20,29 @@ In this project you will create a Web Application that may be used by Customers 
 - [x] Change the state of an order from Open to Ready to Delivered
 
 ## Preview Screenshot
-<img src = "screenshotpreview/homepagepreview.JPG" width = "500"> <img src = "screenshotpreview/loginpagepreview.JPG" width = "500">
-<img src = "screenshotpreview/accountpagepreview.JPG" width = "500"> <img src = "screenshotpreview/editaccountpagepreview.JPG" width = "500">
-<img src = "screenshotpreview/catalogpagepreview.JPG" width = "500"> <img src = "screenshotpreview/cartpagepreview.JPG" width = "500">
-<img src = "screenshotpreview/checkoutpagepreview.JPG" width = "500"> <img src = "screenshotpreview/orderconfirmationpreview.JPG" width = "500">
-<img src = "screenshotpreview/createaccountpreview.JPG" width = "500"> <img src = "screenshotpreview/loginerrorpagepreview.JPG" width = "500"> 
-<img src = "screenshotpreview/orderprocessingpagepreview.JPG" width = "500">
+<img src = "screenshotpreview/homepagepreview.JPG" width = "400"> <img src = "screenshotpreview/loginpagepreview.JPG" width = "400">
+<img src = "screenshotpreview/accountpagepreview.JPG" width = "400"> <img src = "screenshotpreview/editaccountpagepreview.JPG" width = "400">
+<img src = "screenshotpreview/catalogpagepreview.JPG" width = "400"> <img src = "screenshotpreview/cartpagepreview.JPG" width = "400">
+<img src = "screenshotpreview/checkoutpagepreview.JPG" width = "400"> <img src = "screenshotpreview/orderconfirmationpreview.JPG" width = "400">
+<img src = "screenshotpreview/createaccountpreview.JPG" width = "400"> <img src = "screenshotpreview/loginerrorpagepreview.JPG" width = "400"> 
+<img src = "screenshotpreview/orderprocessingpagepreview.JPG" width = "400">
+
+## Technology
+1. Frontend
+   - HTML, CSS, JavaScript
+   - JSP JavaServer Pages
+2. Backend
+   - Servlets - a Java programming language class that is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model
+   - JDBC - Java Database Connectivity - a Java API to connect and execute the query with the database
+3. Database
+   - Microsoft Access - a database management system from Microsoft that combines the relational Access Database Engine with a graphical user interface and software-development tools
+4. Tools
+   - Netbeans 18
+   - Java JDK 20
+   - GlassFish Server
+
+  
+
+
+
+   
