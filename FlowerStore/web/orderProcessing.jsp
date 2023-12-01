@@ -1,9 +1,8 @@
 <%-- 
-    Document   : success
-    Created on : Sep 25, 2023, 1:46:22 PM
-    Author     : lena
+    Document   : account
+    Created on : Sep 9, 2023, 10:20:31 AM
+    Author     : cargle
 --%>
-
 <%@page import="Business.*"%>
 <%@page import="Connection.*"%>
 <%@page import="java.util.*"%>
@@ -24,20 +23,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Checkout Success</title>
-        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="stylesheet" type ="text/css" href="style.css">
-        <link rel="stylesheet" type ="text/css" href="successStyle.css">
+        <meta name="viewpart" content="width=device-width, intital-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="accountStyle.css">
         <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>User Account</title>
     </head>
-<header>
+    <body>
+        <header>
             <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-        <% if(cart_list!=null){%>
+                <% if(cart_list!=null){%>
                 <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
         <% }else{%>
                 <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>
@@ -46,26 +44,50 @@
             HttpSession session1 = request.getSession(false);
             if(session1 == null || session1.getAttribute("u1") == null){
         %>
-                <a href="login.jsp" style="float: right">login</a>
+            <a href="login.jsp" style="float: right">login</a>
         <%
             }else{
         %>
-                <a href="account.jsp">account</a> |
+            <a href="account.jsp">account</a> |
             <a href="LogoutServlet" style="float: right">logout</a>
-        <%}%>   
+        <%}%>
             </nav>
-        </header>
-      <body>
-          
-      <div class="card">
-      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
-        <i class="checkmark">✓</i>
-      </div>
-        <h1>Thank you for your purchase!</h1> 
-        <p>We received your purchase request;<br/> we'll be in touch shortly!</p>
-      </div> 
+	</header>
         
-      
+        <% 
+            Order order1 = new Order();
+            List<Order> orders = order1.getAllOrders();
+        %>
+        <div id="accounts-box">
+            <h2>Order Processing</h2>
+            <table id="accounts-table" style="width:100%">
+            <caption>Order Processing</caption>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Order Date/Time</th>
+                    <th>Order Total</th>
+                    <th>Greeting Card Message</th>
+                    <th>Order Status</th>
+                </tr>
+                <%for(Order o:orders){%>
+                <tr>
+                    <td><%= o.getOrderID() %></td>
+                    <td><%= o.getUserID() %></td>
+                    <td><%= o.getOrderDateTime() %></td>
+                    <td>$ <%= o.getOrderTotal() %></td>
+                    <td><%= o.getGreetingCardMessage() %></td>
+                    <td><select style="width:50%; height:45px; font-size: 15px" name="status" id="status-menu">
+                        <option value="<%= o.getOrderStatus() %>"><%= o.getOrderStatus() %></option>
+                        <option value="Open">Open</option> 
+                        <option value="Ready">Ready</option> 
+                        <option value="Delivered">Delivered</option> 
+                        </select></td> 
+                </tr>
+                <%}%>
+            </table>
+            <a class="btn" href=""> Set Order Status </a>
+        </div>
         <section class="footer">
             <div class="box-container">
                 <div class="box">
@@ -100,4 +122,4 @@
             <div class="credit"> created by <span> Group 2 CIST 2931 </span> | all rights reserved </div>
         </section>
     </body>
-
+</html>

@@ -35,7 +35,6 @@
             <a href="index.jsp" class="logo">Atlanta Flowers<span>.</span></a>
             <nav class="navbar">
                 <a href="index.jsp">home</a>
-                <a href="ViewOrders.jsp">orders</a>
                 <a href="catalog.jsp">products</a>
         <% if(cart_list!=null){%>
                 <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>

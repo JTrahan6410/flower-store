@@ -25,14 +25,14 @@
     </header>
 <!--added-->
 <div class="container">
-        <h1 class="heading"> <span> Login </span> Error </h1>
+        
         <div class="content">
             <!--<h1>404</h1>-->
-          
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore magnam reprehenderit suscipit blanditiis, voluptatum minima voluptatibus ex velit itaque libero, omnis doloremque explicabo natus, illum laboriosam voluptates illo adipisci saepe.</p>
+          <h1 class="heading"> <span> Login </span> Error </h1>
+          <p style="font-size: 15px;">Login Failed: Your user ID or password is incorrect. Please try again.</p><br><br>
             <div class="btns">
-                <a href="#">return homepage</a>
-                <a href="#">return to Login</a>
+                <a class="btn" href="index.jsp">return homepage</a>
+                <a class="btn" href="login.jsp">return to Login</a>
              </div>
         </div>
 </div>

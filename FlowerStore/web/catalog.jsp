@@ -37,7 +37,7 @@
             <nav class="navbar">
                 <a href="index.jsp">home</a>
                 <a href="catalog.jsp">products</a>
-        <% if(cart_list!=null){%>
+        <% if(cart_list != null && !cart_list.isEmpty()){%>
                 <a href="cart.jsp">cart<i class="fa badge fa-shopping-cart" value=${ cart_list.size() }></i></a>
         <% }else{%>
                 <a href="cart.jsp">cart<i class="fa fa-shopping-cart" value=${ cart_list.size() }></i></a>

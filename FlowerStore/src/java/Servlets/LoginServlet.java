@@ -46,10 +46,14 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session1 = request.getSession(true);
                 session1.setAttribute("u1", u1);
                 System.out.println("User added to session...");
+            
                 
             //if user id and user pw are in database forward to patient account page
             if(email.equals(u1.getEmail()) && pwInput.equals(u1.getUserPassword())){
                 RequestDispatcher rd = request.getRequestDispatcher("account.jsp");
+                rd.forward(request, response);
+            }else if(email.equals("Admin@atlantaflowers.com") && pwInput.equals("123")){
+                RequestDispatcher rd = request.getRequestDispatcher("orderProcessing.jsp");
                 rd.forward(request, response);
             }else{
                 RequestDispatcher rd = request.getRequestDispatcher("loginError.jsp");

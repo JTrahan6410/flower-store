@@ -21,7 +21,7 @@ public class Product {
     private String productCode;
     private String productName;
     private String productDescription;
-    private Double productCost;
+    private double productCost;
     private String productOccasion;
     private String productImage;
     
@@ -327,11 +327,11 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public Double getProductCost() {
+    public double getProductCost() {
         return productCost;
     }
 
-    public void setProductCost(Double productCost) {
+    public void setProductCost(double productCost) {
         this.productCost = productCost;
     }
 

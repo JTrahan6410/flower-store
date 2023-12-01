@@ -11,27 +11,31 @@ import java.sql.SQLException;
  * 
  * @author Jake
  */
-public class OrderLine {
+public class OrderLine extends Cart {
     private int lineItemID;
     private int orderID;
     private String productCode;
     private double productCost;
-    private short productQuantity;
+    private int productQuantity;
     
             // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
-//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //for Salena
 //    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+//    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
     protected final String databaseURL = "jdbc:ucanaccess://" + databasePath;
 
+    private Connection con;
+    private String query;
+    private PreparedStatement pst;
+    private ResultSet rs;
     // Constructors
     // Default constructor for OrderLine class
     public OrderLine() {
@@ -41,9 +45,12 @@ public class OrderLine {
         productCost = 0;
         productQuantity = 0;
     }
+    public OrderLine(Connection con){
+        this.con = con;
+    }
 
     // Parameterized constructor for OrderLine class
-    public OrderLine(int lineItemID, int orderID, String productCode, double productCost, short productQuantity) {
+    public OrderLine(int lineItemID, int orderID, String productCode, double productCost, int productQuantity) {
         this.lineItemID = lineItemID;
         this.orderID = orderID;
         this.productCode = productCode;
@@ -64,8 +71,8 @@ public class OrderLine {
     public void setProductCost(double productCost) { this.productCost = productCost; }
     public double getProductCost() { return productCost; }
     
-    public void setProductQuantity(short productQuantity) { this.productQuantity = productQuantity; }
-    public short getProductQuantity() { return productQuantity; }
+    public void setProductQuantity(int productQuantity) { this.productQuantity = productQuantity; }
+    public int getProductQuantity() { return productQuantity; }
 
     // Display method
     public void display() {
@@ -88,7 +95,7 @@ public class OrderLine {
                     setOrderID(rs.getInt("orderID"));
                     setProductCode(rs.getString("productCode"));
                     setProductCost(rs.getDouble("productCost"));
-                    setProductQuantity(rs.getShort("productQuantity"));
+                    setProductQuantity(rs.getInt("productQuantity"));
                 }
                 rs.close();
             }
@@ -104,7 +111,7 @@ public class OrderLine {
                 pstmt.setInt(1, getOrderID());
                 pstmt.setString(2, getProductCode());
                 pstmt.setDouble(3, getProductCost());
-                pstmt.setShort(4, getProductQuantity());
+                pstmt.setInt(4, getProductQuantity());
                 pstmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -119,7 +126,7 @@ public class OrderLine {
                 pstmt.setInt(1, getOrderID());
                 pstmt.setString(2, getProductCode());
                 pstmt.setDouble(3, getProductCost());
-                pstmt.setShort(4, getProductQuantity());
+                pstmt.setInt(4, getProductQuantity());
                 pstmt.setInt(5, getLineItemID());
                 pstmt.executeUpdate();
             }
@@ -138,5 +145,27 @@ public class OrderLine {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+    
+        public boolean insertOrderLineDB(OrderLine model) {
+            boolean result = false;
+        try {
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            try (Connection conn = DriverManager.getConnection(databaseURL)) {
+                String sql = "insert into OrderLine (orderID, productCode, productCost, productQuantity) values(?,?,?,?)";
+                try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                    statement.setInt(1, model.getOrderID());
+                    statement.setString(2, model.getProductCode());
+                    statement.setDouble(3, model.getProductCost());
+                    statement.setInt(4, model.getProductQuantity());
+
+                    statement.executeUpdate();
+                    result = true;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
+        return result;
     }
 }

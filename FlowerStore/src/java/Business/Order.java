@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**************************************************************
 
@@ -14,7 +17,7 @@ import java.sql.ResultSet;
    Adv Sys Project - Sept 30, 2023
 
  **************************************************************/
-public class Order {
+public class Order extends Product {
     private int orderID;
     private int userID;
     private Date orderDateTime;
@@ -23,24 +26,28 @@ public class Order {
     private String cardNumber;
     private Date cardExpiry;
     private String cardCVV;
+    private String orderStatus;
     private boolean hasGreetingCard;
     private String greetingCardType;
     private String greetingCardMessage;
     // <editor-fold defaultstate="collapsed" desc="Database Path set per user">
     
     //for Jose
-//    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
+    final String databasePath = "E:\\School Doc\\cist 2931\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //for Salena
 //    final String databasePath = "C:\\Users\\lena\\OneDrive\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase.accdb";
     
     //for Jacob
-    final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
+    //final String databasePath = "E:\\Users\\Documents\\GitHub\\flower-store\\FlowerStore\\FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
     final String databaseURL = "jdbc:ucanaccess://" + databasePath;
     
-    
+    private Connection con;
+    private String query;
+    private PreparedStatement pst;
+    private ResultSet rs;
 
     // Default constructor
     public Order() {
@@ -53,9 +60,14 @@ public class Order {
         cardNumber = "";
         cardExpiry = null;
         cardCVV = "";
+        orderStatus = "open";
         hasGreetingCard= false;
         greetingCardType= "";
         greetingCardMessage= "";
+    }
+    
+    public Order(Connection con){
+        this.con = con;
     }
 
     // Parameterized constructor
@@ -75,7 +87,7 @@ public class Order {
      * @param greetingCardMessage
      */
     public Order(int orderID, int userID, Date orderDateTime, Date orderRequested, double orderTotal,
-                  String cardNumber, Date cardExpiry, String cardCVV, boolean hasGreetingCard, String greetingCardType, String greetingCardMessage) {
+                  String cardNumber, Date cardExpiry, String cardCVV, String orderStatus,boolean hasGreetingCard, String greetingCardType, String greetingCardMessage) {
         // Set values based on constructor parameters
         this.orderID = orderID;
         this.userID = userID;
@@ -85,6 +97,7 @@ public class Order {
         this.cardNumber = cardNumber;
         this.cardExpiry = cardExpiry;
         this.cardCVV = cardCVV;
+        this.orderStatus = orderStatus;
         this.hasGreetingCard = hasGreetingCard;
         this.greetingCardType = greetingCardType;
         this.greetingCardMessage = greetingCardMessage;
@@ -117,6 +130,9 @@ public class Order {
     public String getCardCVV() { return cardCVV; }
     public void setCardCVV(String cardCVV) { this.cardCVV = cardCVV; }
     
+    public String getOrderStatus() { return orderStatus; }
+    public void setOrderStatus(String orderStatus) { this.orderStatus = orderStatus; }
+    
     public boolean getHasGreetingCard() { return hasGreetingCard; }
     public void setHasGreetingCard(boolean hasGreetingCard) { this.hasGreetingCard = hasGreetingCard; }
     
@@ -138,6 +154,7 @@ public class Order {
         System.out.println("Card Number: " + getCardNumber());
         System.out.println("Card Expiry: " + getCardExpiry());
         System.out.println("Card CVV: " + getCardCVV());
+        System.out.println("Order Status: " + getOrderStatus());
         System.out.println("Greeting Card?: " + getHasGreetingCard());
         System.out.println("Greeting Card Type: " + getGreetingCardType());
         System.out.println("Greeting Card Message: " + getGreetingCardMessage());
@@ -162,6 +179,7 @@ public class Order {
                         setCardNumber(rs.getString("cardNumber"));
                         setCardExpiry(rs.getDate("cardExpiry"));
                         setCardCVV(rs.getString("cardCVV"));
+                        setOrderStatus(rs.getString("orderStatus"));
                         setHasGreetingCard(rs.getBoolean("hasGreetingCard"));
                         setGreetingCardType(rs.getString("greetingCardType"));
                         setGreetingCardMessage(rs.getString("greetingCardMessage"));
@@ -177,18 +195,20 @@ public class Order {
         try {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
-                String sql = "INSERT INTO Orders (userID, orderRequested, orderTotal, cardNumber, cardExpiry,"
-                        + " cardCVV, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Orders (userID, orderDateTime, orderTotal, cardNumber, cardExpiry,"
+                        + " cardCVV, orderStatus, hasGreetingCard, greetingCardType, greetingCardMessage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
-                    statement.setDate(2, getOrderRequested());
+                    statement.setDate(2, getOrderDateTime());
+                    //statement.setDate(2, getOrderRequested());
                     statement.setDouble(3, getOrderTotal());
                     statement.setString(4, getCardNumber());
                     statement.setDate(5, getCardExpiry());
                     statement.setString(6, getCardCVV());
-                    statement.setBoolean(7, getHasGreetingCard());
-                    statement.setString(8, getGreetingCardType());
-                    statement.setString(9, getGreetingCardMessage());
+                    statement.setString(7, getOrderStatus());
+                    statement.setBoolean(8, getHasGreetingCard());
+                    statement.setString(9, getGreetingCardType());
+                    statement.setString(10, getGreetingCardMessage());
                     statement.executeUpdate();
                 }
             }
@@ -202,7 +222,7 @@ public class Order {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             try (Connection conn = DriverManager.getConnection(databaseURL)) {
                 String sql = "UPDATE Orders SET userID = ?, orderDateTime = ?, orderRequested = ?, orderTotal = ?, cardNumber = ?, cardExpiry = ?,"
-                        + " cardCVV = ?, hasGreetingCard = ?, greetingCardType = ?, greetingCardMessage = ? WHERE orderID = ?";
+                        + " cardCVV = ?, orderStatus = ?, hasGreetingCard = ?, greetingCardType = ?, greetingCardMessage = ? WHERE orderID = ?";
                 try (PreparedStatement statement = conn.prepareStatement(sql)) {
                     statement.setInt(1, getUserID());
                     statement.setDate(2, getOrderDateTime());
@@ -211,10 +231,11 @@ public class Order {
                     statement.setString(5, getCardNumber());
                     statement.setDate(6, getCardExpiry());
                     statement.setString(7, getCardCVV());
-                    statement.setBoolean(8, getHasGreetingCard());
-                    statement.setString(9, getGreetingCardType());
-                    statement.setString(10, getGreetingCardMessage());
-                    statement.setInt(11, getOrderID());
+                    statement.setString(8, getOrderStatus());
+                    statement.setBoolean(9, getHasGreetingCard());
+                    statement.setString(10, getGreetingCardType());
+                    statement.setString(11, getGreetingCardMessage());
+                    statement.setInt(12, getOrderID());
                     statement.executeUpdate();
                 }
             }
@@ -237,7 +258,65 @@ public class Order {
             System.out.println(e);
         }
     }
+    
+    /*    public boolean insertOrderLineDB(Order model) {
+    boolean result = false;
+    try {
+    Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+    try (Connection conn = DriverManager.getConnection(databaseURL)) {
+    String sql = "insert into OrderLine (orderID, productCode, productCost) values(?,?,?)";
+    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    statement.setInt(1, model.getOrderID());
+    statement.setString(2, model.getProductCode());
+    statement.setDouble(3, model.getProductCost());
+    //statement.setString(4, getQuantity());
+    
+    statement.executeUpdate();
+    result = true;
+    }
+    }
+    } catch (ClassNotFoundException | SQLException e) {
+    System.out.println(e);
+    }
+    return result;
+    }*/
 
+    /*************************************************************
+    * getAllOrders() get all orders from the database
+    **************************************************************/
+    public List<Order> getAllOrders(){
+        
+        List<Order> orders = new ArrayList<Order>();
+        try{
+            
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+            
+            Connection con = DriverManager.getConnection(databaseURL);
+            
+            Statement stmt = con.createStatement();
+            
+            rs = stmt.executeQuery("SELECT * FROM Orders");
+            
+            while(rs.next()){
+                Order row = new Order();
+                row.setOrderID(rs.getInt("orderID"));
+                row.setUserID(rs.getInt("userID"));
+                row.setOrderDateTime(rs.getDate("orderDateTime"));
+                row.setOrderTotal(rs.getDouble("orderTotal"));
+                row.setGreetingCardMessage(rs.getString("greetingCardMessage"));
+                row.setOrderStatus(rs.getString("orderStatus"));
+                
+                orders.add(row);
+            }
+            
+            con.close();
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return orders;
+    }
+    
     public static void main(String[] args) {
         Order o1 = new Order();
         o1.selectDB(1);
