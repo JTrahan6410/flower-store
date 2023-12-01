@@ -1,6 +1,6 @@
 package Servlets;
 
-import Business.*;
+import Business.Cart;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

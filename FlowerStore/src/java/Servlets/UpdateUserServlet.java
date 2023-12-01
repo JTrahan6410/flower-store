@@ -1,6 +1,6 @@
 package Servlets;
 
-import Business.*;
+import Business.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -74,18 +74,6 @@ public class UpdateUserServlet extends HttpServlet {
         }
     }
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Processes requests for both HTTP {@code GET} and {@code POST} methods.
-     * Updates the user information in the session and database.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP {@code POST} request.

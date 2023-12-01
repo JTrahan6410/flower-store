@@ -25,10 +25,10 @@ public class LogoutServlet extends HttpServlet {
      * Handles the HTTP <code>GET</code> method.
      * Invalidates the current session and redirects the user to the login page.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request  The HttpServletRequest object representing the client's request.
+     * @param response The HttpServletResponse object for sending the response back to the client.
+     * @throws ServletException If a servlet-specific error occurs.
+     * @throws IOException      If an I/O error occurs.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

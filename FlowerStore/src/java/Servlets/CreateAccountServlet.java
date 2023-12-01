@@ -11,15 +11,31 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/****************************
- * Project
+/**
+ * CreateAccountServlet is a servlet class responsible for handling the creation of user accounts.
+ * It processes user input from an HTML form and inserts the user's information into a database.
+ * After successfully creating the account, it forwards the user to an account page.
+ *
+ * This servlet expects various user details as input parameters, such as email, first name, last name, password,
+ * street address, city, state, and ZIP code. It then creates a new User object with the provided information,
+ * inserts the user into the database, and sets the user object in the session for further interactions.
+ *
  * @author Jose V Gomez
- * 9/16/23
- ***************************/
+ * @since 2023-09-16
+ * @version 1.3
+ */
 @WebServlet(name = "CreateAccountServlet", urlPatterns = {"/CreateAccountServlet"})
 public class CreateAccountServlet extends HttpServlet {
 
-
+    /**
+     * Handles the creation of a user account by processing user input, inserting the user's information into the database,
+     * and setting the user object in the session.
+     *
+     * @param request  The HttpServletRequest object representing the client's request.
+     * @param response The HttpServletResponse object for sending the response back to the client.
+     * @throws ServletException If a servlet-specific error occurs.
+     * @throws IOException      If an I/O error occurs when processing the request or response.
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -92,7 +108,7 @@ public class CreateAccountServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet for creating user accounts";
     }// </editor-fold>
 
 }

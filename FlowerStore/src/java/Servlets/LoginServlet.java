@@ -1,7 +1,6 @@
 package Servlets;
 
 import Business.User;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +24,14 @@ import java.io.PrintWriter;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
-
+    /**
+     * Processes the user login request, validates credentials, and performs the necessary redirection.
+     *
+     * @param request  The HttpServletRequest object representing the client's request.
+     * @param response The HttpServletResponse object for sending the response back to the client.
+     * @throws ServletException If a servlet-specific error occurs.
+     * @throws IOException      If an I/O error occurs when processing the request or response.
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
