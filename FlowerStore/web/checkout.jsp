@@ -92,7 +92,13 @@
             <div class="row">
               <div class="col-50">
                 <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="NY">
+                <select class="select-box" id="state" name="state" required>
+                <option value="" disabled selected>State</option>
+                <option value="GA">Georgia</option>
+                <option value="FL">Florida</option>
+                <option value="TN">Tennessee</option>
+                <option value="AL">Alabama</option>
+            </select>
               </div>
               <div class="col-50">
                 <label for="zip">Zip</label>
@@ -178,6 +184,10 @@
             <input type="text" id="greetingCardMessage" placeholder="Your greeting card message" disabled>
 
       </form>
+      
+      <label for="deliveryDate">Requested Delivery Date:</label>
+      <input type="date" id="deliveryDate" name="deliveryDate"> 
+      
     </div>
 
   </div>
