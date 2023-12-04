@@ -10,10 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * JACOB TRAHAN - adapted from Jose Gomez (9/18/23)
- * Adv Sys Project - Oct 5, 2023
+ * Represents a user with extended functionalities, including authentication and admin status.
  * This class extends the GuestUser class and adds authentication and admin status functionality.
- * THE DATABASE URL IS EXTENDED FROM GUESTUSER.JAVA
+ * Adapted from original work by Jose Gomez on 9/18/23.
+ * 
+ * @author Jacob Trahan
+ * @version 1.7
+ * @since 2023-10-05
  */
 
 public class User extends GuestUser {
@@ -27,7 +30,19 @@ public class User extends GuestUser {
         this.admin = false;
     }
 
-    // Parameterized constructor
+    /**
+     * Parameterized constructor for the User class.
+     *
+     * @param email        The email of the user.
+     * @param userPassword The user's password.
+     * @param firstName    The first name of the user.
+     * @param lastName     The last name of the user.
+     * @param streetAddress The street address of the user.
+     * @param city         The city of the user.
+     * @param state        The state of the user.
+     * @param ZIP          The ZIP code of the user.
+     * @param admin        A boolean indicating whether the user is an admin.
+     */
     public User(String email, String userPassword, String firstName, String lastName, String streetAddress, String city, String state, String ZIP, boolean admin) {
         super(email, firstName, lastName, streetAddress, city, state, ZIP);
         this.userPassword = userPassword;
@@ -50,10 +65,11 @@ public class User extends GuestUser {
         System.out.println("Admin Status = " + getAdmin());
     }
 
-    /*************************************************************
-    * selectDB() gets one User from the Database (READ)
-     * @param email used to select user from database
-    **************************************************************/
+     /**
+     * Retrieves one User from the Database (READ).
+     *
+     * @param email The email used to select the user from the database.
+     */
     @Override
        public void selectDB(String email) {
         try {
@@ -85,9 +101,9 @@ public class User extends GuestUser {
            }
        }
 
-    /*************************************************************
-    * insertDB() inserts a User into the Database (CREATE)
-    **************************************************************/
+     /**
+     * Inserts a User into the Database (CREATE).
+     */
      @Override
      public void insertDB() {
          String sql = "INSERT INTO Users (email, userPassword, firstName, lastName, streetAddress, city, state, ZIP, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -154,9 +170,9 @@ public class User extends GuestUser {
     }
     */
     // </editor-fold>
-    /*************************************************************
-    * updateDB() update one user from the database (UPDATE)
-    **************************************************************/
+    /**
+     * Updates a User in the Database (UPDATE).
+     */
     @Override
     public void updateDB() {
         String sql = "UPDATE Users SET email = ?, userPassword = ?, firstName = ?, lastName = ?, streetAddress = ?, city = ?, state = ?, ZIP = ?, admin = ? WHERE userID = ?";

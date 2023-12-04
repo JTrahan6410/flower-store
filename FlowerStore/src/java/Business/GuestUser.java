@@ -87,7 +87,9 @@ public class GuestUser {
     public void setZIP(String ZIP) { this.ZIP = ZIP; }
 // </editor-fold>
     
-    // Method to display user information in the console
+    /**
+     * Method to display user information in the console.
+     */
     public void display() {
         System.out.println("ID = " + getUserID());
         System.out.println("Email = " + getEmail());
@@ -99,7 +101,11 @@ public class GuestUser {
         System.out.println("ZIP = " + getZIP());
     }
 
-     // Method to retrieve a user from the database based on their email
+    /**
+     * Method to retrieve a user from the database based on their email.
+     *
+     * @param email The email of the user to retrieve.
+     */
     public void selectDB(String email) {
         // Setting the instance email to the provided email
         this.email = email;
@@ -121,7 +127,9 @@ public class GuestUser {
         }
     }
 
-        // Getter/Setter Method to insert a new user into the database
+    /**
+     * Method to insert a new user into the database.
+     */
     public void insertDB() {
         String sql = "INSERT INTO Users (email, firstName, lastName, streetAddress, city, state, ZIP) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(databaseURL);
@@ -184,7 +192,9 @@ public class GuestUser {
     */
     // </editor-fold>
 
-    // Method to update existing user information in the database
+    /**
+     * Method to update existing user information in the database.
+     */
     public void updateDB() {
         // SQL command for updating a user's details in the Users table
         String sql = "UPDATE Users SET email = ?, firstName = ?, lastName = ?, streetAddress = ?, city = ?, state = ?, ZIP = ? WHERE userID = ?";
@@ -211,7 +221,9 @@ public class GuestUser {
         }
     }
 
-    // Method to delete a user from the database
+     /**
+     * Method to delete a user from the database.
+     */
     public void deleteDB() {
         // SQL command for deleting a user from the Users table based on userID
         String sql = "DELETE FROM Users WHERE userID = ?";
