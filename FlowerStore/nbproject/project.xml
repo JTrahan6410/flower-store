@@ -36,6 +36,7 @@
             </test-roots>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Cargle</word>
             <word>CVV</word>
             <word>Servlet</word>
         </spellchecker-wordlist>

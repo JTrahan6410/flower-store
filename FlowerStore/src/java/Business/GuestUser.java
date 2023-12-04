@@ -34,7 +34,7 @@ public class GuestUser {
     protected static final String DATABASE_PATH = "E:/Users/Documents/GitHub/flower-store/FlowerStore/FlowerStoreDatabase_v4.accdb";
     
     //</editor-fold>
-    protected static final String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
+    protected static String databaseURL = "jdbc:ucanaccess://" + DATABASE_PATH;
 
     // Default constructor initializing fields to default values
     public GuestUser() {

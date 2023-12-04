@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 /**
  * Represents a user with extended functionalities, including authentication and admin status.
  * This class extends the GuestUser class and adds authentication and admin status functionality.
+ * @see GuestUser.java
  * Adapted from original work by Jose Gomez on 9/18/23.
  * 
  * @author Jacob Trahan
